@@ -1,5 +1,23 @@
 {
+  "name": "hir_backend",
+  "version": "1.0.0",
+  "description": "Wanted",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Farkas Zalán, Rék Dávid, Czakó Csongor",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
   "dependencies": {
-    "node": "^25.6.0"
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "logger": "^0.0.1",
+    "mysql2": "^3.16.3",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.7"
   }
 }
