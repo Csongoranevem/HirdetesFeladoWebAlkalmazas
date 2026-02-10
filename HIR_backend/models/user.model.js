@@ -11,52 +11,39 @@ module.exports = (sequelize)=>{
                 defaultValue:DataTypes.UUIDV4
             },
             name: {
-                type:DataTypes.STRING(100),
+                type:DataTypes.STRING(30),
                 allowNull:false
             },
             email: {
-                type:DataTypes.STRING(100),
+                type:DataTypes.STRING(25),
                 allowNull:false
             },
+            backup_email: {
+                type:DataTypes.STRING(25),
+                allowNull:false
+            }
+            ,
             password: {
                 type:DataTypes.STRING(64),
                 allowNull:false
             },
-            role: {
-                type:DataTypes.STRING(20),
+            role_id: {
+                type:DataTypes.TINYINT(4),
                 allowNull:false,
-                defaultValue:'user'
-            },
-            secret: {
-                type:DataTypes.UUID,
-                allowNull:false,
-                defaultValue:DataTypes.UUIDV4
+                defaultValue:0
             },
             phone: {
-                type:DataTypes.STRING(30),
+                type:DataTypes.STRING(15),
                 allowNull:true
             },
             address: {
-                type:DataTypes.STRING(100),
-                allowNull:true
-            },
-            description: {
-                type:DataTypes.TEXT,
-                allowNull:true
-            },
-            reg: {
-                type:DataTypes.DATE,
-                allowNull:false,
-                defaultValue:DataTypes.NOW
-            },
-            last: {
-                type:DataTypes.DATE,
+                type:DataTypes.STRING(80),
                 allowNull:true
             },
             status: {
-                type:DataTypes.BOOLEAN,
+                type:DataTypes.TINYINT(1),
                 allowNull:false,
-                defaultValue:true
+                defaultValue:0
             }
         },
     {
