@@ -16,6 +16,7 @@ const sequelize=new Sequelize(
 
 const User=require('./user.model')(sequelize);
 const Advert=require('./advert.model')(sequelize);
+const Country=require('./country.model')(sequelize);
 
 
-module.exports = {sequelize, User, Advert}
+module.exports = {sequelize, User, Advert, Country}

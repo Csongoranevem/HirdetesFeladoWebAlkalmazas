@@ -28,9 +28,8 @@ module.exports = (sequelize)=>{
                 allowNull:false
             },
             country_id: {
-                type:DataTypes.TINYINT(4),
-                allowNull:false,
-                defaultValue:0
+                type:DataTypes.UUID,
+                allowNull:false
             },
             product_id: {
                 type:DataTypes.TINYINT(4),

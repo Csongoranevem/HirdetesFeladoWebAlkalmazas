@@ -1,0 +1,34 @@
+### get all countries
+
+GET http://localhost:3000/countries/
+Content-Type: application/json
+
+### get country by id
+GET http://localhost:3000/countries/0
+Content-Type: application/json
+
+
+### create country
+POST http://localhost:3000/countries/
+Content-Type: application/json
+
+{
+
+    "name": "Test Country A",
+    "code": "TCA"
+}
+
+
+### update country by id
+PATCH http://localhost:3000/countries/0
+Content-Type: application/json
+
+{
+    "name": "Updated Test Country"
+}
+
+
+### delete country by id
+DELETE http://localhost:3000/countries/0
+Content-Type: application/json
+

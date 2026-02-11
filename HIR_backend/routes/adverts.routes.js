@@ -2,7 +2,7 @@ const router=require('express').Router();
 const{Advert}=require('../models/index')
 
 
-//USER CRUD operators
+//Advertisements CRUD operators
 
 //GET all adverts from table
 
