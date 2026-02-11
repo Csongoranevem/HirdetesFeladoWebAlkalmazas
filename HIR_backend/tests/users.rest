@@ -1,0 +1,40 @@
+### get all Users
+
+GET http://localhost:3000/users/
+Content-Type: application/json
+
+
+### get  User by id
+
+GET http://localhost:3000/users/4b57884d-06b1-11f1-9df0-900f0c11e772
+Content-Type: application/json
+
+
+### register User
+POST http://localhost:3000/users/register/
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "testemail@test.hu",
+    "backup_email": "backup@test.hu",
+    "password": "testpassword",
+    "role_id":0,
+    "phone": "+3612345678",
+    "address": "123 Main St, Anytown, USA",
+    "status": "1"
+}
+
+
+###delete User by id
+DELETE http://localhost:3000/users/4b57884d-06b1-11f1-9df0-900f0c11e772
+Content-Type: application/json
+
+
+### update User by id
+PATCH http://localhost:3000/users/4c48e3c4-8d5e-4e50-be5d-8b52f24753c9
+Content-Type: application/json
+
+{
+    "name": "John Doe Updated"
+}

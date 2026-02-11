@@ -20,7 +20,7 @@ module.exports = (sequelize)=>{
             },
             backup_email: {
                 type:DataTypes.STRING(25),
-                allowNull:false
+                allowNull:true
             }
             ,
             password: {
@@ -34,11 +34,11 @@ module.exports = (sequelize)=>{
             },
             phone: {
                 type:DataTypes.STRING(15),
-                allowNull:true
+                allowNull:false
             },
             address: {
                 type:DataTypes.STRING(80),
-                allowNull:true
+                allowNull:false
             },
             status: {
                 type:DataTypes.TINYINT(1),

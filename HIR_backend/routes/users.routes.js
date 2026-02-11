@@ -4,11 +4,15 @@ const{User}=require('../models/index')
 
 //USER CRUD operators
 
+//GET all users from table
+
 router.get('/',async(_req,res)=>{
     const users=await User.findAll();
     res.status(200).json(users);
 });
 
+
+//GET user by id
 router.get('/:id',async(req,res)=>{
     const id=req.params.id;
     const user=await User.findByPk(id);
@@ -18,14 +22,16 @@ router.get('/:id',async(req,res)=>{
     res.status(200).json(user);
 });
 
+
+//CREATE new user
 router.post('/register',async (req,res)=>{
 
     try{
-    const{ name,email,password,confirm }=req.body;
+    const{ name,email,backup_email, phone, address, password }=req.body;
     
-    //Validációk...
+    
 
-    const user=await User.create({name, email, password});
+    const user=await User.create({name, email, backup_email, phone, address, password});
 
     res.status(201).json(user);
     }
@@ -35,6 +41,7 @@ router.post('/register',async (req,res)=>{
     }
 });
 
+//UPDATE user by id
 router.patch('/:id',async(req,res)=>{
      const id=req.params.id;
      const user=await User.findByPk(id);
@@ -45,6 +52,8 @@ router.patch('/:id',async(req,res)=>{
     res.status(200).json(updatedUser);
 });
 
+
+//DELETE user by id
 router.delete('/:id',async (req,res)=>{
     const id=req.params.id;
     const user=await User.findByPk(id);

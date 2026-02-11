@@ -1,0 +1,40 @@
+### get all adverts
+
+GET http://localhost:3000/adverts/
+Content-Type: application/json
+
+### get advert by id
+GET http://localhost:3000/adverts/647507b2-8cd8-4b93-a3c6-9898f52ecfb7
+Content-Type: application/json
+
+
+### create advert
+POST http://localhost:3000/adverts/
+Content-Type: application/json
+
+{
+    "name": "Test Advert",
+    "description": "This is a test advert.",
+    "user_id": "4b57884d-06b1-11f1-9df0-900f0c11e772",
+    "price": 100,
+    "country_id": 1,
+    "product_id": 1,
+    "category_id": 1,
+    "payment_method_id": 1,
+    "status": 1
+}
+
+
+### update advert by id
+PATCH http://localhost:3000/adverts/647507b2-8cd8-4b93-a3c6-9898f52ecfb7
+Content-Type: application/json
+
+{
+    "name": "Updated Test Advert"
+}
+
+
+### delete advert by id
+DELETE http://localhost:3000/adverts/647507b2-8cd8-4b93-a3c6-9898f52ecfb7
+Content-Type: application/json
+

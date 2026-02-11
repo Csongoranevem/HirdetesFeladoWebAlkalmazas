@@ -7,5 +7,5 @@ module.exports={
     pass:process.env.DBPASS,
     database:process.env.DBNAME,
     dialect:'mysql',
-    logging:console.log
+    logging:false
 }
