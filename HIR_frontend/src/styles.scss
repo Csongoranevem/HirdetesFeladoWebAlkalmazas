@@ -4,4 +4,23 @@
     --primary-color: #E4832A;
     
     --primary-font-color: #FFFFFF;
+
+    --newAdButton-bg-color: rgb(56, 185, 30);
+}
+
+
+@keyframes buttonHover {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
 }

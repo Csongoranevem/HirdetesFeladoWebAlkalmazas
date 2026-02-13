@@ -1,0 +1,23 @@
+#newAdButton {
+    background-color: var(--newAdButton-bg-color);
+    color: var(--primary-font-color);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    padding: 0.3rem 0.8rem;
+    height: 70%;
+    width: fit-content;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+#newAdButton:hover {
+    animation: buttonHover 0.3s ease-in-out;
+    background-color: var(--primary-color);
+
+}
+
+#newAdIcon{
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+}

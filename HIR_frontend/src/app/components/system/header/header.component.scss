@@ -3,6 +3,7 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     backdrop-filter: blur(20px);
 }
 
@@ -10,4 +11,14 @@ img{
     height: 70%;
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+
+.left, .right{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: space-around;
 }
