@@ -1,19 +1,20 @@
 const router=require('express').Router();
-const{User}=require('../models/index')
-
+const{User}=require('../models/index');
+const bcrypt = require('bcrypt');
+const { authenticate, generateToken } = require('../middlewares/auth.middleware');
 
 //USER CRUD operators
 
 //GET all users from table
 
-router.get('/',async(_req,res)=>{
+router.get('/', authenticate,async(_req,res)=>{
     const users=await User.findAll();
     res.status(200).json(users);
 });
 
 
 //GET user by id
-router.get('/:id',async(req,res)=>{
+router.get('/:id', authenticate,async(req,res)=>{
     const id=req.params.id;
     const user=await User.findByPk(id);
     if(!user){
@@ -41,8 +42,41 @@ router.post('/register',async (req,res)=>{
     }
 });
 
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    const user = await User.scope('withPassword').findOne({ where: { email } });
+
+    if (!user) {
+        return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+        return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    if (!user.status) {
+        return res.status(403).json({ error: 'User is inactive or banned' });
+    }
+
+    const token = generateToken(user.toJSON());
+
+    const lastLogin = await User.update({ lastLogin: new Date() }, { where: { id: user.id } });
+
+    res.json({ message: 'Login successful', token });
+});
+
+
+
 //UPDATE user by id
-router.patch('/:id',async(req,res)=>{
+router.patch('/:id', authenticate,async(req,res)=>{
      const id=req.params.id;
      const user=await User.findByPk(id);
     if(!user){
@@ -54,7 +88,7 @@ router.patch('/:id',async(req,res)=>{
 
 
 //DELETE user by id
-router.delete('/:id',async (req,res)=>{
+router.delete('/:id', authenticate,async (req,res)=>{
     const id=req.params.id;
     const user=await User.findByPk(id);
     if(!user){

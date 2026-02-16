@@ -2,12 +2,14 @@
 
 GET http://localhost:3000/users/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRjNDhlM2M0LThkNWUtNGU1MC1iZTVkLThiNTJmMjQ3NTNjOSIsIm5hbWUiOiJKb2huIERvZSBVcGRhdGVkIiwiZW1haWwiOiJ0ZXN0ZW1haWxAdGVzdC5odSIsImJhY2t1cF9lbWFpbCI6ImJhY2t1cEB0ZXN0Lmh1IiwicGFzc3dvcmQiOiIkMmEkMDkkMERTSzI3THZPUk1xclkuLmgvbHBXdS83NXdubXdESWxRUUY0YTVpenRpdmIuSzBrd2RWL2EiLCJyb2xlX2lkIjowLCJwaG9uZSI6IiszNjEyMzQ1Njc4IiwiYWRkcmVzcyI6IjEyMyBNYWluIFN0LCBBbnl0b3duLCBVU0EiLCJzdGF0dXMiOjEsInNlY3JldCI6IiIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6Mzc6NTAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6NDA6NTUuMDAwWiIsImlhdCI6MTc3MTI2NjgwMywiZXhwIjoxNzcxMjcwNDAzfQ.tRkp2FtHul4E4GMxXgtd90hzrjjVYf-OqbyHVTfDQMY
 
 
 ### get  User by id
 
-GET http://localhost:3000/users/4b57884d-06b1-11f1-9df0-900f0c11e772
+GET http://localhost:3000/users/4c48e3c4-8d5e-4e50-be5d-8b52f24753c9
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRjNDhlM2M0LThkNWUtNGU1MC1iZTVkLThiNTJmMjQ3NTNjOSIsIm5hbWUiOiJKb2huIERvZSBVcGRhdGVkIiwiZW1haWwiOiJ0ZXN0ZW1haWxAdGVzdC5odSIsImJhY2t1cF9lbWFpbCI6ImJhY2t1cEB0ZXN0Lmh1IiwicGFzc3dvcmQiOiIkMmEkMDkkMERTSzI3THZPUk1xclkuLmgvbHBXdS83NXdubXdESWxRUUY0YTVpenRpdmIuSzBrd2RWL2EiLCJyb2xlX2lkIjowLCJwaG9uZSI6IiszNjEyMzQ1Njc4IiwiYWRkcmVzcyI6IjEyMyBNYWluIFN0LCBBbnl0b3duLCBVU0EiLCJzdGF0dXMiOjEsInNlY3JldCI6IiIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6Mzc6NTAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6NDA6NTUuMDAwWiIsImlhdCI6MTc3MTI2NjgwMywiZXhwIjoxNzcxMjcwNDAzfQ.tRkp2FtHul4E4GMxXgtd90hzrjjVYf-OqbyHVTfDQMY
 
 
 ### register User
@@ -27,8 +29,9 @@ Content-Type: application/json
 
 
 ###delete User by id
-DELETE http://localhost:3000/users/4b57884d-06b1-11f1-9df0-900f0c11e772
+DELETE http://localhost:3000/users/81e69b33-8e6e-49df-b052-1ebf098eb119
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRjNDhlM2M0LThkNWUtNGU1MC1iZTVkLThiNTJmMjQ3NTNjOSIsIm5hbWUiOiJKb2huIERvZSBVcGRhdGVkIiwiZW1haWwiOiJ0ZXN0ZW1haWxAdGVzdC5odSIsImJhY2t1cF9lbWFpbCI6ImJhY2t1cEB0ZXN0Lmh1IiwicGFzc3dvcmQiOiIkMmEkMDkkMERTSzI3THZPUk1xclkuLmgvbHBXdS83NXdubXdESWxRUUY0YTVpenRpdmIuSzBrd2RWL2EiLCJyb2xlX2lkIjowLCJwaG9uZSI6IiszNjEyMzQ1Njc4IiwiYWRkcmVzcyI6IjEyMyBNYWluIFN0LCBBbnl0b3duLCBVU0EiLCJzdGF0dXMiOjEsInNlY3JldCI6IiIsImNyZWF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6Mzc6NTAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjYtMDItMTFUMTU6NDA6NTUuMDAwWiIsImlhdCI6MTc3MTI2NjgwMywiZXhwIjoxNzcxMjcwNDAzfQ.tRkp2FtHul4E4GMxXgtd90hzrjjVYf-OqbyHVTfDQMY
 
 
 ### update User by id
@@ -36,5 +39,14 @@ PATCH http://localhost:3000/users/4c48e3c4-8d5e-4e50-be5d-8b52f24753c9
 Content-Type: application/json
 
 {
-    "name": "John Doe Updated"
+    "password": "John Doe Updated"
+}
+
+#### login User
+POST http://localhost:3000/users/login/
+Content-Type: application/json
+
+{
+    "email": "testemail@test.hu",
+    "password": "asd"
 }

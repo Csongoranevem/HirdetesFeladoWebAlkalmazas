@@ -43,22 +43,38 @@ module.exports = (sequelize)=>{
             status: {
                 type:DataTypes.TINYINT(1),
                 allowNull:false,
-                defaultValue:0
+                defaultValue:1
+            },
+            secret:{
+            type:DataTypes.UUID,
+            allowNull:false,
+            defaultValue:DataTypes.UUIDV4
             }
         },
     {
         timestamps:true,
-        hooks:{
-            beforeCreate : async (user)=>{
-            user.password=await bcrypt.hash(user.password, 10);
-        },
-            beforeUpdate : async (user)=>{
-              //  if(user.changed('password')){
-                    user.password=await bcrypt.hash(user.password, 10);
-                    //user.secret =DataTypes.UUIDV4;
-              //  }
+       hooks: {
+                beforeCreate: async (user) => {
+                    user.password= await bcrypt.hash(user.password, 10);
+                },
+                beforeUpdate: async (user) => {
+                    if (user.changed('password')) {
+                        user.password = await bcrypt.hash(user.password, 10);
+                        user.secret = DataTypes.UUIDV4;
+                    }
+                }
+
+            },
+            defaultScope: {
+                attributes: { exclude: ['password', 'secret'] }
+            },
+            scopes: {
+                withPassword: {
+                    attributes: {include: ['password', 'secret'] }
+
+                }
             
-        }
+
 
 
         }
