@@ -28,7 +28,6 @@ html, body {
 
 .HomeDisplay{
     display: flex;
-    margin-top: 2%;
     width: 100%;
     height: 100%;
     justify-content: flex-start;
@@ -74,4 +73,55 @@ html, body {
     padding-left: 12%;
     color: #E4832A;
 
+}
+
+
+//Tag Section
+
+.TagSectionDiv{
+    margin-top: 0.8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+    border-top: 10px solid #FD6B00;
+}
+.TagCimDiv{
+    width: 40%;
+    background-color: lime;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+    background-color: #E4832A;
+    color: white;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+.TagCimDiv:hover{
+    background-color: #FD6B00;
+    transform: scale(1.05);
+    transition: 0.4s;
+}
+.TagCimDiv>h1{
+    font-size: 500%;
+    letter-spacing: 3px;
+}
+
+
+.TagsDiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 1rem;
+}
+
+.Tag{
+    background-color: #2F2D2B;
+    color: #E4832A;
+    padding: 0.67%;
+    width: fit-content;
+    min-width: 10%;
+    text-align: center;
+    flex-wrap: wrap;
+    border-radius: 30px;
 }
