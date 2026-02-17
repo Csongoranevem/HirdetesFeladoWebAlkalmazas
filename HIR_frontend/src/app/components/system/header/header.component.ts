@@ -1,15 +1,26 @@
 import { Component } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { Toolbar } from 'primeng/toolbar';
-import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuModule } from 'primeng/menu';
+ 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ImageModule, Toolbar, AvatarModule, SharedModule, ButtonModule, FormsModule, AutoCompleteModule],
+  imports: [ImageModule, 
+    Toolbar, 
+    SharedModule, 
+    ButtonModule, 
+    FormsModule, 
+    AutoCompleteModule, 
+    SpeedDialModule, 
+    SplitButtonModule, 
+    MenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -18,10 +29,18 @@ export class HeaderComponent {
   selectedItem: any;
   filteredItems: any[] = [];
 
-  filterItems(event: any) {}
+  filterItems(event: any) { }
 
-  items: any[] = [];
+  items: any[] = [
+    { label: 'Profile', icon: 'pi pi-user' },
+    { label: 'Settings', icon: 'pi pi-cog' },
+    { label: 'Logout', icon: 'pi pi-sign-out' }
+  ];
+  isDarkTheme: boolean = false;
 
-
-
+  toggleTheme() {
+    const element = document.querySelector('html');
+    element!.classList.toggle('my-app-dark');
+    this.isDarkTheme = element!.classList.contains('my-app-dark');
+  }
 }
