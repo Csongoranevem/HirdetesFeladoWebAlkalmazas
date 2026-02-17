@@ -5,11 +5,12 @@ input {
 
     background-color: var(--primary-dark-color);
     color: var(--primary-font-color);
-
+    transition: 0.3s;
 }
 
 input:focus {
     animation: inputFocus 0.3s ease-in-out forwards;
+    transition: 0.3s;
     background-color: var(--primary-dark-color);
     color: var(--primary-font-color);
     outline: none;
