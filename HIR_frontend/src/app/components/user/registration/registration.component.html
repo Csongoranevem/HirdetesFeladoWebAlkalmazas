@@ -1,32 +1,56 @@
 <h3>Regisztráció</h3>
 <div class="container">
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Felhasználónév</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Email-cím</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Másodlagos email-cím</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Jelszó</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText/>
-    <label for="username">Jelszó megerősítése</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Lakcím</label>
-</p-floatlabel>
-    <p-floatlabel>
-    <input id="username" pInputText />
-    <label for="username">Telefonszám</label>
-</p-floatlabel>
-<p-button label="Submit" />
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-user"></i>
+    </p-inputgroup-addon>
+       <input id="name" pInputText [(ngModel)]="user.name" placeholder="Username" />
+</p-inputgroup>
+
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-at"></i>
+    </p-inputgroup-addon>
+       <input id="email" pInputText [(ngModel)]="user.email" placeholder="Email-cím" />
+</p-inputgroup>
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-at"></i>
+    </p-inputgroup-addon>
+       <input id="backup_email" pInputText [(ngModel)]="user.backup_email" placeholder="Másodlagos email-cím" />
+</p-inputgroup>
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-cog"></i>
+    </p-inputgroup-addon>
+       <input id="password" pInputText [(ngModel)]="user.password" placeholder="Jelszó" />
+</p-inputgroup>
+
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-cog"></i>
+    </p-inputgroup-addon>
+       <input id="confirmPassword" pInputText [(ngModel)]="user.confirmPassword" placeholder="Jelszó megerősítése" />
+</p-inputgroup>
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-map-marker"></i>
+    </p-inputgroup-addon>
+       <input id="address" pInputText [(ngModel)]="user.address" placeholder="Lakcím" />
+</p-inputgroup>
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-phone"></i>
+    </p-inputgroup-addon>
+       <input id="phone" pInputText [(ngModel)]="user.phone" placeholder="Telefonszám" />
+</p-inputgroup>
+
+<p-button label="Register" (click)="register()" />
 </div>

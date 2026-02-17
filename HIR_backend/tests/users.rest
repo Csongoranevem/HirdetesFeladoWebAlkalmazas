@@ -13,7 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRjNDhlM2M0L
 
 
 ### register User
-POST http://localhost:3000/users/register/
+POST http://localhost:3000/users/register
 Content-Type: application/json
 
 {
@@ -21,10 +21,8 @@ Content-Type: application/json
     "email": "testemail@test.hu",
     "backup_email": "backup@test.hu",
     "password": "testpassword",
-    "role_id":0,
     "phone": "+3612345678",
-    "address": "123 Main St, Anytown, USA",
-    "status": "1"
+    "address": "123 Main St, Anytown, USA"
 }
 
 

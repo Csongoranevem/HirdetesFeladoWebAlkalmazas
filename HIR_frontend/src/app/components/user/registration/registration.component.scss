@@ -6,25 +6,18 @@ h3
 .container{
     padding: 20px;
     width: 50%;
-    height: 600px;
-    background-color: rgb(228, 131, 42);
-    border-radius: 20px;
-    color: white;
     font-size: larger;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: fit-content;
-    box-shadow: 5px 5px 15px black;
 }
 
-p-floatlabel{
+p-inputgroup{
     margin: 15px;
-    width: 200px;
 }
 
-p-button{
-        box-shadow: 5px 5px 10px black;
-        border-radius: 10px;
+input{
+    width:50vw;
 }
+
