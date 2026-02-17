@@ -1,4 +1,69 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.container{
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 100%;
+    width: 100%;
+    padding-left: 0; /* ha Bootstrap .container-t használod, ez eltávolítja a belső paddingot */
+    padding-right: 0;
+    max-width: 100% !important; /* felülírja a bootstrap max-width-et */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+}
+.MainLogo{
+    width: 40%;
+    height: 40%;
+    padding-left: 3%;
+}
+
 .HomeDisplay{
     display: flex;
-    background-color: red;
+    margin-top: 2%;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    gap: 0;
+    border-bottom: 50px solid #E4832A;
+}
+.BalDiv{
+    display: flex;
+    row-gap: 5vh;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    padding-left: 0%;
+    margin: auto;
+}
+.JobbDiv{
+    width: 50%;
+}
+
+.Felirat{
+    width: 50%;
+
+}
+.Cim{
+    padding-left: 4%;
+    font-size: 400%;
+    color: #E4832A;
+}
+.PaliLogo{
+    width: 100%;
+    height: auto;
+}
+.Alcim{
+    border-top: 5px solid #E4832A;
+    padding-top: 2%;
+    padding-left: 10%;
+    color: #E4832A;
+
 }
