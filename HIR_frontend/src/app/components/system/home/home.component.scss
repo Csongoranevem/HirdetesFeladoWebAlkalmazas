@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    
 }
 *, *::before, *::after {
     box-sizing: border-box;
@@ -33,6 +34,7 @@ html, body {
     justify-content: flex-start;
     gap: 0;
     border-bottom: 50px solid #E4832A;
+    background-color: #2F2D2B;
 }
 .BalDiv{
     display: flex;
@@ -45,6 +47,10 @@ html, body {
 }
 .JobbDiv{
     width: 50%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .Felirat{
@@ -52,18 +58,20 @@ html, body {
 
 }
 .Cim{
-    padding-left: 4%;
+    padding-left: 10%;
     font-size: 400%;
     color: #E4832A;
+    font-weight: bold;
+    letter-spacing:10px;
 }
 .PaliLogo{
-    width: 100%;
+    width: 80%;
     height: auto;
 }
 .Alcim{
     border-top: 5px solid #E4832A;
     padding-top: 2%;
-    padding-left: 10%;
+    padding-left: 12%;
     color: #E4832A;
 
 }
