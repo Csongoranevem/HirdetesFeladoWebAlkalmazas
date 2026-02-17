@@ -1,0 +1,19 @@
+img {
+    width: 32px;
+    height: 32px;
+}
+
+
+.left{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2rem;
+}
+
+.end{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2rem;
+}
