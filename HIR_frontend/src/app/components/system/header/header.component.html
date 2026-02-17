@@ -1,22 +1,31 @@
 <header>
-    <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1rem 1.5rem' }">
+    <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1rem 1.5rem' }" id="toolbar">
         <ng-template #start id="start">
             <div class="flex items-center gap-2 left">
-                <img src="main_logo.png" alt="Logo" />
+                <img src="main_logo.png" alt="Logo"/>
                 <div class="card flex justify-center">
                     <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="filteredItems"
                         (completeMethod)="filterItems($event)" optionLabel="name" />
                 </div>
-                <p-button text plain severity="contrast" size="small" ><i class="pi pi-search"></i></p-button>
+                <p-button text plain severity="contrast" size="small"><i class="pi pi-search"></i></p-button>
             </div>
         </ng-template>
 
-        <ng-template #end>
-            <div class="flex items-center gap-2 end">
-                <p-button label="Súgó" severity="contrast" size="small" />
-                <p-button text plain severity="contrast" size="small" ><i class="pi pi-user" style="font-size: 1.5rem"></i></p-button>
+        <ng-template #end id="end">
+
+            <div class="flex items-center gap-2 right">
+                <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" severity="success" size="large"></p-button>
+                
+                <p-menu #menu [model]="items" [popup]="true" />
+                <p-button (click)="menu.toggle($event)" icon="pi pi-user" [rounded]="true" severity="info" size="small" />
+                
+                <p-button icon="pi pi-question" [rounded]="true" severity="contrast" size="small"  />
+
+                <p-button icon="pi pi-{{isDarkTheme ? 'sun' : 'moon'}}" [rounded]="true" severity="secondary" 
+                    size="small" class="theme" (click)="toggleTheme()"></p-button>
             </div>
         </ng-template>
     </p-toolbar>
+
 
 </header>

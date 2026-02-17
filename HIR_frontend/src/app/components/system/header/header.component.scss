@@ -3,17 +3,82 @@ img {
     height: 32px;
 }
 
-
-.left{
+.left {
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
     gap: 2rem;
 }
 
-.end{
+.right {
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
     gap: 2rem;
+}
+
+::ng-deep #newAdButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@media (min-width: 661px) {
+    ::ng-deep #newAdButton .p-button-label {
+        opacity: 0;
+        width: 0;
+        margin: -0.2rem!important;
+        white-space: nowrap;
+        transform: translateX(-10px);
+        transition: 0.3s ease-in-out;
+    }
+
+    ::ng-deep #newAdButton:hover .p-button-label {
+        width: 6rem;
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 660px) {
+    ::ng-deep #newAdButton .p-button-label {
+        display: none !important;
+    }
+
+}
+
+@media (max-width: 590px) {
+
+    :host ::ng-deep #toolbar .p-toolbar-group-start,
+    :host ::ng-deep #toolbar .p-toolbar-group-end,
+    :host ::ng-deep #toolbar .p-toolbar-start,
+    :host ::ng-deep #toolbar .p-toolbar-end {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left,
+    .right {
+        justify-content: center;
+    }
+
+    .right {
+        align-items: center;
+        align-self: center;
+        justify-content: center;
+    }
+
+    header {
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
 }
