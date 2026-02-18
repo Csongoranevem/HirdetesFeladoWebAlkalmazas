@@ -24,6 +24,19 @@ img {
 
 }
 
+
+
+::ng-deep #filter input, ::ng-deep #filter {
+    width: 20rem;
+    transition: width 0.3s ease-in-out;
+}
+
+
+
+::ng-deep #filter input:focus, ::ng-deep #filter:focus-within {
+    width: 40rem;
+}
+
 @media (min-width: 661px) {
     ::ng-deep #newAdButton .p-button-label {
         opacity: 0;
