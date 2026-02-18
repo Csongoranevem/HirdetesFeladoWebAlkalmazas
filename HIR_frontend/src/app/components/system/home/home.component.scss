@@ -2,6 +2,8 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    width: 100vw;
     
 }
 *, *::before, *::after {
@@ -10,16 +12,16 @@ html, body {
 
 //JobbDiv animáció
 .KulsoGyuruDiv{
-    animation: rotate 20s linear infinite;
+    animation: rotate 67s linear infinite;
     border-radius: 50%;
     position: absolute;
     left: 30%;
     top: 25%;
-    transform: translate(-50%, -50%); /* center the ring */
+    transform: translate(-50%, -50%);
     width: 50%;
     height: 50%;
     z-index: 10;
-    pointer-events: none;   /* let clicks pass to logo if needed */
+    pointer-events: none;
     display: block;
 }
 @keyframes rotate {
@@ -37,13 +39,13 @@ html, body {
     transform-origin: center;
     transform: translate(-50%, -50%) rotate(0deg) translateX(150px);
     z-index: 1;
-    width: 48px;
-    height: 48px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
+    
 }
 
 
@@ -52,23 +54,50 @@ html, body {
     height: auto;
     border-radius: 50%;
     z-index: 0;
-    animation: CounterRotate 2s linear infinite; 
+    transform-origin: center center;
+    animation: CounterRotate 67s linear infinite; 
+    box-shadow: #ff8000 0px 0px 40px 20px;
+    transition: transform 200ms ease; /* allow smooth scaling */
 }
 @keyframes CounterRotate {
     0% {
-        transform: rotate(0deg);
+        transform: rotate(calc(0deg - var(--angle)));
     }
     100% {
-        transform: rotate(-360deg);
+        transform: rotate(calc(0deg - var(--angle) - 360deg));
     }
     
 }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(1){ transform: translate(-50%, -50%) rotate(0deg)   translateX(300px); }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(2){ transform: translate(-50%, -50%) rotate(60deg)  translateX(300px); }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(3){ transform: translate(-50%, -50%) rotate(120deg) translateX(300px); }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(4){ transform: translate(-50%, -50%) rotate(180deg) translateX(300px); }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(5){ transform: translate(-50%, -50%) rotate(240deg) translateX(300px); }
-    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(6){ transform: translate(-50%, -50%) rotate(300deg) translateX(300px); }
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(1){
+    --angle: 0deg;
+    transform: translate(-50%, -50%) rotate(0deg)   translateX(300px);
+}
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(2){
+    --angle: 60deg;
+    transform: translate(-50%, -50%) rotate(60deg)  translateX(300px);
+}
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(3){
+    --angle: 120deg;
+    transform: translate(-50%, -50%) rotate(120deg) translateX(300px);
+}
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(4){
+    --angle: 180deg;
+    transform: translate(-50%, -50%) rotate(180deg) translateX(300px);
+}
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(5){
+    --angle: 240deg;
+    transform: translate(-50%, -50%) rotate(240deg) translateX(300px);
+}
+.KulsoGyuruDiv .BelsoGyuruDiv:nth-child(6){
+    --angle: 300deg;
+    transform: translate(-50%, -50%) rotate(300deg) translateX(300px);
+}
+
+.BelsoGyuruDiv>img:hover{
+    animation-play-state: paused;
+    transform: rotate(calc(0deg - var(--angle))) scale(1.2);
+    transition: transform 200ms ease;
+}
 
 .container{
     margin-left: 0px;
@@ -81,6 +110,7 @@ html, body {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin: 0 !important;
+    overflow: hidden;
 }
 .MainLogo{
     width: 40%;
@@ -104,6 +134,7 @@ html, body {
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
     background-attachment: fixed;
+    overflow: hidden;
 }
 .BalDiv{
     display: flex;
@@ -210,14 +241,34 @@ html, body {
 
 
 .TagsDiv{
-    display: flex;
-    flex-direction: row;
+    display: block; /* changed from flex to block to allow internal scroller */
+    overflow: hidden; /* hide overflowing tags */
     width: 100%;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+}
+.TagsScroller{
+    display: flex;
     gap: 1rem;
-    margin-top: 1%;
-    margin-bottom: 0.8%;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    width: max-content;
+    white-space: nowrap;
+}
+.TagsScroller.leftToRight{
+    animation: scroll-left-to-right 60s linear infinite;
+}
+.TagsScroller.rightToLeft{
+    animation: scroll-right-to-left 60s linear infinite;
+}
+@keyframes scroll-left-to-right {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+
+/* right -> left: duplicated content, move from 0 to -50% so items travel leftwards */
+@keyframes scroll-right-to-left {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
 }
 
 .Tag{
@@ -230,7 +281,14 @@ html, body {
     flex-wrap: wrap;
     border-radius: 30px;
     display: flex;
-    transition: 0.3s;
+    transition: 1s;
+    flex:0 0 auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .TagsScroller.leftToRight,
+  .TagsScroller.rightToLeft {
+    animation: none;
+  }
 }
 .Tag>i{
     width: 10%;
@@ -243,7 +301,7 @@ html, body {
     color: #2F2D2B;
     transform: scale(1.05);
     transition: 0.4s;
-    box-shadow: 3px 8px 10px 3px #2F2D2B;
+    box-shadow: 2px 2px 10px 1px #2F2D2B;
 }
 
 .TagBody{
@@ -312,4 +370,8 @@ html, body {
 .nearbyCim>h1{
     padding-bottom: 3%;
     font-size: 300%;
+    text-shadow: #E4832A 2px 2px 1px;
+}
+.nearbyCim>h5{
+    color: #ffffff;
 }
