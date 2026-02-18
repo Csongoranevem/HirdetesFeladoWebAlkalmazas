@@ -8,6 +8,68 @@ html, body {
     box-sizing: border-box;
 }
 
+//JobbDiv animáció
+.KulsoGyuruDiv{
+    animation: rotate 20s linear infinite;
+    border-radius: 50%;
+    position: absolute;
+    left: 30%;
+    top: 25%;
+    transform: translate(-50%, -50%); /* center the ring */
+    width: 50%;
+    height: 50%;
+    z-index: 10;
+    pointer-events: none;   /* let clicks pass to logo if needed */
+    display: block;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.BelsoGyuruDiv{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(0deg) translateX(150px);
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+
+.BelsoGyuruDiv>img{
+    width: 80%;
+    height: auto;
+    border-radius: 50%;
+    z-index: 0;
+    animation: CounterRotate 2s linear infinite; 
+}
+@keyframes CounterRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+    
+}
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(1){ transform: translate(-50%, -50%) rotate(0deg)   translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(2){ transform: translate(-50%, -50%) rotate(60deg)  translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(3){ transform: translate(-50%, -50%) rotate(120deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(4){ transform: translate(-50%, -50%) rotate(180deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(5){ transform: translate(-50%, -50%) rotate(240deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(6){ transform: translate(-50%, -50%) rotate(300deg) translateX(300px); }
+
 .container{
     margin-left: 0px;
     margin-right: 0px;
@@ -24,6 +86,10 @@ html, body {
     width: 40%;
     height: 40%;
     padding-left: 3%;
+    opacity: 0;
+    transform: translateY(-100px);
+    will-change: transform;
+    animation: slideInLeft 5s cubic-bezier(.2,.8,.2,1) 0.15s both;
 }
 
 .HomeDisplay{
@@ -34,6 +100,10 @@ html, body {
     gap: 0;
     border-bottom: 50px solid #E4832A;
     background-color: #2F2D2B;
+    background-image: url('../../../../../public/BackGround.png');
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    background-attachment: fixed;
 }
 .BalDiv{
     display: flex;
@@ -43,6 +113,27 @@ html, body {
     height: 100%;
     padding-left: 0%;
     margin: auto;
+    opacity: 0;
+    transform: translateX(-100px);
+    will-change: transform, opacity;
+    animation: slideInLeft 3s cubic-bezier(.2,.8,.2,1) 0.15s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .BalDiv {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .JobbDiv{
     width: 50%;
@@ -50,11 +141,14 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    opacity: 1;
+    position: relative;
 }
 
 .Felirat{
     width: 50%;
-
+    text-shadow: #2F2D2B 1px 1px 2px;
+    font-weight: bold;
 }
 .Cim{
     padding-left: 10%;
@@ -66,6 +160,10 @@ html, body {
 .PaliLogo{
     width: 80%;
     height: auto;
+    z-index: 20;
+    position: relative;
+    margin: 0 auto;
+    display: block;
 }
 .Alcim{
     border-top: 5px solid #E4832A;
@@ -77,6 +175,9 @@ html, body {
 
 
 //Tag Section
+.MiddleDiv{
+}
+
 
 .TagSectionDiv{
     margin-top: 0.8%;
@@ -113,10 +214,14 @@ html, body {
     flex-direction: row;
     width: 100%;
     gap: 1rem;
+    margin-top: 1%;
+    margin-bottom: 0.8%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .Tag{
-    background-color: #2F2D2B;
+    background-color: #3B3B3B;
     color: #E4832A;
     padding: 0.67%;
     width: fit-content;
@@ -124,4 +229,87 @@ html, body {
     text-align: center;
     flex-wrap: wrap;
     border-radius: 30px;
+    display: flex;
+    transition: 0.3s;
+}
+.Tag>i{
+    width: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 7%;
+}
+.Tag:hover{
+    background-color: #E4832A;
+    color: #2F2D2B;
+    transform: scale(1.05);
+    transition: 0.4s;
+    box-shadow: 3px 8px 10px 3px #2F2D2B;
+}
+
+.TagBody{
+    margin-bottom: 0.8%;
+    border-bottom: 10px solid #FD6B00;
+}
+
+//Nearby
+
+.JavaslatokAKozeledbeDiv{
+    border-top: 50px solid #E4832A;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-image: url('../../../../../public/BackGround.png');
+    backdrop-filter: blur(50px);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #2F2D2B;
+    color: white;
+    border-bottom: #FD6B00 10px solid;
+}
+.NearbyCimDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    justify-content: center;
+    margin: auto;
+    padding: 2%;
+    text-align: center;
+    transition: 0.4s;
+
+}
+.NearbyCimDiv:hover{
+    transition: 0.4s;
+    transform: scale(1.05);
+}
+.nearbyCim{
+    padding: 5%;
+    text-align: center;
+    background-color:#2F2D2B;
+    border-radius: 40px;
+    animation: SlowRotateContinous 10s linear infinite;
+}
+@keyframes SlowRotateContinous {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(2deg);
+  }
+  40%{
+    transform: rotate(2deg);
+  }
+  60%{
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(-2deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+.nearbyCim>h1{
+    padding-bottom: 3%;
+    font-size: 300%;
 }
