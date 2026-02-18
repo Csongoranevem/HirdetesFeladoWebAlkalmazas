@@ -1,1 +1,25 @@
 <h3>Login</h3>
+<div class="container">
+
+
+
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-at"></i>
+    </p-inputgroup-addon>
+       <input id="email" pInputText [(ngModel)]="user.email" placeholder="Email-cím" />
+</p-inputgroup>
+
+<p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-cog"></i>
+    </p-inputgroup-addon>
+       <input id="password" pInputText [(ngModel)]="user.password" placeholder="Jelszó" />
+</p-inputgroup>
+
+
+
+
+<p-button label="Login" (click)="login()"/>
+</div>

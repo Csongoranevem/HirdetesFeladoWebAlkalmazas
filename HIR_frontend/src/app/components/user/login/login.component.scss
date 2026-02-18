@@ -1,0 +1,23 @@
+h3
+{
+    text-align: center;
+    font-size: xx-large;
+}
+.container{
+    padding: 20px;
+    width: 50%;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+p-inputgroup{
+    margin: 15px;
+}
+
+input{
+    width:50vw;
+}

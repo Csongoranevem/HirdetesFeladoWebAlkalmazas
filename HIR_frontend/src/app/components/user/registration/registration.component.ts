@@ -19,7 +19,7 @@ export class RegistrationComponent  {
 
 
   user:User = {
-    id: 0,
+    id: "",
     name: "",
     email: "",
     backup_email: "",
@@ -32,7 +32,7 @@ export class RegistrationComponent  {
   constructor(private api: ApiService) { }
 
   register(){
-    if (this.user.password !== this.user.backup_email){
+    if (this.user.password != this.user.confirmPassword){
       alert("A jelszavak nem egyeznek!");
       return;
     }

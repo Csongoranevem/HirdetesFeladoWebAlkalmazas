@@ -1,6 +1,7 @@
 const router=require('express').Router();
 const{User}=require('../models/index');
 const bcrypt = require('bcrypt');
+const { operatorMap } = require('../models/index');
 const { authenticate, generateToken } = require('../middlewares/auth.middleware');
 
 //USER CRUD operators
@@ -23,6 +24,28 @@ router.get('/:id', authenticate,async(req,res)=>{
     res.status(200).json(user);
 });
 
+//Get user by operator
+router.get('/:field/:op/:value', async (req, res) => {
+    try {
+        const { field, op, value } = req.params;
+
+        if (!operatorMap[op] || !field || !op || !value) {
+            return res.status(400).json({ error: 'Invalid query parameters' });
+        }
+
+        const users = await User.findAll({
+            where: {
+                [field]: {
+                    [operatorMap[op]]: value
+                }
+            }
+        });
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+
+});
 
 //CREATE new user
 router.post('/register',async (req,res)=>{
