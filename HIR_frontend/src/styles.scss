@@ -2,18 +2,18 @@
 @import '../node_modules/primeicons/primeicons.css';
 
 :root {
-    --primary-dark-color: #50504F;
-    --primary-color: #E4832A;
+    --primary-dark-color: var(--p-gray-800);
+    --primary-color: var(--p-orange-400);
     
-    --primary-font-color: #FFFFFF;
+    --primary-font-color: var(--p-stone-50);
 
-    --newAdButton-bg-color: rgb(56, 185, 30);
+    --newAdButton-bg-color: var(--p-green-400);
 
-    --primary-theme-color: var(--p-);
+    --primary-theme-color: var(--p-gray-800);;
 }
 
 body{
-    background-color: linear-gradient(#2F2D2B, #4E3925);
+    background-color: var(--highlight-bg);
 }
 
 
@@ -32,3 +32,4 @@ body{
     }
 
 }
+

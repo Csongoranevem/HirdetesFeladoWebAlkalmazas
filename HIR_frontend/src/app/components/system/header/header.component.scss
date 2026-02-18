@@ -1,6 +1,6 @@
 header {
     border-radius: 0 !important;
-    position: fixed;
+    position:sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -9,12 +9,14 @@ header {
 }
 
 ::ng-deep .p-toolbar {
+    background-color: var(--highlight-bg);
+    box-shadow: 0 0 10px 2px var(--primary-dark-color);
     border-radius: 0 !important;
     position: relative;
     backdrop-filter: blur(12px);
-    background-color: rgba(var(--mask-bg), 0) !important;
 
 }
+
 
 img {
     width: 32px;
@@ -85,7 +87,7 @@ img {
 
 }
 
-@media (max-width: 780px) {
+@media (max-width: 840px) {
     ::ng-deep #newAdButton .p-button-label {
         display: none !important;
     }
