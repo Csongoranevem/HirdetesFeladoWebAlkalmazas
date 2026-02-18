@@ -8,6 +8,68 @@ html, body {
     box-sizing: border-box;
 }
 
+//JobbDiv animáció
+.KulsoGyuruDiv{
+    animation: rotate 20s linear infinite;
+    border-radius: 50%;
+    position: absolute;
+    left: 30%;
+    top: 25%;
+    transform: translate(-50%, -50%); /* center the ring */
+    width: 50%;
+    height: 50%;
+    z-index: 10;
+    pointer-events: none;   /* let clicks pass to logo if needed */
+    display: block;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.BelsoGyuruDiv{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(0deg) translateX(150px);
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+
+.BelsoGyuruDiv>img{
+    width: 80%;
+    height: auto;
+    border-radius: 50%;
+    z-index: 0;
+    animation: CounterRotate 2s linear infinite; 
+}
+@keyframes CounterRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+    
+}
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(1){ transform: translate(-50%, -50%) rotate(0deg)   translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(2){ transform: translate(-50%, -50%) rotate(60deg)  translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(3){ transform: translate(-50%, -50%) rotate(120deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(4){ transform: translate(-50%, -50%) rotate(180deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(5){ transform: translate(-50%, -50%) rotate(240deg) translateX(300px); }
+    .KulsoGyuruDiv .BelsoGyuruDiv:nth-child(6){ transform: translate(-50%, -50%) rotate(300deg) translateX(300px); }
+
 .container{
     margin-left: 0px;
     margin-right: 0px;
@@ -80,6 +142,7 @@ html, body {
     flex-direction: row;
     justify-content: center;
     opacity: 1;
+    position: relative;
 }
 
 .Felirat{
@@ -97,6 +160,10 @@ html, body {
 .PaliLogo{
     width: 80%;
     height: auto;
+    z-index: 20;
+    position: relative;
+    margin: 0 auto;
+    display: block;
 }
 .Alcim{
     border-top: 5px solid #E4832A;
