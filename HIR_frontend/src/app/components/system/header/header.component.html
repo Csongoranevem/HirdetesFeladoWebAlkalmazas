@@ -4,8 +4,8 @@
             <div class="flex items-center gap-2 left">
                 <img src="main_logo.png" alt="Logo"/>
                 <div class="card flex justify-center">
-                    <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="filteredItems"
-                        (completeMethod)="filterItems($event)" optionLabel="name" />
+                    <p-autocomplete id="filter" [(ngModel)]="selectedItem" [suggestions]="filteredItems"
+                        (completeMethod)="filterItems($event)" [placeholder]="'Keress terméket vagy felhasználót'" optionLabel="name" />
                 </div>
                 <p-button text plain severity="contrast" size="small"><i class="pi pi-search"></i></p-button>
             </div>

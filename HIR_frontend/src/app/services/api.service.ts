@@ -47,7 +47,7 @@ export class ApiService {
   }
 
   readByField(table: string, field: string, op: string, value: string){
-    return this.http.get(`${this.server}/public/${table}/${field}/${op}/${value}`);
+    return this.http.get(`${this.server}/${table}/${field}/${op}/${value}`);
   }
 
   readAll(table: string){

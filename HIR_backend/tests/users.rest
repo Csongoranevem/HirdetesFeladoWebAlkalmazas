@@ -45,6 +45,11 @@ POST http://localhost:3000/users/login/
 Content-Type: application/json
 
 {
-    "email": "testemail@test.hu",
-    "password": "asd"
+    "email": "ohradkagerg@example.com",
+    "password": "Asd"
 }
+
+
+###Get user by field
+GET http://localhost:3000/users/email/eq/ohradkagerg@example.com
+Content-Type: application/json
