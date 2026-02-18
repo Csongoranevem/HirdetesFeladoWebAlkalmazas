@@ -1,3 +1,21 @@
+header {
+    border-radius: 0 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: transparent !important;
+}
+
+::ng-deep .p-toolbar {
+    border-radius: 0 !important;
+    position: relative;
+    backdrop-filter: blur(12px);
+    background-color: rgba(var(--mask-bg), 0) !important;
+
+}
+
 img {
     width: 32px;
     height: 32px;
@@ -26,22 +44,34 @@ img {
 
 
 
-::ng-deep #filter input, ::ng-deep #filter {
+::ng-deep #filter input,
+::ng-deep #filter {
     width: 20rem;
     transition: width 0.3s ease-in-out;
 }
 
 
-
-::ng-deep #filter input:focus, ::ng-deep #filter:focus-within {
-    width: 40rem;
+::ng-deep #filter input:focus,
+::ng-deep #filter:focus-within {
+    width: 25rem;
 }
 
-@media (min-width: 661px) {
+::ng-deep .p-inputtext:enabled:focus {
+    border-color: var(--primary-color) !important;
+    outline: 1px var(--primary-color) !important;
+
+}
+
+
+::ng-deep .p-inputtext:has(:focus) ::ng-deep #newAdButton .p-button-label {
+    display: none !important;
+}
+
+@media (min-width: 780px) {
     ::ng-deep #newAdButton .p-button-label {
         opacity: 0;
         width: 0;
-        margin: -0.2rem!important;
+        margin: -0.2rem !important;
         white-space: nowrap;
         transform: translateX(-10px);
         transition: 0.3s ease-in-out;
@@ -52,16 +82,21 @@ img {
         opacity: 1;
         transform: translateX(0);
     }
+
 }
 
-@media (max-width: 660px) {
+@media (max-width: 780px) {
     ::ng-deep #newAdButton .p-button-label {
         display: none !important;
     }
 
+    ::ng-deep #filter input:focus,
+    ::ng-deep #filter:focus-within {
+        width: 20rem !important;
+    }
 }
 
-@media (max-width: 590px) {
+@media (max-width: 680px) {
 
     :host ::ng-deep #toolbar .p-toolbar-group-start,
     :host ::ng-deep #toolbar .p-toolbar-group-end,
@@ -87,7 +122,7 @@ img {
     header {
         background-color: var(--primary-color);
         color: var(--text-color);
-        padding: 0.5rem 1rem;
+        padding: 0;
         display: flex;
         flex-direction: column;
         align-items: center;

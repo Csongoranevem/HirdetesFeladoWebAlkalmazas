@@ -26,6 +26,7 @@ import { MenuModule } from 'primeng/menu';
 })
 export class HeaderComponent {
 
+  isAdmin: boolean = false;
   selectedItem: any;
   filteredItems: any[] = [];
 

@@ -1,4 +1,4 @@
-<header>
+<header [style]="{backgroundColor:'rgba(var(--highlight-bg), 0.3)'}">
     <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1rem 1.5rem' }" id="toolbar">
         <ng-template #start id="start">
             <div class="flex items-center gap-2 left">
@@ -13,7 +13,12 @@
 
         <ng-template #end id="end">
 
+
             <div class="flex items-center gap-2 right">
+
+                <!-- Admin gomb csak az adminisztrátoroknak látszik -->
+                <!--<p-button icon="pi pi-shield" id="adminPanelButton" [rounded]="true" severity="help" size="large" [disabled]="!isAdmin"></p-button>-->
+
                 <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" severity="success" size="large"></p-button>
                 
                 <p-menu #menu [model]="items" [popup]="true" />
