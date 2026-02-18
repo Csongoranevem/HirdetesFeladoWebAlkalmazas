@@ -5,20 +5,32 @@ h3
 }
 .container{
     padding: 20px;
-    width: 50%;
     font-size: larger;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 700px;
+    background-size:contain;
+
 }
+
+
 
 p-inputgroup{
     margin: 15px;
+
 }
 
 input{
     width:50vw;
+}
+
+@media screen and (min-width:700px) {
+
+    .container{
+            width: 500px;
+    }
+    
 }
 
