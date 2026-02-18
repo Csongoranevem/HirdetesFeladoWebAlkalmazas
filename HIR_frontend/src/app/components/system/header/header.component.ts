@@ -32,9 +32,9 @@ export class HeaderComponent {
   filterItems(event: any) { }
 
   items: any[] = [
-    { label: 'Profile', icon: 'pi pi-user' },
-    { label: 'Settings', icon: 'pi pi-cog' },
-    { label: 'Logout', icon: 'pi pi-sign-out' }
+    { label: 'Profil', icon: 'pi pi-user' },
+    { label: 'Beállítások', icon: 'pi pi-cog' },
+    { label: 'Kijelentkezés', icon: 'pi pi-sign-out' }
   ];
   isDarkTheme: boolean = false;
 
