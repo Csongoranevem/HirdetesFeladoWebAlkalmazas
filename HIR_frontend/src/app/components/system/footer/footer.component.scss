@@ -3,8 +3,8 @@ footer{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: #1f1f1f;
-    color: white;
+    background-color: var(--highlight-bg);
+    color: var(--p-button-text-contrast-color);
     bottom: 0;
     width: 100%;    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,7 +22,7 @@ footer{
     align-items: center;
 }
 #links a{
-    color: white;
+    color: var(--p-button-text-contrast-color);
     text-decoration: none;
 }
 
