@@ -8,6 +8,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { User } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ export class LoginComponent {
   constructor(
     private api: ApiService,
     private auth: AuthService,
+    private router: Router
 
   ) { }
 
@@ -62,6 +64,9 @@ export class LoginComponent {
         if (this.keepLoggedIn) {
           this.auth.storeUser((res as any).token);
         }
+
+        this.router.navigateByUrl('home');
+
 
       },
       error: (err) => {
