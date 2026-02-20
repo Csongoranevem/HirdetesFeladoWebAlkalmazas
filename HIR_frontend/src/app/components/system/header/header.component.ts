@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { Toolbar } from 'primeng/toolbar';
 import { MessageService, SharedModule } from 'primeng/api';
@@ -27,7 +27,15 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+
+  ngOnInit(): void {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.toggleTheme();
+    }
+  }
 
   constructor(
     private auth: AuthService,
@@ -57,6 +65,7 @@ export class HeaderComponent {
     const element = document.querySelector('html');
     element!.classList.toggle('my-app-dark');
     this.isDarkTheme = element!.classList.contains('my-app-dark');
+    localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
   }
 
 }
