@@ -7,6 +7,7 @@ import { ApiService } from '../../../services/api.service';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { User } from '../../../interfaces/user';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registration',
@@ -29,19 +30,22 @@ export class RegistrationComponent  {
     phone: ""
   };
 
-  constructor(private api: ApiService) { }
+  constructor(
+    private api: ApiService,
+    private messageService: MessageService
+  ) { }
 
   register(){
     if (this.user.password != this.user.confirmPassword){
-      alert("A jelszavak nem egyeznek!");
+      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'A jelszavak nem egyeznek!', key: 'br', life: 3000});
       return;
     }
     if (!this.user.name || !this.user.email || !this.user.password || !this.user.address || !this.user.phone){
-      alert("Kérem töltse ki az összes mezőt!");
+      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Kérem töltse ki az összes mezőt!', key: 'br', life: 3000});
       return;
     }
     if(this.user.password!== this.user.confirmPassword){
-      alert("A jelszavak nem egyeznek!");
+      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'A jelszavak nem egyeznek!', key: 'br', life: 3000});
       return;
     }
 
@@ -58,7 +62,7 @@ export class RegistrationComponent  {
 
     this.api.registration("users", data).subscribe({
       next: (res) => {
-        alert("Sikeres regisztráció!");
+        this.messageService.add({severity:'success', summary: 'Siker', detail: 'Sikeres regisztráció!', key: 'br', life: 3000});
         console.log(res);
           this.user.name = "";
           this.user.email = "";
@@ -69,7 +73,7 @@ export class RegistrationComponent  {
           this.user.phone = "";
       },
       error: (err) => {
-        alert("Sikertelen regisztráció!");
+        this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Sikertelen regisztráció!', key: 'br', life: 3000});
         console.error(err);
       }
     });
