@@ -9,11 +9,12 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { User } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FloatLabelModule,InputGroupAddonModule,InputTextModule,FormsModule,ButtonModule,InputGroupModule],
+  imports: [FloatLabelModule,InputGroupAddonModule,InputTextModule,FormsModule,ButtonModule,InputGroupModule, PasswordModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -66,6 +67,9 @@ export class LoginComponent {
         }
 
         this.router.navigateByUrl('home');
+        setTimeout(() => {
+          location.reload();
+        }, 100);
 
 
       },

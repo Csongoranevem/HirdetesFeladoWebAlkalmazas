@@ -9,6 +9,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { User } from '../../../interfaces/user';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -33,7 +34,8 @@ export class RegistrationComponent  {
 
   constructor(
     private api: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router:Router
   ) { }
 
   register(){
@@ -72,6 +74,8 @@ export class RegistrationComponent  {
           this.user.confirmPassword = "";
           this.user.address = "";
           this.user.phone = "";
+
+          this.router.navigateByUrl("login");
       },
       error: (err) => {
         this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Sikertelen regisztráció!', key: 'br', life: 3000});
