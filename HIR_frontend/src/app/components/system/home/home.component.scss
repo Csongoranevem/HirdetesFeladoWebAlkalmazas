@@ -256,9 +256,16 @@ html, body {
 }
 .TagsScroller.leftToRight{
     animation: scroll-left-to-right 60s linear infinite;
+    animation-play-state:running;
 }
+.TagsScroller.leftToRight:hover{
+    animation-play-state: paused;}
 .TagsScroller.rightToLeft{
     animation: scroll-right-to-left 60s linear infinite;
+    animation-play-state: running;
+}
+.TagsScroller.rightToLeft:hover{
+    animation-play-state: paused;
 }
 @keyframes scroll-left-to-right {
     0%   { transform: translateX(-50%); }

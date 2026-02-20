@@ -1,5 +1,4 @@
 footer{
-    display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -34,4 +33,66 @@ footer{
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+.FooterDiv{
+    padding: 0.8%;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Courier New, Courier, monospace;
+}
+
+.FooterHeaders{
+    color: rgb(207, 207, 207);
+    width: 30%;
+    height: 40vh;
+    padding: 2%;
+    border-radius: 2px;
+    background-color: var(--p-gray-800);
+    border-bottom: 10px solid var(--primary-color);
+}
+.FooterHeaders:hover{
+}
+.FooterTitles{
+    font-size: larger;
+    font-weight: bold;
+    color: white
+}
+
+.FooterHeaders>p{
+    font-size: smaller;
+    font-weight:100;
+    transition: 0.4s;
+    width: 50%;
+}
+.ColOne>p{
+    width: 90%;
+    font-size: 80%;
+}
+.FooterHeaders>p:hover{
+    color: var(--primary-color);
+    padding-left: 1.4%;
+    transition: 0.4s;
+    font-weight: bold;
+    width: 50%;
+    border-left: 1px solid var(--primary-color);
+    cursor: pointer;
+}
+.ColOne>p:hover{
+    color: inherit;
+    padding-left: 0%;
+    transition: 0s;
+    font-weight: inherit;
+    width: 90%;
+    border-left: inherit;
+    cursor: inherit;
+}
+
+.Copyright{
+    font-size: smaller;
+    font-weight:100;
+    color: rgb(156, 156, 156);
+    padding-left: 2%;
 }
