@@ -23,20 +23,11 @@
        <input id="backup_email" pInputText [(ngModel)]="user.backup_email" placeholder="Másodlagos email-cím" />
 </p-inputgroup>
 
-<p-inputgroup>
-    <p-inputgroup-addon>
-        <i class="pi pi-cog"></i>
-    </p-inputgroup-addon>
-       <input id="password" pInputText [(ngModel)]="user.password" placeholder="Jelszó" />
-</p-inputgroup>
 
+<p-password [(ngModel)]="user.password" type="text" placeholder="Jelszó" fluid/>
 
-<p-inputgroup>
-    <p-inputgroup-addon>
-        <i class="pi pi-cog"></i>
-    </p-inputgroup-addon>
-       <input id="confirmPassword" pInputText [(ngModel)]="user.confirmPassword" placeholder="Jelszó megerősítése" />
-</p-inputgroup>
+<p-password [(ngModel)]="user.confirmPassword" type="text" placeholder="Jelszó megerősítése" fluid/>
+
 
 <p-inputgroup>
     <p-inputgroup-addon>

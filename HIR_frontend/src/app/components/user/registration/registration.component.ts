@@ -8,11 +8,12 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { User } from '../../../interfaces/user';
 import { MessageService } from 'primeng/api';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [FloatLabelModule,InputTextModule,FormsModule,  ButtonModule, InputGroupModule, InputGroupAddonModule],
+  imports: [FloatLabelModule,InputTextModule,FormsModule,  ButtonModule, InputGroupModule, InputGroupAddonModule,PasswordModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
