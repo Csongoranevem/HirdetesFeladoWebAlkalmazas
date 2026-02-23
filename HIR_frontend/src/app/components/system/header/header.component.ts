@@ -10,7 +10,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../services/auth.service';
 import { routes } from '../../../app.routes';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
  
 @Component({
   selector: 'app-header',
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-
+    private router: Router
   ) {}
 
   isAdmin: boolean = false;
@@ -66,6 +66,13 @@ export class HeaderComponent implements OnInit {
     element!.classList.toggle('my-app-dark');
     this.isDarkTheme = element!.classList.contains('my-app-dark');
     localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
+  }
+
+
+  onLogoClick() {
+    // Átirányítás a kezdőlapra
+
+    this.router.navigate(['/home']);
   }
 
 }

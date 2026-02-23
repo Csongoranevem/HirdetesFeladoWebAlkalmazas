@@ -64,6 +64,10 @@ img {
 
 }
 
+#logo{
+    cursor: pointer;
+}
+
 
 ::ng-deep .p-inputtext:has(:focus) ::ng-deep #newAdButton .p-button-label {
     display: none !important;
