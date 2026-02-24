@@ -18,7 +18,7 @@ export class LogoutComponent implements OnInit{
        private messageService: MessageService
   ){}
   ngOnInit(): void {
-    this.logout()
+    this.logout();
 
   }
 

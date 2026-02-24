@@ -11,18 +11,18 @@ import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../services/auth.service';
 import { routes } from '../../../app.routes';
 import { Router, RouterLink } from '@angular/router';
- 
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ImageModule, 
-    Toolbar, 
-    SharedModule, 
-    ButtonModule, 
-    FormsModule, 
-    AutoCompleteModule, 
-    SpeedDialModule, 
-    SplitButtonModule, 
+  imports: [ImageModule,
+    Toolbar,
+    SharedModule,
+    ButtonModule,
+    FormsModule,
+    AutoCompleteModule,
+    SpeedDialModule,
+    SplitButtonModule,
     MenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -40,7 +40,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) {
+    //subscribe
+    this.auth.isLoggedIn$.subscribe(logged => {
+      this.isLoggedIn = logged;
+      this.sign = logged ? "Kijelentkezés" : "Bejelentkezés";
+    });
+  }
 
   isAdmin: boolean = false;
   selectedItem: any;
@@ -51,14 +57,17 @@ export class HeaderComponent implements OnInit {
 
   filterItems(event: any) { }
 
+
+
+
   items: any[] = [
     ...this.isLoggedIn ? [
-      { label: 'Profil', icon: 'pi pi-user', routerLink: '/profil '},
-      { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads '},
+      { label: 'Profil', icon: 'pi pi-user', routerLink: '/profil ' },
+      { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads ' },
     ] : [],
-    
-      { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },
-      { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' }];
+
+    { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },
+    { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' }];
   isDarkTheme: boolean = false;
 
   toggleTheme() {
