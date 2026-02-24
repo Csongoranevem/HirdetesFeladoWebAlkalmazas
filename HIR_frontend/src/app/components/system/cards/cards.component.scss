@@ -1,0 +1,55 @@
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+::ng-deep .p-card {
+    padding: 0.5rem !important;
+}
+
+
+.cardDescription {
+    --max-lines: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: var(--max-lines);
+    -webkit-line-clamp: var(--max-lines);
+    overflow: hidden;
+    font-size: 0.875rem;
+    color: var(--highlight-bg);
+}
+
+
+::ng-deep .p-card-title {
+    --max-lines: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: var(--max-lines);
+    -webkit-line-clamp: var(--max-lines);
+    overflow: hidden;
+    color: var(--primary-color);
+
+}
+
+::ng-deep p-button.interestBtn .p-ripple {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+    color: var(--highlight-bg) !important;
+    float: right;
+}
+
+::ng-deep p-button.interestBtn .p-ripple:hover {
+    background-color: var(--highlight-bg) !important;
+    color: var(--primary-color) !important;
+    box-shadow: inset 0 0 0 2px var(--primary-color) !important;
+    animation: buttonHover 0.2s ease-in-out;
+}
+
+
+::ng-deep .cardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
