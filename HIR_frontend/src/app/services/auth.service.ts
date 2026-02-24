@@ -15,7 +15,7 @@ export class AuthService {
   private isLoggedIn = new BehaviorSubject<boolean>(this.getToken());
   isLoggedIn$ = this.isLoggedIn.asObservable();
 
-  getToken(){
+  getToken() {
     const sess = sessionStorage.getItem(this.tokenName);
     if (sess) return true;
 
@@ -29,35 +29,49 @@ export class AuthService {
     return false;
   }
 
-  login(token:string){
+  login(token: string) {
     sessionStorage.setItem(this.tokenName, token);
     this.isLoggedIn.next(true);
   }
 
-  logout(){
+  logout() {
     sessionStorage.removeItem(this.tokenName);
     localStorage.removeItem(this.tokenName);
     this.isLoggedIn.next(false);
   }
 
-  LoggedUser(){
+  LoggedUser() {
     const token = sessionStorage.getItem(this.tokenName);
-    if (token){
+    if (token) {
       return token;  //TODO: itt még matatni kell
     }
     return null;
   }
 
-  storeUser(token: string){
+  storeUser(token: string) {
     localStorage.setItem(this.tokenName, token);
   }
 
-  isLoggedUser():boolean{
+  isLoggedUser(): boolean {
     return this.isLoggedIn.value;
   }
 
-  isAdmin():boolean {
+  isAdmin(): boolean {
     const user: any = this.LoggedUser();
     return user.role === 'admin';
+  }
+
+
+  GetLoggedUser() {
+    const token = localStorage.getItem(this.tokenName);
+    if (token) {
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+      const decodedUTF8Payload = new TextDecoder('utf-8').decode(
+        new Uint8Array(decodedPayload.split('').map(char => char.charCodeAt(0)))
+      );
+      return JSON.parse(decodedUTF8Payload);
+    }
+    return null;
   }
 }

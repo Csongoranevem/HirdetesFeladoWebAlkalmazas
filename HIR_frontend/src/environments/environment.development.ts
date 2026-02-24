@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:3000',
-  tokenName: 'worktimeapp'
+  tokenName: 'hir_token'
 }
