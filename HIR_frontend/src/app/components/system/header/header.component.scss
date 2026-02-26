@@ -145,6 +145,10 @@ img {
     display: none !important;
 }
 
+/*--------------------------
+ * reszponzív design
+ *-------------------------*/
+
 @media (min-width: 780px) {
     ::ng-deep #newAdButton .p-button-label {
         opacity: 0;
@@ -207,4 +211,19 @@ img {
         justify-content: space-between;
     }
     
+}
+
+@media (max-width: 430px) {
+    #mainLogo {
+        display: none;
+    }
+
+    ::ng-deep #searchCard p-autocomplete,
+    ::ng-deep #searchCard .p-autocomplete{
+        width: 15rem !important;
+    }
+
+    ::ng-deep #filter:focus-within input {
+        width: 10rem !important;
+    }
 }

@@ -16,5 +16,54 @@ h3{
 
 p-inputgroup{
     margin: 20px;
-    width: 40%;
+    margin-top: 0px;
+    width:100%;
+}
+
+p-select{
+
+    width:20vw;
+
+}
+
+p-iftalabel{
+    width: 800px;
+}
+
+.stepperContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.stepperLeft{
+    width: fit-content;
+    margin-right: 10px;
+}
+
+.stepperRight{
+    width: fit-content;
+    margin-right: 40px
+}
+
+
+@media screen and (max-width:800px) {
+    .stepperContent{
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 20px;
+    }
+
+    .stepperRight{
+        width: fit-content;
+
+    }
+    .stepperRight{
+        width: fit-content;
+        margin-right: 0px
+    }
+    .stepperLeft{
+        width: fit-content;
+        margin-right: 0px;
+    }
+    
 }
