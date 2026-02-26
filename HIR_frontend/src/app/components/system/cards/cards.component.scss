@@ -40,6 +40,13 @@ img {
     height: 79px;
 }
 
+::ng-deep .p-card-title {
+    height: 3.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
 
 .adPrice {
     position: relative;
