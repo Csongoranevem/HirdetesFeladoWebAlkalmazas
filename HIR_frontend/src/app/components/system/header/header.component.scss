@@ -17,6 +17,21 @@ header {
 
 }
 
+::ng-deep .p-menu{
+    margin-top: 2rem !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.relative ::ng-deep .p-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+}
+
 
 img {
     width: 32px;
@@ -35,6 +50,60 @@ img {
     flex-direction: row !important;
     align-items: center;
     gap: 2rem;
+}
+
+.ProfileModalDiv{
+    background-color: var(--primary-dark-color);
+    height: 100% !important;
+}
+.ProfileNote{
+    color: var(--text-color);
+    font-style: italic;
+}
+.ProfileLeftDiv{
+    width: 100%;
+    font-size: larger;
+    padding-top: 2%;
+    background-color: var(--primary-theme-color);
+    color: white;
+    border:1px solid var(--primary-dark-color);
+}
+.ProfileLeftDiv>p{
+    margin: 2%;
+    padding: 2%;
+    transition: 0.3s;
+    border-bottom: 0.5px solid white;
+    cursor:auto
+}
+.ProfileLeftDiv>p:hover{
+    border-left: 3px solid var(--primary-color);
+    margin-left: 4%;
+    padding-left: 4%;
+    transform: scale(1.05);
+    transition: 0.2s;
+    cursor: alias;
+    background-color: var(--primary-theme-color-hover);
+}
+
+.ProfileRightDiv{
+    width: 100%;
+    padding: 2%;
+}
+.ProfilMid{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.ProfilMid>img{
+    width: 20%;
+    height: 20%;
+    margin: 2%;
+    border: 3px dashed var(--primary-theme-color);
+    border-radius: 100%;
+}
+.ProfilMid>h4{
+    border-top: 1px solid var(--primary-theme-color);
+    padding-top: 2%;
 }
 
 ::ng-deep #newAdButton {
@@ -72,6 +141,10 @@ img {
 ::ng-deep .p-inputtext:has(:focus) ::ng-deep #newAdButton .p-button-label {
     display: none !important;
 }
+
+/*--------------------------
+ * reszponzív design
+ *-------------------------*/
 
 @media (min-width: 780px) {
     ::ng-deep #newAdButton .p-button-label {
@@ -134,5 +207,20 @@ img {
         align-items: center;
         justify-content: space-between;
     }
+    
+}
 
+@media (max-width: 430px) {
+    #mainLogo {
+        display: none;
+    }
+
+    ::ng-deep #searchCard p-autocomplete,
+    ::ng-deep #searchCard .p-autocomplete{
+        width: 15rem !important;
+    }
+
+    ::ng-deep #filter:focus-within input {
+        width: 10rem !important;
+    }
 }

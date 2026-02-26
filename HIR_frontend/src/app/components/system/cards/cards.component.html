@@ -1,17 +1,20 @@
-<p-card [style]="{ width: '18rem', height: '26rem', overflow: 'hidden' }">
-    <ng-template pTemplate="header">
-        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-    </ng-template>
-    <ng-template pTemplate="title" class="cardTitle"> Termék 1 Halo ez egy nagyon kiraj termeck itt a tessek ved mar fel </ng-template>
-    <ng-template pTemplate="subtitle"> *kategória* </ng-template>
-    <p class="cardDescription">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-    </p>
-    <ng-template pTemplate="footer">
-        <div class="flex gap-4 mt-1 cardFooter">
-            <p-button icon="pi pi-heart" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-            <p-button label="Érdekel" class="w-full interestBtn" styleClass="w-full" />
-        </div>
-    </ng-template>
-</p-card>
+<div class="cardContainer">
+    <p-card [style]="{ width: '18rem', height: '26rem', overflow: 'hidden' }" *ngFor="let ad of ads">
+        <ng-template pTemplate="header">
+            <div style="position: relative;">
+                <img alt="ad.name" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                <p class="adPrice">{{ad.price | number:'1.0-0':'hu'}} Ft</p>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="title" class="cardTitle">{{ad.name}}</ng-template>
+        <ng-template pTemplate="subtitle">{{ad.category_id}}</ng-template>
+        <p class="cardDescription">{{ad.description}}</p>
+        <ng-template pTemplate="footer">
+            <div class="flex gap-4 mt-1 cardFooter">
+                <p-button icon="pi pi-heart" severity="secondary" class="w-full" [outlined]="true"
+                    styleClass="w-full" />
+                <p-button label="Érdekel" class="w-full interestBtn" styleClass="w-full" />
+            </div>
+        </ng-template>
+    </p-card>
+</div>

@@ -2,11 +2,26 @@ img {
     max-width: 100%;
     height: auto;
     object-fit: cover;
+    border-radius: 0.6rem;
 }
 
 
 ::ng-deep .p-card {
-    padding: 0.5rem !important;
+    padding: 0.2rem !important;
+    height: 450px !important;
+    border: 1px solid var(--primary-color) !important;
+    background-color: var(--highlight-bg);
+
+}
+
+.cardContainer {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+    height: 100%;
 }
 
 
@@ -19,6 +34,28 @@ img {
     overflow: hidden;
     font-size: 0.875rem;
     color: var(--highlight-bg);
+}
+
+::ng-deep .p-card-content {
+    height: 79px;
+}
+
+
+.adPrice {
+    position: relative;
+    bottom: 9.5rem;
+    left: 49%;
+    transform: translateX(-50%);
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--highlight-bg);
+    padding: 0.25rem 0.5rem;
+    width: fit-content;
+    border-radius: 0 0 0.25rem 0.25rem;
+    font-weight: bold;
+    z-index: 1;
 }
 
 

@@ -11,6 +11,12 @@ import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../services/auth.service';
 import { routes } from '../../../app.routes';
 import { Router, RouterLink } from '@angular/router';
+import { Dialog, DialogModule } from 'primeng/dialog';
+import { SplitterModule } from 'primeng/splitter';
+import { CommonModule } from '@angular/common';
+import { DividerModule } from 'primeng/divider';
+import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
+
 
 @Component({
   selector: 'app-header',
@@ -23,11 +29,29 @@ import { Router, RouterLink } from '@angular/router';
     AutoCompleteModule,
     SpeedDialModule,
     SplitButtonModule,
-    MenuModule],
+    MenuModule,
+    Dialog,
+    DialogModule,
+    SplitterModule,
+    CommonModule,
+    DividerModule,
+    ScrollPanelModule,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+
+
+  ProfileVisible: boolean = false;
+  loggedUsername: string = 'Username';
+  CurrentProfileModalContent: number = 0
+  showProfileModal() {
+      this.ProfileVisible = true;
+  }
+  ChangeModalNumber(nu:number){
+    this.CurrentProfileModalContent = nu
+  }
 
 
   ngOnInit(): void {
@@ -66,8 +90,11 @@ export class HeaderComponent implements OnInit {
       { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads ' },
     ] : [],
 
-    { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },
-    { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' }];
+    ...!this.isLoggedIn ? [
+      { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' },
+    ] : [],
+    
+    { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },];
   isDarkTheme: boolean = false;
 
   toggleTheme() {
@@ -77,11 +104,13 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
   }
 
-
   onLogoClick() {
     // Átirányítás a kezdőlapra
 
     this.router.navigate(['/home']);
+  }
+
+  ChangeNickname(){
   }
 
 }
