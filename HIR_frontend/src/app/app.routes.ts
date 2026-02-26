@@ -5,6 +5,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { LoginComponent } from './components/user/login/login.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { CardsComponent } from './components/system/cards/cards.component';
+import { NewadvertComponent } from './components/user/newadvert/newadvert.component';
 
 export const routes: Routes = [
     {path: 'home', component:HomeComponent},
@@ -13,6 +14,8 @@ export const routes: Routes = [
     {path:'login',component:LoginComponent},
     {path:'logout', component:LogoutComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
+
+    {path:'newAdvert',component:NewadvertComponent},
 
     //This route must be in the last line
     {path: '**',component:PagenotfoundComponent},

@@ -15,15 +15,29 @@
                         <div
                             class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
                             
-                            
+                    <div class="stepperContent">
+                        <div class="stepperLeft">
                     <p-inputgroup>
                          <p-inputgroup-addon>
-                             <i class="pi pi-user"></i>
+                             <i class="pi pi-box"></i>
                                 </p-inputgroup-addon>
-                                   <input pInputText  placeholder="Felhasználónév" />
+                                   <input pInputText  placeholder="Termék teljes neve" />
                      </p-inputgroup>
 
-                     
+                     <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-wallet"></i>
+                               </p-inputgroup-addon>
+                                  <input pInputText  placeholder="Irányár (Ft)" />
+                    </p-inputgroup>
+                </div>
+                <div class="stepperRight">
+
+                    <div class="card flex justify-center">
+                        <p-select  optionLabel="name" placeholder="Kategória kiválasztása" class="w-full md:w-56" />
+                    </div>
+                </div>
+                </div>
 
                         </div>
                         <div class="flex pt-6 justify-end">
@@ -39,7 +53,10 @@
                         <div
                             class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
                         >
-                            Content II
+                        <p-iftalabel>
+                            <textarea pTextarea id="description"  style="resize: both;"></textarea>
+                            <label for="description">Description</label>
+                        </p-iftalabel>
                         </div>
                     </div>
                     <div class="flex pt-6 justify-between">
