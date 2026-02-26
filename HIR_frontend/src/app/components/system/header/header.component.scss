@@ -17,6 +17,21 @@ header {
 
 }
 
+::ng-deep .p-menu{
+    margin-top: 2rem !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.relative ::ng-deep .p-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+}
+
 
 img {
     width: 32px;

@@ -91,8 +91,11 @@ export class HeaderComponent implements OnInit {
       { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads ' },
     ] : [],
 
-    { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },
-    { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' }];
+    ...!this.isLoggedIn ? [
+      { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: '/registration' },
+    ] : [],
+    
+    { label: this.sign, icon: 'pi pi-sign-out', routerLink: this.isLoggedIn ? '/logout' : '/login' },];
   isDarkTheme: boolean = false;
 
   toggleTheme() {
