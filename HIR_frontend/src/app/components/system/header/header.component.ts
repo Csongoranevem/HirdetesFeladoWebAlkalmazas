@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
 import { UploaderModule } from "angular-uploader";
+import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-header',
@@ -36,7 +37,8 @@ import { UploaderModule } from "angular-uploader";
     CommonModule,
     DividerModule,
     ScrollPanelModule,
-    UploaderModule
+    UploaderModule,
+    FloatLabel
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

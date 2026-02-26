@@ -88,6 +88,7 @@ img {
 .ProfileRightDiv{
     width: 100%;
     padding: 2%;
+    box-shadow: 2px 2px 10px 2px black;
 }
 .ProfilMid{
     display: flex;
@@ -98,11 +99,13 @@ img {
     width: 20%;
     height: 20%;
     margin: 2%;
-    border: 3px dashed var(--primary-theme-color);
+    border: 3px dashed var(--primary-color);
     border-radius: 100%;
 }
 .ProfilMid>h4{
     border-top: 1px solid var(--primary-theme-color);
+    width: 40%;
+    text-align: center;
     padding-top: 2%;
 }
 
