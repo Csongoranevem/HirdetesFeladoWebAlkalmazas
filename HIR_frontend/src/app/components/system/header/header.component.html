@@ -2,7 +2,7 @@
     <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1.5rem' }" id="toolbar">
         <ng-template #start id="start">
             <div class="flex items-center gap-2 left">
-                <img src="main_logo.png" alt="Logo" id="logo" (click)="onLogoClick()" />
+                <img src="main_logo.png" alt="Logo" />
                 <div class="card flex justify-center">
                     <p-autocomplete id="filter" [(ngModel)]="selectedItem" [suggestions]="filteredItems"
                         (completeMethod)="filterItems($event)" [placeholder]="'Keress terméket vagy felhasználót'"
@@ -20,6 +20,8 @@
                 <!-- Admin gomb csak az adminisztrátoroknak látszik -->
                 <!--<p-button icon="pi pi-shield" id="adminPanelButton" [rounded]="true" severity="help" size="large" [disabled]="!isAdmin"></p-button>-->
 
+                <p-button (click)="showProfileModal()" label="Show" />
+
                 <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" severity="success"
                     size="large"></p-button>
 
@@ -36,5 +38,66 @@
             </div>
         </ng-template>
     </p-toolbar>
+
+
+
+    <p-dialog maskStyleClass="backdrop-blur-sm" header="{{loggedUsername}}" [(visible)]="ProfileVisible"
+        [style]="{ width: '70rem', height:'50rem'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
+        <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '35rem' }" [minSizes]="[25,75]" styleClass="mb-8">
+            <ng-template pTemplate>
+                <div class="flex items-center justify-center h-full ProfileLeftDiv">
+                    <p (click)="ChangeModalNumber(0)">Publikus profilom</p>
+                    <p (click)="ChangeModalNumber(1)">Fiók beállítások</p>
+                    <p (click)="ChangeModalNumber(2)">Kívánságlistám</p>
+                    <p (click)="ChangeModalNumber(3)">Hirdetéseim</p>
+                    <p (click)="ChangeModalNumber(4)">Support</p>
+                    <p>Opció 6</p>
+                </div>
+            </ng-template>
+            <ng-template pTemplate class="h-full">
+                <div class="flex items-center justify-center h-full ProfileRightDiv">
+                    <div *ngIf="CurrentProfileModalContent == 0" class="PublicProfileDiv h-full">
+                        <h4>
+                            Publikus Profil
+                        </h4>
+                        <p-divider></p-divider>
+                        <p-scrollpanel [style]="{ width: '100%', height: '26rem' }">
+                            <div class="ProfilMid">
+                                <img src="pali.png" alt="">
+                                <h4>{{loggedUsername}} <i (click)="ChangeNickname()" class="pi pi-pencil"></i></h4>
+                            </div>
+                        </p-scrollpanel>
+                        <p-divider></p-divider>
+                        <p class="ProfileNote"><sub>Az itt található adataid publikusak</sub></p>
+                    </div>
+                    <div *ngIf="CurrentProfileModalContent == 1" class="PublicProfileDiv">
+                        <h4>
+                            Fiók Beállítások
+                            <p-divider></p-divider>
+                        </h4>
+                    </div>
+                    <div *ngIf="CurrentProfileModalContent == 2" class="PublicProfileDiv">
+                        <h4>
+                            Kívánságlistám
+                            <p-divider></p-divider>
+                        </h4>
+                    </div>
+                    <div *ngIf="CurrentProfileModalContent == 3" class="PublicProfileDiv">
+                        <h4>
+                            Hírdetéseim
+                            <p-divider></p-divider>
+                        </h4>
+                    </div>
+                    <div *ngIf="CurrentProfileModalContent == 4" class="PublicProfileDiv">
+                        <h4>
+                            Support
+                            <p-divider></p-divider>
+                        </h4>
+                    </div>
+                </div>
+            </ng-template>
+        </p-splitter>
+    </p-dialog>
+
 
 </header>
