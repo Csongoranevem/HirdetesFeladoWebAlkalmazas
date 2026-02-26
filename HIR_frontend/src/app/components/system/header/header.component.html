@@ -2,8 +2,8 @@
     <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1.5rem' }" id="toolbar">
         <ng-template #start id="start">
             <div class="flex items-center gap-2 left">
-                <img src="main_logo.png" alt="Logo" />
-                <div class="card flex justify-center">
+                <img src="main_logo.png" alt="Logo" id="mainLogo" />
+                <div class="card flex justify-center" id="searchCard">
                     <p-autocomplete id="filter" [(ngModel)]="selectedItem" [suggestions]="filteredItems"
                         (completeMethod)="filterItems($event)" [placeholder]="'Keress terméket vagy felhasználót'"
                         optionLabel="name" />
