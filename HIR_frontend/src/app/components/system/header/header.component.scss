@@ -37,6 +37,60 @@ img {
     gap: 2rem;
 }
 
+.ProfileModalDiv{
+    background-color: var(--primary-dark-color);
+    height: 100% !important;
+}
+.ProfileNote{
+    color: var(--text-color);
+    font-style: italic;
+}
+.ProfileLeftDiv{
+    width: 100%;
+    font-size: larger;
+    padding-top: 2%;
+    background-color: var(--primary-theme-color);
+    color: white;
+    border:1px solid var(--primary-dark-color);
+}
+.ProfileLeftDiv>p{
+    margin: 2%;
+    padding: 2%;
+    transition: 0.3s;
+    border-bottom: 0.5px solid white;
+    cursor:auto
+}
+.ProfileLeftDiv>p:hover{
+    border-left: 3px solid var(--primary-color);
+    margin-left: 4%;
+    padding-left: 4%;
+    transform: scale(1.05);
+    transition: 0.2s;
+    cursor: alias;
+    background-color: var(--primary-theme-color-hover);
+}
+
+.ProfileRightDiv{
+    width: 100%;
+    padding: 2%;
+}
+.ProfilMid{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.ProfilMid>img{
+    width: 20%;
+    height: 20%;
+    margin: 2%;
+    border: 3px dashed var(--primary-theme-color);
+    border-radius: 100%;
+}
+.ProfilMid>h4{
+    border-top: 1px solid var(--primary-theme-color);
+    padding-top: 2%;
+}
+
 ::ng-deep #newAdButton {
     display: flex;
     align-items: center;
@@ -134,5 +188,5 @@ img {
         align-items: center;
         justify-content: space-between;
     }
-
+    
 }
