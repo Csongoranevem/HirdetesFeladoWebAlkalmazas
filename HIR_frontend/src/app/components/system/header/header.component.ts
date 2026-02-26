@@ -16,7 +16,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
-import { UploaderModule } from "angular-uploader";
+
 
 @Component({
   selector: 'app-header',
@@ -36,7 +36,6 @@ import { UploaderModule } from "angular-uploader";
     CommonModule,
     DividerModule,
     ScrollPanelModule,
-    UploaderModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
