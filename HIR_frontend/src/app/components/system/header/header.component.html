@@ -41,9 +41,9 @@
 
 
 
-    <p-dialog maskStyleClass="backdrop-blur-sm" header="{{loggedUsername}}" [(visible)]="ProfileVisible"
+    <p-dialog maskStyleClass="backdrop-blur-3xl" header="{{loggedUsername}}"  [(visible)]="ProfileVisible"
         [style]="{ width: '70rem', height:'50rem'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
-        <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '35rem' }" [minSizes]="[25,75]" styleClass="mb-8">
+        <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '40rem' }" [minSizes]="[25,75]" styleClass="mb-8">
             <ng-template pTemplate>
                 <div class="flex items-center justify-center h-full ProfileLeftDiv">
                     <p (click)="ChangeModalNumber(0)">Publikus profilom</p>
@@ -61,12 +61,55 @@
                             Publikus Profil
                         </h4>
                         <p-divider></p-divider>
-                        <p-scrollpanel [style]="{ width: '100%', height: '26rem' }">
+                        <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
                             <div class="ProfilMid">
                                 <img src="pali.png" alt="">
                                 <h4>{{loggedUsername}} <i (click)="ChangeNickname()" class="pi pi-pencil"></i></h4>
                             </div>
-                            
+                            <hr>
+                            <div class="ProfileInputsDiv">
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi "></i> Vezetéknév</label>
+                                </p-floatlabel>
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi "></i>Keresztnév</label>
+                                </p-floatlabel>
+                            </div>
+                            <div class="ProfileInputsDiv">
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
+                                </p-floatlabel>
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi pi-home"></i>Vármegye</label>
+                                </p-floatlabel>
+                            </div>
+                            <hr>
+                            <div class="StaticDatesDataDiv">
+                                <div class="StaticDateInnerDiv">
+                                    <h4>
+                                        Regisztráció Dátuma
+                                    </h4>
+                                    <h5>
+                                        2025.05.13
+                                    </h5>
+                                </div>
+                                <div class="StaticDateInnerDiv">
+                                    <h4>
+                                        Legutoljára elérhető volt
+                                    </h4>
+                                    <h5>
+                                        2026.02.27
+                                    </h5>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="AdvertisementsDiv">
+                                <h4>{{loggedUsername}} hírdetései</h4>
+                            </div>
                         </p-scrollpanel>
                         <p-divider></p-divider>
                         <p class="ProfileNote"><sub>Az itt található adataid publikusak</sub></p>
