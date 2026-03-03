@@ -142,20 +142,20 @@
                         </h4>
                         <p-divider></p-divider>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
                             <label for="on_label"><i class="pi pi-envelope"></i>Email cím</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
                             <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
                             <label for="on_label"><i class="pi pi-key"></i>Jelszó</label>
                         </p-floatlabel>
                         <p-divider></p-divider>
                         <div class="AccountButtonDiv">
-                            <p-button>Szerkesztés</p-button>
+                            <p-button (click)="EditAccount()">Szerkesztés</p-button>
                         </div>
                     </div>
                     <div *ngIf="CurrentProfileModalContent == 2" class="PublicProfileDiv">

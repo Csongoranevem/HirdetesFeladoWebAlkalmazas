@@ -6,7 +6,7 @@ h3{
 }
 
 #stepper{
-    width: 60%;
+    width: min(900px, 90%);
     margin: 0 auto;
     padding: 20px;
     margin-top: 20px;
@@ -15,35 +15,60 @@ h3{
 }
 
 p-inputgroup{
-    margin: 20px;
+    margin: 12px 0;
     margin-top: 0px;
     width:100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 p-select{
+    width: 100%;
+    max-width: 100%;
+}
 
-    width:20vw;
-
+input[pInputText], .p-inputtext {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 p-iftalabel{
-    width: 800px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: block;
+    padding: 0.25rem;
+}
+
+p-iftalabel textarea,
+p-iftalabel .p-inputtextarea,
+p-iftalabel p-textarea textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 120px;
 }
 
 .stepperContent{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
 }
 .stepperLeft{
-    width: fit-content;
+    flex: 1 1 0;
     margin-right: 10px;
+    min-width: 0; 
 }
 
 .stepperRight{
-    width: fit-content;
-    margin-right: 40px
+    flex: 0 0 220px; 
+    margin-right: 0;
 }
+
 
 
 @media screen and (max-width:800px) {
@@ -62,8 +87,8 @@ p-iftalabel{
         margin-right: 0px
     }
     .stepperLeft{
-        width: fit-content;
-        margin-right: 0px;
+    width: 100%;
+    margin-right: 0px;
     }
     
 }

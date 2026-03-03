@@ -6,10 +6,11 @@ import { LoginComponent } from './components/user/login/login.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { CardsComponent } from './components/system/cards/cards.component';
 import { NewadvertComponent } from './components/user/newadvert/newadvert.component';
+import { AdsComponent } from './components/system/ads/ads.component';
 
 export const routes: Routes = [
     {path: 'home', component:HomeComponent},
-    {path: 'ads', component: CardsComponent},
+    {path: 'ads', component: AdsComponent},
     {path:'registration', component:RegistrationComponent},
     {path:'login',component:LoginComponent},
     {path:'logout', component:LogoutComponent},
