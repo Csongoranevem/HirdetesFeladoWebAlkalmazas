@@ -120,6 +120,14 @@ export class HeaderComponent implements OnInit {
 
   ChangeNickname(){
   }
-
+  AccountEditing:boolean = false;
+  EditAccount(){
+    if(this.AccountEditing == false){
+      this.AccountEditing = true
+    }
+    else{
+      this.AccountEditing = false
+    }
+  }
 }
 
