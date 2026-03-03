@@ -1,0 +1,107 @@
+<div class="card flex justify-center FilterBringOutDiv">
+  <p-drawer header="Filterek" [(visible)]="FilterDrawerVisible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
+    <hr>
+        <div class="FilterekDiv">
+            <p-accordion>
+                <p-accordion-panel value="0">
+                    <p-accordion-header>Árak</p-accordion-header>
+                    <p-accordion-content>
+                        <div class="card flex justify-center">
+                            <!--NG Modellezhető a slider! : value: number[] = [x,y]-->
+                            <p-slider [range]="true" styleClass="w-56" />
+                        </div>
+                    </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+
+            <div class="UserOrAdDiv">
+                <h5>Felhasználók</h5>
+                <div class="card flex justify-center">
+                    <p-toggleswitch [(ngModel)]="UserOrAd" />
+                </div>
+                <h5>Hirdetések</h5>
+            </div>
+
+            <p-divider></p-divider>
+
+            <p-accordion>
+                <p-accordion-panel value="0">
+                    <p-accordion-header>Kategóriák</p-accordion-header>
+                    <p-accordion-content>
+                        <div class="card flex justify-center gap-4">
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
+                                <label for="ingredient1" class="ml-2"> Cheese </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
+                                <label for="ingredient2" class="ml-2"> Mushroom </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
+                                <label for="ingredient3" class="ml-2"> Pepper </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
+                                <label for="ingredient4" class="ml-2"> Onion </label>
+                            </div>
+                                                        <div class="flex items-center">
+                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
+                                <label for="ingredient1" class="ml-2"> Cheese </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
+                                <label for="ingredient2" class="ml-2"> Mushroom </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
+                                <label for="ingredient3" class="ml-2"> Pepper </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
+                                <label for="ingredient4" class="ml-2"> Onion </label>
+                            </div>
+                                                        <div class="flex items-center">
+                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
+                                <label for="ingredient1" class="ml-2"> Cheese </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
+                                <label for="ingredient2" class="ml-2"> Mushroom </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
+                                <label for="ingredient3" class="ml-2"> Pepper </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
+                                <label for="ingredient4" class="ml-2"> Onion </label>
+                            </div>
+                                                        <div class="flex items-center">
+                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
+                                <label for="ingredient1" class="ml-2"> Cheese </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
+                                <label for="ingredient2" class="ml-2"> Mushroom </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
+                                <label for="ingredient3" class="ml-2"> Pepper </label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
+                                <label for="ingredient4" class="ml-2"> Onion </label>
+                            </div>
+                        </div>
+                    </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+        </div>
+    </p-drawer>
+    <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
+</div>
+
+<div class="container">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste at eos libero nam odit, et, fugit reprehenderit tempore quaerat asperiores temporibus perferendis tenetur iusto saepe deleniti. Ullam optio et consequatur?
+</div>

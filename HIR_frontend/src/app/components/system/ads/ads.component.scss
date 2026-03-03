@@ -1,0 +1,22 @@
+.FilterBringOutDiv{
+    margin: 2%;
+    display: block;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+}
+
+.UserOrAdDiv{
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.UserOrAdDiv>h5{
+    font-size: small;
+}
