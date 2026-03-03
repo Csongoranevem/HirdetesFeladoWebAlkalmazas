@@ -8,6 +8,7 @@ const cors=require('cors');
 const userRoutes=require("../routes/users.routes");
 const advertRoutes=require("../routes/adverts.routes");
 const conuntryRoutes=require("../routes/countries.routes");
+const categoryRoutes=require("../routes/categories.routes");
 
 
 const app=express();
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use('/users',userRoutes);
 app.use('/adverts',advertRoutes);
 app.use('/countries',conuntryRoutes);
+app.use('/categories',categoryRoutes);
 
 
 module.exports=app;

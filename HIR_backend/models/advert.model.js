@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
             },
             date_of_upload: {
                 type: DataTypes.DATE,
-                allowNull: false
+                allowNull: true
             }
         },
         {

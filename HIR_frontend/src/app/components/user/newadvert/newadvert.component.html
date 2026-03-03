@@ -3,10 +3,9 @@
 <div id="stepper" class="card flex justify-center">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
         <p-step-list>
-            <p-step [value]="1">Hírdetés neve, kategória kiválasztása</p-step>
-            <p-step [value]="2">Leírás hozzáadása</p-step>
-            <p-step [value]="3">Képek feltöltése</p-step>
-            <p-step [value]="4">Hírdetői adatok feltöltése</p-step>
+            <p-step [value]="1">Hírdetés adatai</p-step>
+            <p-step [value]="2">Képek feltöltése</p-step>
+            <p-step [value]="3">Összegzés</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
@@ -14,34 +13,45 @@
                     <div class="flex flex-col h-48">
                         <div
                             class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                            
-                    <div class="stepperContent">
-                        <div class="stepperLeft">
-                    <p-inputgroup>
-                         <p-inputgroup-addon>
-                             <i class="pi pi-box"></i>
-                                </p-inputgroup-addon>
-                                   <input pInputText  placeholder="Termék teljes neve" />
-                     </p-inputgroup>
 
-                     <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-wallet"></i>
-                               </p-inputgroup-addon>
-                                  <input pInputText  placeholder="Irányár (Ft)" />
-                    </p-inputgroup>
-                </div>
-                <div class="stepperRight">
+                            <div class="stepperContent">
+                                <div class="stepperLeft">
+                                    <p-inputgroup>
+                                        <p-inputgroup-addon>
+                                            <i class="pi pi-box"></i>
+                                        </p-inputgroup-addon>
+                                        <input pInputText placeholder="Termék teljes neve" />
+                                    </p-inputgroup>
 
-                    <div class="card flex justify-center">
-                        <p-select  optionLabel="name" placeholder="Kategória kiválasztása" class="w-full md:w-56" />
-                    </div>
-                </div>
-                </div>
+                                    <p-inputgroup>
+                                        <p-inputgroup-addon>
+                                            <i class="pi pi-wallet"></i>
+                                        </p-inputgroup-addon>
+                                        <input pInputText placeholder="Irányár (Ft)" />
+                                    </p-inputgroup>
+                                </div>
+                                <div class="stepperRight">
 
+                                    <div class="card flex justify-center">
+                                        <p-select optionLabel="name" placeholder="Kategória kiválasztása" [options]="categories"
+                                            class="w-full md:w-56" />
+                                    </div>
+
+                                    <div class="card flex justify-center">
+                                        <p-select optionLabel="name" placeholder="Preferált fizetési mód" [options]="categories"
+                                            class="w-full md:w-56" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                             <p-iftalabel>
+                                <textarea pTextarea id="description"></textarea>
+                                <label for="description">Leírás</label>
+                            </p-iftalabel>
                         </div>
                         <div class="flex pt-6 justify-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right"
+                                (onClick)="activateCallback(2)" />
                         </div>
                     </div>
                 </ng-template>
@@ -50,49 +60,52 @@
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div class="flex flex-col h-48">
-                        <div id="description"
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                        <p-iftalabel>
-                            <textarea pTextarea id="description"></textarea>
-                            <label for="description">Description</label>
-                        </p-iftalabel>
+                        <div id="uploader"
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+
+                            <div class="card">
+                                <p-toast />
+                                <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                                    [multiple]="true" accept="image/*" maxFileSize="10000000" mode="advanced">
+                                    <ng-template #empty>
+                                        <div>Drag and drop files to here to upload.</div>
+                                    </ng-template>
+                                    <ng-template #content>
+                                        <ul *ngIf="uploadedFiles.length">
+                                            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }}
+                                                bytes</li>
+                                        </ul>
+                                    </ng-template>
+                                </p-fileupload>
+                            </div>
                         </div>
                     </div>
                     <div class="flex pt-6 justify-between">
-                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
+                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left"
+                            (onClick)="activateCallback(1)" />
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right"
+                            (onClick)="activateCallback(3)" />
                     </div>
                 </ng-template>
             </p-step-panel>
 
-                        <p-step-panel [value]="3">
+            <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div class="flex flex-col h-48">
                         <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                            Content III
-                        </div>
-                    </div>
-                    <div class="flex pt-6 justify-between">
-                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)" />
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(4)" />
-                    </div>
-                </ng-template>
-            </p-step-panel>
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                            <div class="card flex justify-center">
+                                <p-panel header="Header">
+                                    <p class="m-0">
 
-            <p-step-panel [value]="4">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                            Content IV
+                                    </p>
+                                </p-panel>
+                            </div>
                         </div>
                     </div>
                     <div class="flex pt-6 justify-start">
-                        <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(3)" />
+                        <p-button label="Back" icon="pi pi-arrow-left" iconPos="right"
+                            (onClick)="activateCallback(2)" />
                     </div>
                 </ng-template>
             </p-step-panel>

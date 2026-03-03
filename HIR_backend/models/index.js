@@ -32,6 +32,7 @@ const operatorMap = {
 const User=require('./user.model')(sequelize);
 const Advert=require('./advert.model')(sequelize);
 const Country=require('./country.model')(sequelize);
+const Category=require('./category.model')(sequelize);
 
 
-module.exports = {sequelize, User, Advert, Country,operatorMap}
+module.exports = {sequelize, User, Advert,  Country, Category,operatorMap}
