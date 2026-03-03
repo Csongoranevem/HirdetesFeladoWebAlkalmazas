@@ -18,6 +18,8 @@ import { DividerModule } from 'primeng/divider';
 import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
 import { UploaderModule } from "angular-uploader";
 import { FloatLabel } from 'primeng/floatlabel';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 
 
 @Component({
@@ -39,7 +41,9 @@ import { FloatLabel } from 'primeng/floatlabel';
     DividerModule,
     ScrollPanelModule,
     UploaderModule,
-    FloatLabel
+    FloatLabel,
+    CardModule,
+    TableModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

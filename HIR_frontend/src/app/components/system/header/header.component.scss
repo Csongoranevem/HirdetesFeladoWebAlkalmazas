@@ -104,6 +104,7 @@ img {
     margin: 2%;
     border: 3px dashed var(--primary-color);
     border-radius: 100%;
+    background-color: white;
 }
 .ProfilMid>h4{
     border-top: 1px solid var(--primary-theme-color);
@@ -149,6 +150,32 @@ img {
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 1.5%;
 }
+.PublicProfileDiv>p-button{
+    width: 100%;
+    justify-content: end;
+    align-items: end;
+    display: flex;
+}
+
+
+//Account settings
+
+.AccountSettingsDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.AccountSettingsDiv>p-floatlabel{
+    margin-bottom: 2%;
+}
+.AccountButtonDiv{
+    width: 100%;
+    align-items: end;
+    float: right;
+    justify-content: end;
+    display: block;
+}
+
 
 
 ::ng-deep #newAdButton {

@@ -87,6 +87,7 @@
                                     <label for="on_label"><i class="pi pi-home"></i>Vármegye</label>
                                 </p-floatlabel>
                             </div>
+
                             <hr>
                             <div class="StaticDatesDataDiv">
                                 <div class="StaticDateInnerDiv">
@@ -109,16 +110,53 @@
                             <hr>
                             <div class="AdvertisementsDiv">
                                 <h4>{{loggedUsername}} hírdetései</h4>
+                                <hr>
+                                <div class="card">
+                                    <p-table [tableStyle]="{ 'min-width': '20rem' }">
+                                        <ng-template #header>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Név</th>
+                                                <th>Kategória</th>
+                                                <th>Elérés</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #body>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Kalapács</td>
+                                                <td>Szerszám</td>
+                                                <td><p-button>Katt</p-button></td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
                             </div>
                         </p-scrollpanel>
                         <p-divider></p-divider>
                         <p class="ProfileNote"><sub>Az itt található adataid publikusak</sub></p>
                     </div>
-                    <div *ngIf="CurrentProfileModalContent == 1" class="PublicProfileDiv">
+                    <div *ngIf="CurrentProfileModalContent == 1" class="PublicProfileDiv AccountSettingsDiv">
                         <h4>
                             Fiók Beállítások
-                            <p-divider></p-divider>
                         </h4>
+                        <p-divider></p-divider>
+                        <p-floatlabel variant="on">
+                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-envelope"></i>Email cím</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="on">
+                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="on">
+                            <input pInputText id="on_label" [style]="{width:'100%'}" autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-key"></i>Jelszó</label>
+                        </p-floatlabel>
+                        <p-divider></p-divider>
+                        <div class="AccountButtonDiv">
+                            <p-button>Szerkesztés</p-button>
+                        </div>
                     </div>
                     <div *ngIf="CurrentProfileModalContent == 2" class="PublicProfileDiv">
                         <h4>

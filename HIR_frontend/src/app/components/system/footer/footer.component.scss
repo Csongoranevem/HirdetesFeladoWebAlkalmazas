@@ -8,6 +8,10 @@ footer{
     width: 100%;    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: larger;
+    background-color: rgb(48, 48, 48);
+    margin-top: 2%;
+    border-top: 10px solid var(--primary-color);
+    padding-top: 2%;
 }
 #authors{
     display: flex;
