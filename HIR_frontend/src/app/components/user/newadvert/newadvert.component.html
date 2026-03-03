@@ -50,11 +50,11 @@
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div class="flex flex-col h-48">
-                        <div
+                        <div id="description"
                             class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
                         >
                         <p-iftalabel>
-                            <textarea pTextarea id="description"  style="resize: both;"></textarea>
+                            <textarea pTextarea id="description"></textarea>
                             <label for="description">Description</label>
                         </p-iftalabel>
                         </div>
