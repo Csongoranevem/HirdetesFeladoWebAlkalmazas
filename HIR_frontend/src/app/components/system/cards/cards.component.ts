@@ -1,10 +1,12 @@
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DecimalPipe } from '@angular/common';
 import { Ad } from '../../../interfaces/ad';
+import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 
 registerLocaleData(localeHu);
 
@@ -16,63 +18,26 @@ registerLocaleData(localeHu);
   styleUrl: './cards.component.scss',
   providers: [{ provide: LOCALE_ID, useValue: 'hu' }]
 })
-export class CardsComponent {
+export class CardsComponent implements OnInit {
 
-  ads: Ad[] = [
-    {
-      id: '1',
-      user_id: '1',
-      name: 'Termék 1',
-      description: 'Ez egy nagyon király termék, itt a tessék, vedd már fel!',
-      price: 10000,
-      country_id: '1',
-      product_id: '1',
-      payment_method: 'Készpénz',
-      category_id: '1',
-      status: 'Aktív',
-      date_of_upload: new Date()
-    },
-    {
-      id: '2',
-      user_id: '2',
-      name: 'Termék 2',
-      description: 'Ez egy másik nagyon király termék, itt a tessék, vedd már fel! Ez egy másik nagyon király termék, itt a tessék, vedd már fel!Ez egy másik nagyon király termék, itt a tessék, vedd már fel!Ez egy másik nagyon király termék, itt a tessék, vedd már fel!',
-      price: 20000,
-      country_id: '1',
-      product_id: '2',
-      payment_method: 'Banki átutalás',
-      category_id: '2',
-      status: 'Aktív',
-      date_of_upload: new Date()
-    },
-    {
-      id: '2',
-      user_id: '2',
-      name: 'Termék 2',
-      description: 'Ez egy másik nagyon király termék, itt a tessék, vedd már fel!',
-      price: 20000,
-      country_id: '1',
-      product_id: '2',
-      payment_method: 'Banki átutalás',
-      category_id: '2',
-      status: 'Aktív',
-      date_of_upload: new Date()
-    },
-    {
-      id: '2',
-      user_id: '2',
-      name: 'Termék 2',
-      description: 'Ez egy másik nagyon király termék, itt a tessék, vedd már fel! Ez egy másik nagyon király termék, itt a tessék, vedd már fel!Ez egy másik nagyon király termék, itt a tessék, vedd már fel!',
-      price: 20000,
-      country_id: '1',
-      product_id: '2',
-      payment_method: 'Banki átutalás',
-      category_id: '2',
-      status: 'Aktív',
-      date_of_upload: new Date()
-    }
-  ];
+  ads: Ad[] = [];
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.getAds();
+  }
+
+
+  getAds() {
+    this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
+      this.ads = adverts as Ad[];
+    });
+  }
+
+  //itt kell a szűrés
 
 }

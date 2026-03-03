@@ -16,7 +16,6 @@ import { SplitterModule } from 'primeng/splitter';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
-import { UploaderModule } from "angular-uploader";
 import { FloatLabel } from 'primeng/floatlabel';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -40,7 +39,6 @@ import { TableModule } from 'primeng/table';
     CommonModule,
     DividerModule,
     ScrollPanelModule,
-    UploaderModule,
     FloatLabel,
     CardModule,
     TableModule
