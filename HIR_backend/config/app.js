@@ -9,6 +9,7 @@ const userRoutes=require("../routes/users.routes");
 const advertRoutes=require("../routes/adverts.routes");
 const conuntryRoutes=require("../routes/countries.routes");
 const categoryRoutes=require("../routes/categories.routes");
+const paymentRoutes=require("../routes/payments.routes");
 
 
 const app=express();
@@ -21,6 +22,7 @@ app.use('/users',userRoutes);
 app.use('/adverts',advertRoutes);
 app.use('/countries',conuntryRoutes);
 app.use('/categories',categoryRoutes);
+app.use('/payments',paymentRoutes);
 
 
 module.exports=app;

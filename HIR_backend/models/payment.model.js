@@ -2,8 +2,8 @@ const {DataTypes} = require('sequelize');
 const bcrypt=require('bcrypt');
 
 module.exports = (sequelize)=>{
-    const Category=sequelize.define(
-        'categories',
+    const Payment=sequelize.define(
+        'payments',
         {
             id:{
                 type:DataTypes.UUID,
@@ -19,5 +19,5 @@ module.exports = (sequelize)=>{
 
     );
 
-    return Category;
+    return Payment;
 }

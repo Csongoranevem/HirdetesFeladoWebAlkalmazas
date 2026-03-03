@@ -1,0 +1,15 @@
+### GET all payment methods
+GET http://localhost:3000/payments
+Content-Type: application/json
+
+###POST create new payment method
+POST http://localhost:3000/payments
+Content-Type: application/json
+
+{
+    "name":"Paypal"
+}
+
+###Delete payment method by id
+DELETE http://localhost:3000/payments/4668b25f-5e06-4cc1-b563-0fbb5547fa30
+Content-Type: application/json

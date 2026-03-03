@@ -17,10 +17,10 @@ Content-Type: application/json
     "description": "This is a test advert.",
     "user_id": "4b57884d-06b1-11f1-9df0-900f0c11e772",
     "price": 100,
-    "country_id": 1,
-    "product_id": 1,
+    "city_id": "Söréd",
+    "product_id": "TElefon",
     "category_id": 1,
-    "payment_method_id": 1,
+    "payment_method": 1,
     "status": 1
 }
 

@@ -27,7 +27,7 @@ router.get('/:id',async(req,res)=>{
 router.post('/',async (req,res)=>{
 
     try{
-    const{ name,code}=req.body;
+    const{ name}=req.body;
         
     
 

@@ -44,8 +44,8 @@ router.get('/:field/:op/:value',async(req,res)=>{
 router.post('/',async (req,res)=>{
 
     try{
-    const{ name,user_id,description,price, country_id, product_id, category_id, payment_method_id, status }=req.body;
-    const advert=await Advert.create({name, user_id, description, price, country_id, product_id, category_id, payment_method_id, status});
+    const{ name,user_id,description,price, city_id, product_id, category_id, payment_method, status }=req.body;
+    const advert=await Advert.create({name, user_id, description, price, city_id, product_id, category_id, payment_method, status});
     res.status(201).json(advert);
     }
     catch(err)

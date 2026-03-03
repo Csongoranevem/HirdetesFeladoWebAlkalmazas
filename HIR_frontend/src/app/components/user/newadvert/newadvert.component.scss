@@ -19,9 +19,9 @@ p-inputgroup-addon {
     height: 42px;
 }
 p-inputgroup{
-    margin: 12px 0;
+    margin: 16px 0;
     margin-top: 0px;
-    width:70%;
+    width:100%;
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -30,6 +30,7 @@ p-inputgroup{
 p-select{
     width: 100%;
     max-width: 100%;
+    display: flex;
 }
 
 input[pInputText], .p-inputtext {
@@ -66,23 +67,25 @@ p-iftalabel p-textarea textarea {
 .stepperContent{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: flex-start;
+    gap: 2rem;
     align-items: flex-start;
+    width: 100%;
 }
 .stepperLeft{
-    flex: 1 1 0;
-    margin-right: 10px;
-    min-width: 0; 
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .stepperRight{
-    flex: 0 0 220px; 
-    margin-right: 0;
+    flex: 0 0 280px; 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
-    gap: 10px 0px;
+    gap: 1rem;
 }
 
 
@@ -90,14 +93,15 @@ p-iftalabel p-textarea textarea {
 @media screen and (max-width:800px) {
     .stepperContent{
         flex-direction: column;
-        justify-content: center;
-        margin-right: 20px;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 1rem;
     }
 
     .stepperRight{
-        width: fit-content;
-        margin-right: 0px
+        width: 100%;
+        flex: 1 1 auto;
+    }
     }
     .stepperLeft{
     width: 100%;
@@ -113,4 +117,3 @@ p-iftalabel p-textarea textarea {
         margin-bottom: 20px;
 }
 
-}
