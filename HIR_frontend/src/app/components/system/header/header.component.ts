@@ -10,7 +10,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../services/auth.service';
 import { routes } from '../../../app.routes';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { SplitterModule } from 'primeng/splitter';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,8 @@ import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ImageModule,
+  imports: [
+    ImageModule,
     Toolbar,
     SharedModule,
     ButtonModule,
@@ -41,7 +42,8 @@ import { TableModule } from 'primeng/table';
     ScrollPanelModule,
     FloatLabel,
     CardModule,
-    TableModule
+    TableModule,
+    RouterModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
