@@ -1,33 +1,52 @@
-h3{
+h3 {
     text-align: center;
-    font-size: xx-large;
+    font-size: clamp(1.4rem, 4vw, 2rem);
     color: var(--p-button-text-contrast-color);
     margin-top: 30px;
 }
 
-#stepper{
-    width: min(900px, 90%);
+#stepper {
+    width: min(900px, 95%);
     margin: 0 auto;
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: var(--p-button-text-color);
+    box-sizing: border-box;
 }
 
+.stepper-panel-box {
+    border: 2px dashed var(--p-surface-200);
+    border-radius: 6px;
+    background-color: var(--p-surface-50);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.uploader-box {
+    min-height: 200px;
+    justify-content: center;
+    align-items: center;
+}
 
 p-inputgroup-addon {
     height: 42px;
 }
-p-inputgroup{
-    margin: 16px 0;
-    margin-top: 0px;
-    width:100%;
+
+p-inputgroup {
+    margin: 8px 0;
+    width: 100%;
     display: flex;
     align-items: center;
     box-sizing: border-box;
 }
 
-p-select{
+p-select {
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -38,12 +57,12 @@ input[pInputText], .p-inputtext {
     box-sizing: border-box;
 }
 
-p-iftalabel{
+p-iftalabel {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     display: block;
-    padding: 0.25rem;
+    padding: 0.25rem 0;
 }
 
 p-iftalabel textarea,
@@ -56,15 +75,7 @@ p-iftalabel p-textarea textarea {
     min-height: 120px;
 }
 
-#uploader{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.stepperContent{
+.stepperContent {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -72,7 +83,8 @@ p-iftalabel p-textarea textarea {
     align-items: flex-start;
     width: 100%;
 }
-.stepperLeft{
+
+.stepperLeft {
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
@@ -80,40 +92,68 @@ p-iftalabel p-textarea textarea {
     gap: 0.5rem;
 }
 
-.stepperRight{
-    flex: 0 0 280px; 
+.stepperRight {
+    flex: 0 0 260px;
     display: flex;
-    justify-content: flex-start;
     flex-direction: column;
     gap: 1rem;
 }
 
+.summary-panel {
+    width: 100%;
+}
 
+.summary-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    align-items: start;
+    word-break: break-word;
+}
 
-@media screen and (max-width:800px) {
-    .stepperContent{
+.summary-label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 800px) {
+    .stepperContent {
         flex-direction: column;
-        justify-content: flex-start;
         align-items: stretch;
         gap: 1rem;
     }
 
-    .stepperRight{
+    .stepperRight {
         width: 100%;
         flex: 1 1 auto;
     }
-    }
-    .stepperLeft{
-    width: 100%;
-    margin-right: 0px;
-    }
-    
-    p-inputgroup{
+
+    .stepperLeft {
         width: 100%;
     }
 
-    .stepperRight{
-        flex: none;
-        margin-bottom: 20px;
+    p-inputgroup {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #stepper {
+        padding: 10px;
+        width: 98%;
+    }
+
+    .stepper-panel-box {
+        padding: 1rem;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .summary-label {
+        margin-top: 0.5rem;
+    }
 }
 

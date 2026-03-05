@@ -1,3 +1,4 @@
+<p-toast />
 <h3>Új hírdetés feladása</h3>
 
 <div id="stepper" class="card flex justify-center">
@@ -10,53 +11,41 @@
         <p-step-panels>
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-
+                    <div class="flex flex-col">
+                        <div class="stepper-panel-box">
                             <div class="stepperContent">
                                 <div class="stepperLeft">
                                     <p-inputgroup>
-                                        <p-inputgroup-addon>
-                                            <i class="pi pi-box"></i>
-                                        </p-inputgroup-addon>
-                                        <input pInputText placeholder="Termék teljes neve"  [(ngModel)]="newAdvert.name"/>
+                                        <p-inputgroup-addon><i class="pi pi-box"></i></p-inputgroup-addon>
+                                        <input pInputText placeholder="Termék teljes neve" [(ngModel)]="newAdvert.name"/>
                                     </p-inputgroup>
-
                                     <p-inputgroup>
-                                        <p-inputgroup-addon>
-                                            <i class="pi pi-wallet"></i>
-                                        </p-inputgroup-addon>
+                                        <p-inputgroup-addon><i class="pi pi-wallet"></i></p-inputgroup-addon>
                                         <input pInputText placeholder="Irányár (Ft)" [(ngModel)]="newAdvert.price"/>
                                     </p-inputgroup>
                                 </div>
                                 <div class="stepperRight">
-
                                     <p-select 
-                                        optionLabel="name" 
-                                        optionValue="id"
+                                        optionLabel="name" optionValue="id"
                                         placeholder="Kategória kiválasztása" 
                                         [options]="categories" 
                                         [(ngModel)]="newAdvert.category_id"
                                         class="w-full" />
-
                                     <p-select 
-                                        optionLabel="name" 
-                                        optionValue="id"
+                                        optionLabel="name" optionValue="id"
                                         placeholder="Preferált fizetési mód" 
                                         [options]="paymentMethods" 
                                         [(ngModel)]="newAdvert.payment_method"
                                         class="w-full" />
                                 </div>
-                                
                             </div>
-                             <p-iftalabel>
+                            <p-iftalabel>
                                 <textarea pTextarea id="description" [(ngModel)]="newAdvert.description"></textarea>
                                 <label for="description">Leírás</label>
                             </p-iftalabel>
                         </div>
                         <div class="flex pt-6 justify-end">
-                            <p-button label="Tovább" icon="pi pi-arrow-right" iconPos="right"
+                            <p-button label="Tovább" severity="warn" icon="pi pi-arrow-right" iconPos="right"
                                 (onClick)="activateCallback(2)" />
                         </div>
                     </div>
@@ -65,13 +54,9 @@
 
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div id="uploader"
-                            style="margin: 20px;"
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-
-                            <div class="card">
-                                <p-toast />
+                    <div class="flex flex-col">
+                        <div class="stepper-panel-box uploader-box">
+                            <div class="card w-full">
                                 <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
                                     [multiple]="true" accept="image/*" maxFileSize="10000000" mode="advanced">
                                     <ng-template #empty>
@@ -79,8 +64,7 @@
                                     </ng-template>
                                     <ng-template #content>
                                         <ul *ngIf="uploadedFiles.length">
-                                            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }}
-                                                bytes</li>
+                                            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
                                         </ul>
                                     </ng-template>
                                 </p-fileupload>
@@ -88,38 +72,40 @@
                         </div>
                     </div>
                     <div class="flex pt-6 justify-between">
-                        <p-button label="Vissza" severity="secondary" icon="pi pi-arrow-left"
-                            (onClick)="activateCallback(1)" />
-                        <p-button label="Tovább" icon="pi pi-arrow-right" iconPos="right"
-                            (onClick)="activateCallback(3)" />
+                        <p-button label="Vissza" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                        <p-button label="Tovább" severity="warn" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                     </div>
                 </ng-template>
             </p-step-panel>
 
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            style="margin: 20px;"
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                            <div class="card flex justify-center">
+                    <div class="flex flex-col">
+                        <div class="stepper-panel-box">
+                            <div class="summary-panel">
                                 <p-panel header="Adatok ellenőrzése">
-                                    <p>
-                                        <strong>Név:</strong> {{newAdvert.name}} <br>
-                                        <strong>Ár:</strong> {{newAdvert.price}} Ft <br>
-                                        <strong>Kategória:</strong> {{getCategoryName(newAdvert.category_id)}} <br>
-                                        <strong>Fizetési mód:</strong> {{getPaymentMethodName(newAdvert.payment_method)}} <br>
-                                        <strong>Leírás:</strong> {{newAdvert.description}} <br>
-                                    </p>
-                                      <p-button label="Tovább" icon="pi pi-check" iconPos="right"
-                            (onClick)="postAdvert()" />
+                                    <div class="summary-grid">
+                                        <span class="summary-label">Név:</span>
+                                        <span>{{newAdvert.name}}</span>
+                                        <span class="summary-label">Ár:</span>
+                                        <span>{{newAdvert.price}} Ft</span>
+                                        <span class="summary-label">Kategória:</span>
+                                        <span>{{getCategoryName(newAdvert.category_id)}}</span>
+                                        <span class="summary-label">Fizetési mód:</span>
+                                        <span>{{getPaymentMethodName(newAdvert.payment_method)}}</span>
+                                        <span class="summary-label">Leírás:</span>
+                                        <span>{{newAdvert.description}}</span>
+                                    </div>
+                                    <div class="flex justify-end pt-4">
+                                        <p-button label="Hírdetés feladása" severity="warn" icon="pi pi-check" iconPos="right"
+                                            (onClick)="postAdvert()" />
+                                    </div>
                                 </p-panel>
                             </div>
                         </div>
                     </div>
                     <div class="flex pt-6 justify-start">
-                        <p-button label="Vissza" icon="pi pi-arrow-left" iconPos="right"
-                            (onClick)="activateCallback(2)" />
+                        <p-button label="Vissza" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)" />
                     </div>
                 </ng-template>
             </p-step-panel>

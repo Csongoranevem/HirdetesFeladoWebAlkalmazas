@@ -104,18 +104,53 @@ export class NewadvertComponent implements OnInit {
     }
 
     postAdvert() {
-      if (!this.newAdvert.name || !this.newAdvert.description || !this.newAdvert.price || !this.newAdvert.city_id || !this.newAdvert.product_id || !this.newAdvert.payment_method || !this.newAdvert.category_id) {
-        this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Kérem töltse ki az összes mezőt!', life: 3000});
-        return;
+      const errors: string[] = [];
 
+      if (!this.newAdvert.name || this.newAdvert.name.trim() === '') {
+        errors.push('A termék neve kötelező!');
+      }
+      if (!this.newAdvert.price || this.newAdvert.price <= 0) {
+        errors.push('Az irányár megadása kötelező!');
+      }
+      if (!this.newAdvert.category_id) {
+        errors.push('Kérjük válasszon kategóriát!');
+      }
+      if (!this.newAdvert.payment_method) {
+        errors.push('Kérjük válasszon fizetési módot!');
+      }
+      if (!this.newAdvert.description || this.newAdvert.description.trim() === '') {
+        errors.push('A leírás megadása kötelező!');
+      }
+
+      if (errors.length > 0) {
+        errors.forEach(error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiányzó adat',
+            detail: error,
+            life: 4000
+          });
+        });
+        return;
       }
 
       this.api.insert('adverts', this.newAdvert).subscribe({
         next: (response) => {
-          this.messageService.add({severity: 'success', summary: 'Siker', detail: 'A hírdetés sikeresen feladva!', life: 3000});
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Siker!',
+            detail: 'A hírdetés sikeresen feladva!',
+            life: 4000
+          });
+          
         },
         error: (error) => {
-          this.messageService.add({severity: 'error', summary: 'Hiba', detail: 'Hiba történt a hírdetés feladása során!', life: 3000});
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Hiba történt a hírdetés feladása során. Kérjük próbálja újra!',
+            life: 4000
+          });
         }
       });
     }
