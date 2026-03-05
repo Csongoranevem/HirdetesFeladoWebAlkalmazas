@@ -6,29 +6,45 @@
                 <p-accordion-panel value="0">
                     <p-accordion-header>Árak</p-accordion-header>
                     <p-accordion-content>
+                        <br>
                         <div class="card flex justify-center">
                             <!--NG Modellezhető a slider! : value: number[] = [x,y]-->
                             <p-slider [range]="true" styleClass="w-56" />
+                        </div>
+                        <div class="PriceSliderLabelDiv">
+                            <p>Min.</p>
+                            <p>Max.</p>
+                        </div>
+                        <div class="PriceSliderLabelDiv">
+                            <b>0 Ft</b>
+                            <b>100,000 Ft</b>
                         </div>
                     </p-accordion-content>
                 </p-accordion-panel>
             </p-accordion>
 
-            <div class="UserOrAdDiv">
-                <h5>Felhasználók</h5>
-                <div class="card flex justify-center">
-                    <p-toggleswitch [(ngModel)]="UserOrAd" />
-                </div>
-                <h5>Hirdetések</h5>
-            </div>
-
-            <p-divider></p-divider>
 
             <p-accordion>
                 <p-accordion-panel value="0">
+                    <p-accordion-header>Kártya tartalom</p-accordion-header>
+                        <p-accordion-content>
+                            <div class="UserOrAdDiv">
+                                <h5>Felhasználók</h5>
+                                <div class="card flex justify-center">
+                                    <p-toggleswitch [(ngModel)]="UserOrAd" />
+                                </div>
+                                <h5>Hirdetések</h5>
+                            </div>
+                        </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+
+
+            <p-accordion>
+                <p-accordion-panel value="1">
                     <p-accordion-header>Kategóriák</p-accordion-header>
                     <p-accordion-content>
-                        <div class="card flex justify-center gap-4">
+                        <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
                             <div class="flex items-center">
                                 <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
                                 <label for="ingredient1" class="ml-2"> Cheese </label>
@@ -95,6 +111,29 @@
                             </div>
                         </div>
                     </p-accordion-content>
+                </p-accordion-panel>
+                <p-accordion-panel value="2">
+                    <p-accordion-header>Használtság</p-accordion-header>
+                        <p-accordion-content>
+                            <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
+                                <div class="flex items-center">
+                                    <p-checkbox inputId="ingredient1" name="selejt" value="Selejt" />
+                                    <label for="ingredient1" class="ml-2">Selejt</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <p-checkbox inputId="ingredient1" name="hasznalt" value="Hasznalt" />
+                                    <label for="ingredient1" class="ml-2">Használt</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <p-checkbox inputId="ingredient1" name="uj" value="Uj" />
+                                    <label for="ingredient1" class="ml-2">Új</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <p-checkbox inputId="ingredient1" name="bontatlan" value="Bontatlan" />
+                                    <label for="ingredient1" class="ml-2">Bontatlan</label>
+                                </div>
+                            </div>
+                        </p-accordion-content>
                 </p-accordion-panel>
             </p-accordion>
         </div>
@@ -103,5 +142,14 @@
 </div>
 
 <div class="container">
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste at eos libero nam odit, et, fugit reprehenderit tempore quaerat asperiores temporibus perferendis tenetur iusto saepe deleniti. Ullam optio et consequatur?
+    <p-fluid>
+        <div class="SearchBarDiv">
+            <p-inputgroup>
+                <input pInputText placeholder="Keyword" />
+                <p-inputgroup-addon>
+                    <p-button icon="pi pi-search" severity="secondary" variant="text" />
+                </p-inputgroup-addon>
+            </p-inputgroup>
+        </div>
+    </p-fluid>
 </div>

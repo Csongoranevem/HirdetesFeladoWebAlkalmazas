@@ -1,7 +1,16 @@
 .FilterBringOutDiv{
     margin: 2%;
     display: block;
+    border: 0px;
+    width: 0%;
 }
+
+.container{
+
+}
+.SearchBarDiv{
+}
+
 
 html, body {
     height: 100%;
@@ -12,11 +21,34 @@ html, body {
 }
 
 .UserOrAdDiv{
-    margin-top: 5%;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 .UserOrAdDiv>h5{
     font-size: small;
+}
+
+.PriceSliderLabelDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2%;
+}
+
+.FilterekDiv>p-accordion{
+    margin-top: 10%;
+    margin-bottom: 100%;
+}
+
+p-accordion-content{
+    margin: 2%;
+}
+
+.FilterCheckBoxDiv{
+    border: 0px;
+}
+.FilterCheckBoxDiv>div>label{
+    margin-left: 5%;
 }
