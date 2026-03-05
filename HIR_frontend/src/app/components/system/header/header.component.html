@@ -1,4 +1,5 @@
 <header [style]="{backgroundColor:'rgba(var(--highlight-bg), 0.3)'}">
+    <p-toast></p-toast>
     <p-toolbar [style]="{ 'border': 'none', 'padding': '1rem 1rem 1.5rem' }" id="toolbar">
         <ng-template #start id="start">
             <div class="flex items-center gap-2 left">
@@ -22,7 +23,7 @@
 
                 <p-button (click)="showProfileModal()" label="Show" />
 
-                <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" severity="success"
+                <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" (click)="navigateToNewAdvert()" severity="success"
                     size="large"></p-button>
 
                 <div class="relative inline-block">
