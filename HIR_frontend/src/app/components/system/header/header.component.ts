@@ -24,7 +24,8 @@ import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ImageModule,
+  imports: [
+    ImageModule,
     Toolbar,
     SharedModule,
     ButtonModule,
