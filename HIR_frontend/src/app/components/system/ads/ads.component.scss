@@ -5,11 +5,6 @@
     width: 0%;
 }
 
-.container{
-
-}
-.SearchBarDiv{
-}
 
 
 html, body {
@@ -51,4 +46,23 @@ p-accordion-content{
 }
 .FilterCheckBoxDiv>div>label{
     margin-left: 5%;
+}
+
+
+//SearchBar
+.container{
+    
+}
+.SearchBarDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    border-radius: 20px 20px 0px 0px;
+}
+.SearchLeft{
+    width: 78%;
+}
+.SearchRight{
+    width: 21%;
 }

@@ -144,12 +144,22 @@
 <div class="container">
     <p-fluid>
         <div class="SearchBarDiv">
-            <p-inputgroup>
-                <input pInputText placeholder="Keyword" />
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-search" severity="secondary" variant="text" />
-                </p-inputgroup-addon>
-            </p-inputgroup>
+            <div class="SearchLeft">
+                <p-inputgroup>
+                    <input pInputText placeholder="Keresés" />
+                    <p-inputgroup-addon>
+                        <p-button icon="pi pi-search" severity="secondary" variant="text" />
+                    </p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+
+            <div class="card flex justify-center SearchRight">
+                <p-select [options]="SortingCategories" [(ngModel)]="selectedSort" [checkmark]="true" optionLabel="label" [showClear]="true" placeholder="Szortírozás" class="w-full md:w-56" />
+            </div>
         </div>
+        <p-divider></p-divider>
     </p-fluid>
+    <div class="CardsDiv">
+        
+    </div>
 </div>
