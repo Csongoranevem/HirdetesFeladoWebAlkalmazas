@@ -19,7 +19,7 @@ import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
 import { FloatLabel } from 'primeng/floatlabel';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
-
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-header',
@@ -43,10 +43,12 @@ import { TableModule } from 'primeng/table';
     FloatLabel,
     CardModule,
     TableModule,
-    RouterModule
+    RouterModule,
+    Toast
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  providers: [MessageService]
 })
 export class HeaderComponent implements OnInit {
 
@@ -71,7 +73,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     //subscribe
     this.auth.isLoggedIn$.subscribe(logged => {
@@ -127,6 +130,18 @@ export class HeaderComponent implements OnInit {
     }
     else{
       this.AccountEditing = false
+    }
+  }
+
+  navigateToNewAdvert() {
+    if (this.auth.isLoggedUser()) {
+      this.router.navigate(['/newAdvert']);
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Bejelentkezés szükséges',
+        detail: 'Az új hírdetés feltöltéséhez be kell jelentkezz!'
+      });
     }
   }
 }

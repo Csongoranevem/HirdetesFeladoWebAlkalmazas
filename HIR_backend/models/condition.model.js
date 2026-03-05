@@ -1,18 +1,23 @@
-module.exports = (sequelize, DataTypes) => {
-  const Condition = sequelize.define('Condition', {
-    id: {
-      type: DataTypes.TINYINT,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: DataTypes.STRING(20),
-      allowNull: false
-    }
-  }, {
-    tableName: 'conditions',
-    timestamps: false
-  });
+const {DataTypes} = require('sequelize');
+const bcrypt=require('bcrypt');
 
-  return Condition;
-};
+module.exports = (sequelize)=>{
+    const Condition=sequelize.define(
+        'condition',
+        {
+            id:{
+                type:DataTypes.UUID,
+                primaryKey: true,
+                defaultValue:DataTypes.UUIDV4
+            },
+            name:{
+                type:DataTypes.STRING(50),
+                allowNull:false
+            }
+
+        }
+
+    );
+
+    return Condition;
+}
