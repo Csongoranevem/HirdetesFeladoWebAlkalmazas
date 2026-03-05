@@ -29,11 +29,21 @@ const operatorMap = {
     or: Op.or
 }
 
-const User=require('./user.model')(sequelize);
-const Advert=require('./advert.model')(sequelize);
-const Country=require('./country.model')(sequelize);
-const Category=require('./category.model')(sequelize);
-const Payment=require('./payment.model')(sequelize);
+function loadModel(path) {
+    const exported = require(path);
+    if (typeof exported === 'function') {
+        return exported(sequelize);
+    }
+    // Already a model (e.g. module.exports = Model after define/init)
+    return exported;
+}
 
+const User=loadModel('./user.model');
+const Advert=loadModel('./advert.model');
+const City=loadModel('./city.model');
+const Category=loadModel('./category.model');
+const Payment=loadModel('./payment.model');
+const Support=loadModel('./support.model');
+const Condition=loadModel('./condition.model');
 
-module.exports = {sequelize, User, Advert,  Country, Payment, Category,operatorMap}
+module.exports = {sequelize, User, Advert, City, Payment, Support, Condition, Category, operatorMap}

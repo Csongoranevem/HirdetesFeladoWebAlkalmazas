@@ -2,8 +2,8 @@ const {DataTypes} = require('sequelize');
 const bcrypt=require('bcrypt');
 
 module.exports = (sequelize)=>{
-    const Country=sequelize.define(
-        'countries',
+    const City=sequelize.define(
+        'city',
         {
             id:{
                 type:DataTypes.UUID,
@@ -11,11 +11,11 @@ module.exports = (sequelize)=>{
                 defaultValue:DataTypes.UUIDV4
             },
             name:{
-                type:DataTypes.STRING(30),
+                type:DataTypes.STRING(50),
                 allowNull:false
             },
             code:{
-                type:DataTypes.STRING(5),
+                type:DataTypes.STRING(100),
                 allowNull:false
             }
 
@@ -26,5 +26,5 @@ module.exports = (sequelize)=>{
 
     );
 
-    return Country;
+    return City;
 }
