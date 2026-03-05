@@ -3,7 +3,7 @@ const bcrypt=require('bcrypt');
 
 module.exports = (sequelize)=>{
     const City=sequelize.define(
-        'city',
+        'cities',
         {
             id:{
                 type:DataTypes.UUID,
