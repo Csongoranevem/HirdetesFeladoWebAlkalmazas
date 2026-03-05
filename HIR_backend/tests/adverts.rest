@@ -21,7 +21,7 @@ Content-Type: application/json
     "product_id": "TElefon",
     "category_id": 1,
     "payment_method": 1,
-    "status": 1
+    "status": "active"
 }
 
 

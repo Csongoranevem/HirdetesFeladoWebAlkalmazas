@@ -7,6 +7,7 @@ import { LogoutComponent } from './components/user/logout/logout.component';
 import { CardsComponent } from './components/system/cards/cards.component';
 import { NewadvertComponent } from './components/user/newadvert/newadvert.component';
 import { AdsComponent } from './components/system/ads/ads.component';
+import { SupportComponent } from './components/system/support/support.component';
 
 export const routes: Routes = [
     {path: 'home', component:HomeComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path:'registration', component:RegistrationComponent},
     {path:'login',component:LoginComponent},
     {path:'logout', component:LogoutComponent},
+    { path: 'support', component: SupportComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
 
     {path:'newAdvert',component:NewadvertComponent},
