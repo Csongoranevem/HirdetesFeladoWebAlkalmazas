@@ -15,6 +15,14 @@ import { MenuItemContent, MenuModule } from 'primeng/menu';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { AutoComplete } from 'primeng/autocomplete';
+import { Select } from 'primeng/select';
+import { CardsComponent } from '../cards/cards.component';
+
+interface SortBy {
+  label: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-ads',
@@ -37,7 +45,10 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     FloatLabel,
     MenuModule,
-    MenuItemContent
+    MenuItemContent,
+    AutoComplete,
+    Select,
+    CardsComponent
   ],
   templateUrl: './ads.component.html',
   styleUrl: './ads.component.scss'
@@ -46,5 +57,14 @@ export class AdsComponent {
   FilterDrawerVisible: boolean = false;
   UserOrAd: boolean = false
 
+  SortingCategories: SortBy[] | undefined;
 
+  selectedSort: SortBy | undefined;
+
+  ngOnInit() {
+      this.SortingCategories = [
+          {label:"Időrendi sorrendbe",value:0},
+          {label:"Relevancia",value:1}
+        ];
+  }
 }
