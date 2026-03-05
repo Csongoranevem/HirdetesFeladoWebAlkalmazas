@@ -9,6 +9,12 @@ import { Slider } from 'primeng/slider';
 import { AccordionModule } from 'primeng/accordion';
 import { Checkbox } from 'primeng/checkbox';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { Fluid } from 'primeng/fluid';
+import { FloatLabel } from 'primeng/floatlabel';
+import { MenuItemContent, MenuModule } from 'primeng/menu';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-ads',
@@ -18,13 +24,20 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     DrawerModule,
     RouterModule,
     Button,
+    InputGroup,
+    InputGroupAddonModule,
     ButtonModule,
     DividerModule,
     FormsModule,
     Slider,
     AccordionModule,
     Checkbox,
-    ToggleSwitchModule
+    ToggleSwitchModule,
+    Fluid,
+    InputTextModule,
+    FloatLabel,
+    MenuModule,
+    MenuItemContent
   ],
   templateUrl: './ads.component.html',
   styleUrl: './ads.component.scss'
@@ -32,4 +45,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 export class AdsComponent {
   FilterDrawerVisible: boolean = false;
   UserOrAd: boolean = false
+
+
 }
