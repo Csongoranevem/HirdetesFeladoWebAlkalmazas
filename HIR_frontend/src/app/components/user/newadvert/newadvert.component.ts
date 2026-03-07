@@ -62,7 +62,7 @@ export class NewadvertComponent implements OnInit {
   categories: Category[] = [];
   paymentMethods: Payment[] = [];
   newAdvert:Ad = {
-    user_id: sessionStorage.getItem('id') || '',
+    user_id: '',  // This will be set dynamically when posting the advert
     name: '',
     description: '',
     price: 0,
@@ -133,6 +133,21 @@ export class NewadvertComponent implements OnInit {
         });
         return;
       }
+
+      // Get the user ID from the stored token
+      const loggedUser = this.auth.GetLoggedUser();
+      if (!loggedUser || !loggedUser.id) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Nem vagy bejelentkezve! Kérjük jelentkezz be.',
+          life: 4000
+        });
+        return;
+      }
+
+      // Set the user_id from the token
+      this.newAdvert.user_id = loggedUser.id;
 
       this.api.insert('adverts', this.newAdvert).subscribe({
         next: (response) => {

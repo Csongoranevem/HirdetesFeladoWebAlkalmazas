@@ -63,14 +63,26 @@ export class AuthService {
 
 
   GetLoggedUser() {
-    const token = localStorage.getItem(this.tokenName);
+    // Check sessionStorage first (where login stores the token)
+    let token = sessionStorage.getItem(this.tokenName);
+    
+    // Fallback to localStorage if not in sessionStorage
+    if (!token) {
+      token = localStorage.getItem(this.tokenName);
+    }
+    
     if (token) {
-      const payload = token.split('.')[1];
-      const decodedPayload = atob(payload);
-      const decodedUTF8Payload = new TextDecoder('utf-8').decode(
-        new Uint8Array(decodedPayload.split('').map(char => char.charCodeAt(0)))
-      );
-      return JSON.parse(decodedUTF8Payload);
+      try {
+        // Split the JWT token to get the payload (format: header.payload.signature)
+        const payload = token.split('.')[1];
+        // Decode the base64 payload
+        const decodedPayload = atob(payload);
+        // Parse the JSON
+        return JSON.parse(decodedPayload);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
     }
     return null;
   }

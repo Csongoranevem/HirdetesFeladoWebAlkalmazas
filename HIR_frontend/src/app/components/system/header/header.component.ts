@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit {
   items: any[] = [
     ...this.isLoggedIn ? [
       { label: 'Profil', icon: 'pi pi-user', routerLink: '/profil ' },
-      { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads ' },
+      { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads' },
     ] : [],
 
     ...!this.isLoggedIn ? [
