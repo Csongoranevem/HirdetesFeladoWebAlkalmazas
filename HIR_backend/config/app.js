@@ -10,6 +10,7 @@ const cityRoutes=require("../routes/city.routes");
 const categoryRoutes=require("../routes/categories.routes");
 const paymentRoutes=require("../routes/payments.routes");
 const conditionRoutes=require("../routes/conditions.routes");
+const supportRoutes=require("../routes/support.routes");
 
 
 const app=express();
@@ -24,5 +25,6 @@ app.use('/cities', cityRoutes);
 app.use('/categories',categoryRoutes);
 app.use('/payments',paymentRoutes);
 app.use('/conditions',conditionRoutes);
+app.use('/support',supportRoutes);
 
 module.exports=app;

@@ -1,0 +1,10 @@
+### create new support ticket
+
+POST http://localhost:3000/support
+Content-Type: application/json
+
+{
+    "question": "How do I reset my password?",
+    "answer": "You can reset your password by clicking on the 'Forgot Password' link on the login page.",
+    "topic": "Account Management"
+}

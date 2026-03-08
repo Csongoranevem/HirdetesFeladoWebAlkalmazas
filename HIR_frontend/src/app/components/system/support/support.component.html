@@ -1,1 +1,15 @@
-<p>support works!</p>
+
+<p-accordion>
+    @for (ticket of tickets; track ticket.id) {
+    <p-accordion-panel [value]="ticket.id" class="col col-xl-8 lg-8 sm-8 col-12 mx-auto mt-3 mb-3">
+        <p-accordion-header>{{ ticket.question }}</p-accordion-header>
+        <p-accordion-content>
+            <p class="m-0">
+                {{ ticket.answer }}
+            </p>
+            <p-divider />
+            <span>{{ ticket.created_at | date }}</span>
+        </p-accordion-content>
+    </p-accordion-panel>
+    }
+</p-accordion>
