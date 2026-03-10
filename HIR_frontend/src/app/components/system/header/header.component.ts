@@ -114,7 +114,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
   }
 
-  onLogoClick() {
+  navigateToHome() {
     // Átirányítás a kezdőlapra
 
     this.router.navigate(['/home']);
