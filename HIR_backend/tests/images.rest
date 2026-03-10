@@ -1,0 +1,32 @@
+###POST new image
+POST http://localhost:3000/images
+Content-Type: application/json
+
+{
+    "advert_id": "bf8b2c2a-9ff9-44d8-b3f8-80b279278dd7",
+    "url": "http://example.com/image.jpg",
+    "alt": "Example Image"
+}
+
+###GET all images
+GET http://localhost:3000/images
+Content-Type: application/json
+
+###GET image by ID
+GET http://localhost:3000/images/65f40195-e364-47c6-921b-2560dc6764d6
+Content-Type: application/json
+
+
+###PATCH update image by ID
+PATCH http://localhost:3000/images/65f40195-e364-47c6-921b-2560dc6764d6
+Content-Type: application/json
+
+{
+    "url": "http://example.com/image-updated.jpg",
+    "alt": "Updated Example Image"
+}
+
+
+###DELETE image by ID
+DELETE http://localhost:3000/images/65f40195-e364-47c6-921b-2560dc6764d6
+Content-Type: application/json

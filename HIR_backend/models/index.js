@@ -45,5 +45,6 @@ const Category=loadModel('./category.model');
 const Payment=loadModel('./payment.model');
 const Support=loadModel('./support.model');
 const Condition=loadModel('./condition.model');
+const Image=loadModel('./images.model');
 
-module.exports = {sequelize, User, Advert, City, Payment, Support, Condition, Category, operatorMap}
+module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, operatorMap}

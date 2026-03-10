@@ -11,7 +11,7 @@ const categoryRoutes=require("../routes/categories.routes");
 const paymentRoutes=require("../routes/payments.routes");
 const conditionRoutes=require("../routes/conditions.routes");
 const supportRoutes=require("../routes/support.routes");
-
+const imagesRoutes=require("../routes/images.routes");
 
 const app=express();
 
@@ -26,5 +26,6 @@ app.use('/categories',categoryRoutes);
 app.use('/payments',paymentRoutes);
 app.use('/conditions',conditionRoutes);
 app.use('/support',supportRoutes);
+app.use('/images',imagesRoutes);
 
 module.exports=app;
