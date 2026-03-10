@@ -4,3 +4,46 @@
     margin-top: 3rem !important;
     margin-bottom: 1rem !important;
 }
+
+#newQuestion {
+
+    border-radius: 4px !important;
+    padding: 1rem !important;
+    margin-top: 2rem !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    input[type="text"], textarea {
+        width: 60% !important;
+    }
+
+    textarea {
+        resize: none !important;
+        overflow: auto !important;
+    }
+}
+
+
+::ng-deep .p-card-body .m-0 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    input[type="text"], textarea {
+        width: 60% !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        padding: 0.5rem !important;
+    }
+
+    textarea {
+        resize: none !important;
+        overflow: auto !important;
+    }
+}

@@ -13,3 +13,18 @@
     </p-accordion-panel>
     }
 </p-accordion>
+
+
+<p-card header="Nem találod a választ a kérdésedre? Küldj e-mailt nekünk és megválaszoljuk!" class="col col-xl-8 lg-8 sm-8 col-12 mx-auto mt-3 mb-3" id="newQuestion">
+    <p class="m-0">
+        <input type="text" pInputText [(ngModel)]="email" placeholder="Írd be az e-mail címed..." />
+        <input type="text" pInputText [(ngModel)]="emailSubject" placeholder="Írd be a kérdésed tárgyát..." />
+        <textarea placeholder="Írd be a kérdésedet..." rows="5" cols="30" pTextarea [(ngModel)]="emailContent"></textarea>
+    </p>
+
+    <p-button id="sendEmailButton" label="Küldés" icon="pi pi-send" (click)="sendEmail()"></p-button>
+</p-card>
+
+
+
+

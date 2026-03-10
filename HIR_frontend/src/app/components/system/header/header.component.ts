@@ -44,11 +44,10 @@ import { Toast } from 'primeng/toast';
     CardModule,
     TableModule,
     RouterModule,
-    Toast
+    Toast,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  providers: [MessageService]
 })
 export class HeaderComponent implements OnInit {
 
@@ -140,7 +139,8 @@ export class HeaderComponent implements OnInit {
       this.messageService.add({
         severity: 'warn',
         summary: 'Bejelentkezés szükséges',
-        detail: 'Az új hírdetés feltöltéséhez be kell jelentkezz!'
+        detail: 'Az új hírdetés feltöltéséhez be kell jelentkezz!',
+        key: 'br'
       });
     }
   }
