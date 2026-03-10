@@ -1,3 +1,10 @@
+export interface AdImage {
+    id?: string;
+    advert_id: string;
+    url: string;
+    alt: string;
+}
+
 export interface Ad {
     id?: string;
     user_id: string;
@@ -10,4 +17,5 @@ export interface Ad {
     category_id: string;
     status: "active" | "inactive";
     date_of_upload?: Date;
+    images?: AdImage[];
 }

@@ -1,5 +1,5 @@
 const router=require('express').Router();
-const{Advert}=require('../models/index')
+const{Advert, Image}=require('../models/index')
 
 
 //Advertisements CRUD operators
@@ -7,7 +7,9 @@ const{Advert}=require('../models/index')
 //GET all adverts from table
 
 router.get('/',async(_req,res)=>{
-    const adverts=await Advert.findAll();
+    const adverts=await Advert.findAll({
+        include: [{ model: Image, as: 'images' }]
+    });
     res.status(200).json(adverts);
 });
 
@@ -15,7 +17,9 @@ router.get('/',async(_req,res)=>{
 //GET advert by id
 router.get('/:id',async(req,res)=>{
     const id=req.params.id;
-    const advert=await Advert.findByPk(id);
+    const advert=await Advert.findByPk(id, {
+        include: [{ model: Image, as: 'images' }]
+    });
     if(!advert){
         return res.status(404).json({message:"Advert's not found!"})
     }
@@ -34,7 +38,10 @@ router.get('/:field/:op/:value',async(req,res)=>{
     const field=req.params.field;
     const op=req.params.op;
     const value=req.params.value;
-    const adverts=await Advert.findAll({ where: ops[op](field, value) });
+    const adverts=await Advert.findAll({
+        where: ops[op](field, value),
+        include: [{ model: Image, as: 'images' }]
+    });
     res.status(200).json(adverts);
 
 });

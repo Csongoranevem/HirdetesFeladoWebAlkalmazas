@@ -2,7 +2,7 @@
     <p-card [style]="{ width: '18rem', height: '26rem', overflow: 'hidden' }" *ngFor="let ad of ads">
         <ng-template pTemplate="header">
             <div style="position: relative;">
-                <img alt="ad.name" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                <img [alt]="ad.name" class="w-full" [src]="getAdImage(ad)" />
                 <p class="adPrice">{{ad.price | number:'1.0-0':'hu'}} Ft</p>
             </div>
         </ng-template>

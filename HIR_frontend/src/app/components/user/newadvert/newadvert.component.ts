@@ -17,6 +17,7 @@ import { Category } from '../../../interfaces/category';
 import { Payment } from '../../../interfaces/payments';
 import { Ad } from '../../../interfaces/ad';
 import { AuthService } from '../../../services/auth.service';
+import { forkJoin } from 'rxjs';
 
   interface UploadEvent {
     originalEvent: Event;
@@ -59,6 +60,7 @@ export class NewadvertComponent implements OnInit {
     ) {}
 
   uploadedFiles: any[] = [];
+  selectedFiles: File[] = [];
   categories: Category[] = [];
   paymentMethods: Payment[] = [];
   newAdvert:Ad = {
@@ -85,12 +87,21 @@ export class NewadvertComponent implements OnInit {
       });
     }
 
-    onUpload(event:UploadEvent) {
-        for(let file of event.files) {
-            this.uploadedFiles.push(file);
+    onSelectFiles(event: any) {
+        for (let file of event.files) {
+            this.selectedFiles.push(file);
         }
+    }
 
-        this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    onRemoveFile(event: any) {
+        const index = this.selectedFiles.indexOf(event.file);
+        if (index > -1) {
+            this.selectedFiles.splice(index, 1);
+        }
+    }
+
+    onClearFiles() {
+        this.selectedFiles = [];
     }
 
     getCategoryName(categoryId: string): string {
@@ -150,13 +161,42 @@ export class NewadvertComponent implements OnInit {
       this.newAdvert.user_id = loggedUser.id;
 
       this.api.insert('adverts', this.newAdvert).subscribe({
-        next: (response) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Siker!',
-            detail: 'A hírdetés sikeresen feladva!',
-            life: 4000
-          });
+        next: (response: any) => {
+          const advertId = response.id;
+
+          // Upload images if any were selected
+          if (this.selectedFiles.length > 0) {
+            const uploadObservables = this.selectedFiles.map(file =>
+              this.api.uploadImage(advertId, file)
+            );
+
+            forkJoin(uploadObservables).subscribe({
+              next: () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Siker!',
+                  detail: 'A hírdetés és a képek sikeresen feltöltve!',
+                  life: 4000
+                });
+                this.selectedFiles = [];
+              },
+              error: (error) => {
+                this.messageService.add({
+                  severity: 'warn',
+                  summary: 'Részleges siker',
+                  detail: 'A hírdetés feladva, de a képek feltöltése sikertelen.',
+                  life: 4000
+                });
+              }
+            });
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Siker!',
+              detail: 'A hírdetés sikeresen feladva!',
+              life: 4000
+            });
+          }
           
         },
         error: (error) => {

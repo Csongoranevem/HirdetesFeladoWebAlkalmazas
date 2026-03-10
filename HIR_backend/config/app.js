@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express=require('express');
 const cors=require('cors');
+const path=require('path');
 
 
 const userRoutes=require("../routes/users.routes");
@@ -17,6 +18,9 @@ const app=express();
 
 app.use(cors());
 app.use(express.json())
+
+// Serve uploaded images as static files
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 //routes
 app.use('/users',userRoutes);

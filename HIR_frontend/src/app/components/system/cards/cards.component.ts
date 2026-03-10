@@ -7,6 +7,7 @@ import { DecimalPipe } from '@angular/common';
 import { Ad } from '../../../interfaces/ad';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 registerLocaleData(localeHu);
 
@@ -36,6 +37,13 @@ export class CardsComponent implements OnInit {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
     });
+  }
+
+  getAdImage(ad: Ad): string {
+    if (ad.images && ad.images.length > 0) {
+      return `${environment.serverUrl}${ad.images[0].url}`;
+    }
+    return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
   }
 
   //itt kell a szűrés

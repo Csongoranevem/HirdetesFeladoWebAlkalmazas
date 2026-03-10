@@ -76,6 +76,24 @@ export class ApiService {
     return this.http.post(`${this.server}/${table}`, data, this.tokenHeader());
   }
 
+  uploadImage(advertId: string, file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('advert_id', advertId);
+    formData.append('alt', file.name);
+
+    let token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post(`${this.server}/images/upload`, formData, { headers });
+  }
+
+  getImageUrl(relativePath: string): string {
+    return `${this.server}${relativePath}`;
+  }
+
   update(){}
 
   delete(){}

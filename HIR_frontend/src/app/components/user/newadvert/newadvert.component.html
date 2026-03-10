@@ -57,15 +57,14 @@
                     <div class="flex flex-col">
                         <div class="stepper-panel-box uploader-box">
                             <div class="card w-full">
-                                <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                                    [multiple]="true" accept="image/*" maxFileSize="10000000" mode="advanced">
+                                <p-fileupload name="demo[]"
+                                    [multiple]="true" accept="image/*" maxFileSize="10000000" mode="advanced"
+                                    [auto]="false" [customUpload]="true"
+                                    (onSelect)="onSelectFiles($event)"
+                                    (onRemove)="onRemoveFile($event)"
+                                    (onClear)="onClearFiles()">
                                     <ng-template #empty>
-                                        <div>Drag and drop files to here to upload.</div>
-                                    </ng-template>
-                                    <ng-template #content>
-                                        <ul *ngIf="uploadedFiles.length">
-                                            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                                        </ul>
+                                        <div>Húzd ide a képeket a feltöltéshez.</div>
                                     </ng-template>
                                 </p-fileupload>
                             </div>
@@ -95,6 +94,8 @@
                                         <span>{{getPaymentMethodName(newAdvert.payment_method)}}</span>
                                         <span class="summary-label">Leírás:</span>
                                         <span>{{newAdvert.description}}</span>
+                                        <span class="summary-label">Képek:</span>
+                                        <span>{{selectedFiles.length}} kép kiválasztva</span>
                                     </div>
                                     <div class="flex justify-end pt-4">
                                         <p-button label="Hírdetés feladása" severity="warn" icon="pi pi-check" iconPos="right"

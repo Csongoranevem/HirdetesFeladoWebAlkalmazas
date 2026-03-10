@@ -47,4 +47,8 @@ const Support=loadModel('./support.model');
 const Condition=loadModel('./condition.model');
 const Image=loadModel('./images.model');
 
+// Associations
+Advert.hasMany(Image, { foreignKey: 'advert_id', as: 'images' });
+Image.belongsTo(Advert, { foreignKey: 'advert_id', as: 'advert' });
+
 module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, operatorMap}
