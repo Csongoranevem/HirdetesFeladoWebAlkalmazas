@@ -61,8 +61,20 @@ p-accordion-content{
     border-radius: 20px 20px 0px 0px;
 }
 .SearchLeft{
-    width: 78%;
+    width: 3%;
+}
+.SearchMid{
+    width: 70%;
 }
 .SearchRight{
     width: 21%;
+}
+
+
+//Cards
+
+.CardsDiv{
+    display: flex;
+    flex-direction: row;
+    padding: 2%;
 }

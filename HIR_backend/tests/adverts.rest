@@ -13,9 +13,9 @@ POST http://localhost:3000/adverts/
 Content-Type: application/json
 
 {
-    "name": "Test Advert",
+    "name": "Test Advert 7",
     "description": "This is a test advert.",
-    "user_id": "4b57884d-06b1-11f1-9df0-900f0c11e772",
+    "user_id": "fab5b050-16af-45f8-b0c8-356e62bf5ae0",
     "price": 100,
     "city_id": "Söréd",
     "product_id": "TElefon",

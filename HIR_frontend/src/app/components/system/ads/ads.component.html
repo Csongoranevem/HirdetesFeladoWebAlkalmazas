@@ -138,13 +138,17 @@
             </p-accordion>
         </div>
     </p-drawer>
-    <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
+
 </div>
 
 <div class="container">
     <p-fluid>
         <div class="SearchBarDiv">
-            <div class="SearchLeft">
+            <div class="FilterGombDiv SearchLeft">
+                    <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
+            </div>
+
+            <div class="SearchMid">
                 <p-inputgroup>
                     <input pInputText placeholder="Keresés" />
                     <p-inputgroup-addon>
@@ -160,6 +164,7 @@
         <p-divider></p-divider>
     </p-fluid>
     <div class="CardsDiv">
-        
+            <app-cards></app-cards>
     </div>
+
 </div>
