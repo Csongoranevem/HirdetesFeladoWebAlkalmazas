@@ -18,6 +18,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AutoComplete } from 'primeng/autocomplete';
 import { Select } from 'primeng/select';
 import { CardsComponent } from '../cards/cards.component';
+import { Ad } from '../../../interfaces/ad';
+import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../../environments/environment.development';
 
 interface SortBy {
   label: string;
@@ -57,14 +61,47 @@ export class AdsComponent {
   FilterDrawerVisible: boolean = false;
   UserOrAd: boolean = false
 
+  ads: Ad[] = [];
+
+  getAds() {
+    this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
+      this.ads = adverts as Ad[];
+    });
+  }
+
+  getAdImage(ad: Ad): string {
+    if (ad.images && ad.images.length > 0) {
+      return `${environment.serverUrl}${ad.images[0].url}`;
+    }
+    return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
+  }
+
   SortingCategories: SortBy[] | undefined;
 
   selectedSort: SortBy | undefined;
 
+    constructor(
+      private apiService: ApiService,
+      private authService: AuthService
+    ) { }
   ngOnInit() {
       this.SortingCategories = [
           {label:"Időrendi sorrendbe",value:0},
           {label:"Relevancia",value:1}
         ];
+  }
+
+  //Search
+
+  query: string = ''
+  querySelectedAdvert: Ad | 'All' = 'All';
+      get filterAds(): Ad[] {
+      const q = this.query.trim().toLowerCase();
+      const filtered = this.ads.filter((r) => {
+        const matchesQuery = !q || r.name.toLowerCase().includes(q);
+        const matchesCat = this.querySelectedAdvert === 'All' || r.name === this.querySelectedAdvert.name;
+        return matchesQuery && matchesCat;
+      });
+      return filtered;
   }
 }
