@@ -78,3 +78,33 @@ p-accordion-content{
     flex-direction: row;
     padding: 2%;
 }
+
+.UserAdvertDiv{
+    display: flex;
+    flex-direction: row;
+    padding: 2%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.UserElement{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 17vh;
+    flex-wrap: wrap;
+    padding: 2%;
+}
+.UserElement>img{
+    width: 14vh;
+    height: 14vh;
+
+    border: 3px dashed gray;
+    border-radius: 100%;
+    box-shadow: 2px 5px 10px 1px rgb(58, 45, 45);
+}
+.UserElement>h5{
+    margin-top: 5%;
+    color: var();
+}

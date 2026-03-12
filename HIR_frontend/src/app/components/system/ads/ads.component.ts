@@ -22,6 +22,7 @@ import { Ad } from '../../../interfaces/ad';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment.development';
+import { Category } from '../../../interfaces/category';
 
 interface SortBy {
   label: string;
@@ -59,14 +60,20 @@ interface SortBy {
 })
 export class AdsComponent {
   FilterDrawerVisible: boolean = false;
-  UserOrAd: boolean = false
+  UserOrAd: boolean = true
 
   ads: Ad[] = [];
+  cats: Category[] = []
 
   getAds() {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
     });
+  }
+  getCategories(){
+    this.apiService.selectAll('categories').subscribe(categs =>{
+      this.cats = categs as Category[]
+    })
   }
 
   getAdImage(ad: Ad): string {
@@ -89,8 +96,8 @@ export class AdsComponent {
           {label:"Időrendi sorrendbe",value:0},
           {label:"Relevancia",value:1}
         ];
+      this.getCategories()
   }
-
   //Search
 
   query: string = ''

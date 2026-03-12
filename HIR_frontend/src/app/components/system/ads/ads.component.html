@@ -2,7 +2,25 @@
   <p-drawer header="Filterek" [(visible)]="FilterDrawerVisible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
     <hr>
         <div class="FilterekDiv">
+
+
             <p-accordion>
+                <p-accordion-panel value="0">
+                    <p-accordion-header>Kártya tartalom</p-accordion-header>
+                        <p-accordion-content>
+                            <div class="UserOrAdDiv">
+                                <h5>Hirdetések</h5>
+                                <div class="card flex justify-center">
+                                    <p-toggleswitch [(ngModel)]="UserOrAd"/>
+                                </div>
+                                <h5>Felhasználók</h5>
+                            </div>
+                        </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+
+
+            <p-accordion *ngIf="!UserOrAd">
                 <p-accordion-panel value="0">
                     <p-accordion-header>Árak</p-accordion-header>
                     <p-accordion-content>
@@ -24,95 +42,22 @@
             </p-accordion>
 
 
-            <p-accordion>
-                <p-accordion-panel value="0">
-                    <p-accordion-header>Kártya tartalom</p-accordion-header>
-                        <p-accordion-content>
-                            <div class="UserOrAdDiv">
-                                <h5>Felhasználók</h5>
-                                <div class="card flex justify-center">
-                                    <p-toggleswitch [(ngModel)]="UserOrAd" />
-                                </div>
-                                <h5>Hirdetések</h5>
-                            </div>
-                        </p-accordion-content>
-                </p-accordion-panel>
-            </p-accordion>
 
-
-            <p-accordion>
+            <p-accordion *ngIf="!UserOrAd">
                 <p-accordion-panel value="1">
                     <p-accordion-header>Kategóriák</p-accordion-header>
                     <p-accordion-content>
                         <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
-                                <label for="ingredient1" class="ml-2"> Cheese </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
-                                <label for="ingredient2" class="ml-2"> Mushroom </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
-                                <label for="ingredient3" class="ml-2"> Pepper </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
-                                <label for="ingredient4" class="ml-2"> Onion </label>
-                            </div>
-                                                        <div class="flex items-center">
-                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
-                                <label for="ingredient1" class="ml-2"> Cheese </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
-                                <label for="ingredient2" class="ml-2"> Mushroom </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
-                                <label for="ingredient3" class="ml-2"> Pepper </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
-                                <label for="ingredient4" class="ml-2"> Onion </label>
-                            </div>
-                                                        <div class="flex items-center">
-                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
-                                <label for="ingredient1" class="ml-2"> Cheese </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
-                                <label for="ingredient2" class="ml-2"> Mushroom </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
-                                <label for="ingredient3" class="ml-2"> Pepper </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
-                                <label for="ingredient4" class="ml-2"> Onion </label>
-                            </div>
-                                                        <div class="flex items-center">
-                                <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" />
-                                <label for="ingredient1" class="ml-2"> Cheese </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" />
-                                <label for="ingredient2" class="ml-2"> Mushroom </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper"/>
-                                <label for="ingredient3" class="ml-2"> Pepper </label>
-                            </div>
-                            <div class="flex items-center">
-                                <p-checkbox inputId="ingredient4" name="pizza" value="Onion"/>
-                                <label for="ingredient4" class="ml-2"> Onion </label>
+                            <div class="flex items-center" *ngFor="let category of cats">
+                                <p-checkbox inputId="ingredient1" name="{{category.name}}"value="{{category.id}}"/>
+                                <label for="ingredient1" class="ml-2"> {{category.name}} </label>
                             </div>
                         </div>
                     </p-accordion-content>
                 </p-accordion-panel>
-                <p-accordion-panel value="2">
+
+
+                <p-accordion-panel value="2" *ngIf="!UserOrAd">
                     <p-accordion-header>Használtság</p-accordion-header>
                         <p-accordion-content>
                             <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
@@ -163,8 +108,79 @@
         </div>
         <p-divider></p-divider>
     </p-fluid>
-    <div class="CardsDiv">
-            <app-cards></app-cards>
+    <div class="CardsDiv" >
+            <app-cards *ngIf="!UserOrAd"></app-cards>
+    </div>
+    <div class="UserAdvertDiv" *ngIf="UserOrAd">
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
+        <div class="UserElement">
+            <img src="main_logo.png" alt="" srcset="">
+            <h5>Username</h5>
+        </div>
     </div>
 
 </div>
