@@ -4,7 +4,7 @@ POST http://localhost:3000/support
 Content-Type: application/json
 
 {
-    "question": "How do I reset my password?",
-    "answer": "You can reset your password by clicking on the 'Forgot Password' link on the login page.",
+    "question": "Where can I contact support for password reset?",
+    "answer": "You can contact our support team for password reset by emailing",
     "topic": "Account Management"
 }
