@@ -17,7 +17,8 @@
     align-items: center !important;
     justify-content: center !important;
 
-    input[type="text"], textarea {
+    input[type="text"],
+    textarea {
         width: 60% !important;
     }
 
@@ -35,7 +36,8 @@
     align-items: center !important;
     justify-content: center !important;
 
-    input[type="text"], textarea {
+    input[type="text"],
+    textarea {
         width: 60% !important;
         border: 1px solid #ccc !important;
         border-radius: 4px !important;
@@ -46,4 +48,27 @@
         resize: none !important;
         overflow: auto !important;
     }
+}
+
+
+::ng-deep .sendEmailBtn button {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 0.5rem 1rem !important;
+    cursor: pointer !important;
+    float: right !important;
+}
+
+::ng-deep .sendEmailBtn button:hover {
+    background-color: var(--highlight-bg) !important;
+    color: var(--primary-color) !important;
+    box-shadow: inset 0 0 0 2px var(--primary-color) !important;
+    animation: buttonHover 0.2s ease-in-out;
+}
+
+::ng-deep  .p-accordion-header:hover {
+     background-color: var(--primary-theme-color-hover) !important;
+     color: var(--primary-font-color) !important;
 }
