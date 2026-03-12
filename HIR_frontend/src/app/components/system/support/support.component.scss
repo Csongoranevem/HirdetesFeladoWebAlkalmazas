@@ -1,12 +1,19 @@
+// Gyakori kérdések formázása
+
 ::ng-deep .p-accordion-panel {
     border: 1px solid #ccc !important;
     border-radius: 4px !important;
     margin-top: 3rem !important;
     margin-bottom: 1rem !important;
 }
+::ng-deep  .p-accordion-header:hover {
+     background-color: var(--primary-theme-color-hover) !important;
+     color: var(--primary-font-color) !important;
+}
+
+// Új kérdés kártya formázása
 
 #newQuestion {
-
     border-radius: 4px !important;
     padding: 1rem !important;
     margin-top: 2rem !important;
@@ -21,14 +28,11 @@
     textarea {
         width: 60% !important;
     }
-
     textarea {
         resize: none !important;
         overflow: auto !important;
     }
 }
-
-
 ::ng-deep .p-card-body .m-0 {
     display: flex !important;
     flex-direction: column !important;
@@ -49,9 +53,9 @@
         overflow: auto !important;
     }
 }
-
-
+// e-mail küldés gomb 
 ::ng-deep .sendEmailBtn button {
+    margin-top: 2rem !important;
     background-color: var(--primary-color) !important;
     color: white !important;
     border: none !important;
@@ -60,7 +64,6 @@
     cursor: pointer !important;
     float: right !important;
 }
-
 ::ng-deep .sendEmailBtn button:hover {
     background-color: var(--highlight-bg) !important;
     color: var(--primary-color) !important;
@@ -68,7 +71,28 @@
     animation: buttonHover 0.2s ease-in-out;
 }
 
-::ng-deep  .p-accordion-header:hover {
-     background-color: var(--primary-theme-color-hover) !important;
-     color: var(--primary-font-color) !important;
+//új kérdés kártya input mezői
+
+.m-0 input{
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    padding: 0.5rem !important;
+}
+
+// Új kérdés kártya reszponzívvá tétele
+
+@media (max-width: 620px) {
+    #newQuestion {
+        input[type="text"],
+        textarea {
+            width: 90% !important;
+        }
+    }
+    ::ng-deep .p-card-body .m-0 {
+        input[type="text"],
+        textarea {
+            width: 90% !important;
+        }
+    }
 }
