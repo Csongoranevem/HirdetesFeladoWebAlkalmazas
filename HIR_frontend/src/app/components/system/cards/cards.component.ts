@@ -8,13 +8,14 @@ import { Ad } from '../../../interfaces/ad';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment';
+import { Router, RouterModule } from '@angular/router';
 
 registerLocaleData(localeHu);
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [CardModule, ButtonModule, DecimalPipe, CommonModule],
+  imports: [CardModule, ButtonModule, DecimalPipe, CommonModule, RouterModule],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.scss',
   providers: [{ provide: LOCALE_ID, useValue: 'hu' }]
@@ -25,7 +26,8 @@ export class CardsComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,9 @@ export class CardsComponent implements OnInit {
     return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
   }
 
-  //itt kell a szűrés
+    openAdvert(id?: string) {
+    if (!id) return;
+    this.router.navigate(['/singleAdvert', id]);
+  }
 
 }

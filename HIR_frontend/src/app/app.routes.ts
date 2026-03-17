@@ -9,6 +9,7 @@ import { NewadvertComponent } from './components/user/newadvert/newadvert.compon
 import { AdsComponent } from './components/system/ads/ads.component';
 import { SupportComponent } from './components/system/support/support.component';
 import { MyadsComponent } from './components/user/myads/myads.component';
+import { SingleAdvertComponent } from './components/system/single-advert/single-advert.component';
 
 export const routes: Routes = [
     {path: 'home', component:HomeComponent},
@@ -20,6 +21,9 @@ export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path:'myads', component:MyadsComponent},
     {path:'newAdvert',component:NewadvertComponent},
+    { path: 'singleAdvert', component: SingleAdvertComponent, children: [
+        { path: ':id', component: SingleAdvertComponent }
+    ] },
 
     //This route must be in the last line
     {path: '**',component:PagenotfoundComponent},
