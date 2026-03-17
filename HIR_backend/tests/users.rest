@@ -51,5 +51,5 @@ Content-Type: application/json
 
 
 ###Get user by field
-GET http://localhost:3000/users/email/eq/ohradkagerg@example.com
+GET http://localhost:3000/users/userId/eq/
 Content-Type: application/json
