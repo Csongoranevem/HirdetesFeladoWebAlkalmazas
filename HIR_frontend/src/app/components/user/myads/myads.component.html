@@ -1,5 +1,38 @@
 
 <div class="container">
-    <h3>Hirdetéseim</h3>
-    <app-cards></app-cards>
+    
+    <p-table [value]="myAds" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex items-center justify-between">
+            <span class="text-xl font-bold"><h3>Hirdetéseim</h3></span>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Termék neve</th>
+            <th>Kép</th>
+            <th>Ár</th>
+            <th>Kategória</th>
+            <th>Státusz</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ad>
+        <tr>
+            <td><b>{{ ad.name }}</b></td>
+            <td>
+                <img
+                    [src]="getAdImage(ad)"
+                    [alt]="ad.name"
+                />
+            </td>
+            <td>{{ ad.price | currency: 'Ft' }}</td>
+            <td></td>
+            <td>
+                <p-tag [value]="ad.status" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer"> <p>Összesen {{ myAds ? myAds.length : 0 }} hirdetés. </p></ng-template>
+</p-table>
 </div>
