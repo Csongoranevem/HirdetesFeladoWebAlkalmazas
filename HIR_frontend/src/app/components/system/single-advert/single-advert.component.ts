@@ -1,8 +1,9 @@
-import { Component, input, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Ad } from '../../../interfaces/ad';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-single-advert',
@@ -17,20 +18,27 @@ export class SingleAdvertComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService
+    private api: ApiService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
-    if (id) {
-      this.api.selectById('adverts', id).subscribe({
-        next: (res) => this.advert = res as Ad,
-        error: (err) => console.error(err)
-      });
-      console.log(this.advert);
-    } else {
-      console.warn('No advert id in route');
+
+    if (!id) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Nem található hirdetés!', key: 'br'});
+      return;
     }
+
+    this.api.selectById('adverts', id).subscribe({
+      next: (res) => {
+        this.advert = res as Ad;
+        this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'Hirdetés betöltve!', key: 'br' });
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés betöltése sikertelen!', key: 'br' });
+        console.error(err);
+      }
+    });
   }
 }

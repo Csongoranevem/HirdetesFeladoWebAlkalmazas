@@ -21,9 +21,7 @@ export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path:'myads', component:MyadsComponent},
     {path:'newAdvert',component:NewadvertComponent},
-    { path: 'singleAdvert', component: SingleAdvertComponent, children: [
-        { path: ':id', component: SingleAdvertComponent }
-    ] },
+    { path: 'singleAdvert/:id', component: SingleAdvertComponent },
 
     //This route must be in the last line
     {path: '**',component:PagenotfoundComponent},

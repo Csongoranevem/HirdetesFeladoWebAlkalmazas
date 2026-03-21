@@ -1,6 +1,7 @@
 img {
+    width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 150px;
     object-fit: cover;
     border-radius: 0.6rem;
 }
@@ -41,7 +42,7 @@ img {
 
 
 .cardDescription {
-    --max-lines: 3;
+    --max-lines: 2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     line-clamp: var(--max-lines);
@@ -52,7 +53,7 @@ img {
 }
 
 ::ng-deep .p-card-content {
-    height: 79px;
+    height: 40px;
 }
 
 ::ng-deep .p-card-title {
