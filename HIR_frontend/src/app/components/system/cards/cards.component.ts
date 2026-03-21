@@ -45,7 +45,7 @@ export class CardsComponent implements OnInit {
     if (ad.images && ad.images.length > 0) {
       return `${environment.serverUrl}${ad.images[0].url}`;
     }
-    return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
+    return 'no-image.png';
   }
 
     openAdvert(id?: string) {

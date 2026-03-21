@@ -1,0 +1,25 @@
+.imageCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 450px !important;
+
+}
+
+::ng-deep .p-carousel{
+    width: 450px !important;
+}
+
+
+.imageCard img {
+    width: 350px;
+    height: 300px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+
+::ng-deep .p-carousel-indicator-active .p-carousel-indicator-button{
+    background-color: var(--primary-color)!important;
+}

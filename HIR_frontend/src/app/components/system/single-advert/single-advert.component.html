@@ -1,5 +1,5 @@
-<p-card header="Simple Card">
-    <p class="m-0">
-        {{ advert?.name ? advert?.name : 'No Title' }}
-    </p>
-</p-card>
+<p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000">
+    <ng-template pTemplate="item" let-image>
+        <img [src]="image" alt="Ad Image">
+    </ng-template>
+</p-carousel>
