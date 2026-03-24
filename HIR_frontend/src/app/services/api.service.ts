@@ -94,9 +94,13 @@ export class ApiService {
     return `${this.server}${relativePath}`;
   }
 
-  update(){}
+  update(table: string, id: string, data: object){
+    return this.http.put(`${this.server}/${table}/${id}`, data, this.tokenHeader());
+  }
 
-  delete(){}
+  delete(table: string, id: string){
+    return this.http.delete(`${this.server}/${table}/${id}`, this.tokenHeader());
+  }
 
   deleteAll(){}
 

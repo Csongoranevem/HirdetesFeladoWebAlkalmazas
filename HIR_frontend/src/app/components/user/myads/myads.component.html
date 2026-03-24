@@ -15,6 +15,7 @@
             <th>Ár</th>
             <th>Kategória</th>
             <th>Státusz</th>
+            <th>Műveletek</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ad>
@@ -27,9 +28,13 @@
                 />
             </td>
             <td>{{ ad.price | currency: 'Ft' }}</td>
-            <td></td>
+            <td>{{ ad.category_id }}</td>
             <td>
                 <p-tag [value]="ad.status" />
+            </td>
+            <td>
+                <p-button severity="warn" label="Módosítás" (click)="editAd(ad.id)" />
+                <p-button severity="danger" label="Törlés" (click)="deleteAd(ad.id)" />
             </td>
         </tr>
     </ng-template>
