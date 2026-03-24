@@ -10,18 +10,47 @@ import { CommonModule } from '@angular/common';
 import { CurrencyPipe } from '@angular/common';
 import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { Dialog, DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+import { Select } from 'primeng/select';
+import { Category } from '../../../interfaces/category';
+import { Payment } from '../../../interfaces/payments';
 
 @Component({
   selector: 'app-myads',
   standalone: true,
-  imports: [CardsComponent, TableModule, TagModule, CommonModule, CurrencyPipe, Button],
+  imports: [
+    CardsComponent,
+    TableModule,
+    TagModule,
+    CommonModule,
+    CurrencyPipe,
+    Button,
+    FormsModule,
+    Dialog,
+    DialogModule,
+    InputTextModule,
+    TextareaModule,
+    Select
+  ],
   templateUrl: './myads.component.html',
   styleUrl: './myads.component.scss'
 })
 export class MyadsComponent implements OnInit{
   myAds: Ad[] = [];
-  categories: string[] = [];
-  selectedAd: Ad | null = null;
+  categories: Category[] = [];
+  paymentMethods: Payment[] = [];
+
+  editDialogVisible = false;
+  editModel: Ad | null = null;
+  saving = false;
+
+  readonly statusOptions: Array<{ name: string; value: Ad['status'] }> = [
+    { name: 'Aktív', value: 'active' },
+    { name: 'Inaktív', value: 'inactive' }
+  ];
 
   constructor(
     private api:ApiService,
@@ -36,7 +65,11 @@ export class MyadsComponent implements OnInit{
     });
 
     this.api.selectAll('categories').subscribe((data) => {
-      this.categories = data as string[];
+      this.categories = data as Category[];
+    });
+
+    this.api.selectAll('payments').subscribe((data) => {
+      this.paymentMethods = data as Payment[];
     });
   }
 
@@ -47,12 +80,105 @@ export class MyadsComponent implements OnInit{
       return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
     }
 
+    getCategoryName(categoryId: string): string {
+      const category = this.categories.find(c => c.id === categoryId);
+      return category ? category.name : categoryId;
+    }
 
-    editAd(id:string): void {
+    getPaymentMethodName(paymentId: string): string {
+      const payment = this.paymentMethods.find(p => p.id === paymentId);
+      return payment ? payment.name : paymentId;
+    }
 
-      this.selectedAd = this.myAds.find(ad => ad.id === id) || null;
-      this.api.update('adverts', id, this.selectedAd || {}).subscribe((updatedAd) => {
-        this.messageService.add({severity:'success', summary:'Sikeres módosítás', detail:'A hirdetés sikeresen módosítva lett.'});
+    openEditAd(ad: Ad): void {
+      if (!ad.id) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'A hirdetés azonosítója hiányzik, nem szerkeszthető.',
+          key: 'br'
+        });
+        return;
+      }
+
+      this.editModel = {
+        ...ad,
+        images: ad.images ? [...ad.images] : []
+      } as Ad;
+      this.editDialogVisible = true;
+    }
+
+    cancelEdit(): void {
+      this.editDialogVisible = false;
+      this.editModel = null;
+      this.saving = false;
+    }
+
+    private buildUpdatePayload(ad: Ad): object {
+      return {
+        user_id: ad.user_id,
+        name: ad.name,
+        description: ad.description,
+        price: ad.price,
+        city_id: ad.city_id,
+        product_id: ad.product_id,
+        payment_method: ad.payment_method,
+        category_id: ad.category_id,
+        status: ad.status
+      };
+    }
+
+    saveEdit(): void {
+      if (!this.editModel?.id) return;
+
+      const errors: string[] = [];
+      if (!this.editModel.name || this.editModel.name.trim() === '') errors.push('A termék neve kötelező!');
+      if (!this.editModel.price || this.editModel.price <= 0) errors.push('Az irányár megadása kötelező!');
+      if (!this.editModel.category_id) errors.push('Kérjük válasszon kategóriát!');
+      if (!this.editModel.payment_method) errors.push('Kérjük válasszon fizetési módot!');
+      if (!this.editModel.description || this.editModel.description.trim() === '') errors.push('A leírás megadása kötelező!');
+
+      if (errors.length > 0) {
+        errors.forEach(error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiányzó adat',
+            detail: error,
+            life: 4000,
+            key: 'br'
+          });
+        });
+        return;
+      }
+
+      this.saving = true;
+      const id = this.editModel.id;
+      const payload = this.buildUpdatePayload(this.editModel);
+
+      this.api.update('adverts', id, payload).subscribe({
+        next: (updated: any) => {
+          const updatedAd = (updated && typeof updated === 'object' && !Array.isArray(updated))
+            ? (updated as Ad)
+            : this.editModel!;
+
+          this.myAds = this.myAds.map(a => (a.id === id ? { ...a, ...updatedAd } : a));
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sikeres módosítás',
+            detail: 'A hirdetés sikeresen módosítva lett.',
+            key: 'br'
+          });
+          this.cancelEdit();
+        },
+        error: () => {
+          this.saving = false;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Nem sikerült a hirdetés mentése. Próbáld újra!',
+            key: 'br'
+          });
+        }
       });
     }
     

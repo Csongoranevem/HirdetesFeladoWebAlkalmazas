@@ -1,7 +1,11 @@
 
 <div class="container">
     
-    <p-table [value]="myAds" [tableStyle]="{ 'min-width': '60rem' }">
+    <p-table
+        [value]="myAds"
+        responsiveLayout="scroll"
+        [tableStyle]="{ width: '100%' }"
+        styleClass="myads-table">
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
             <span class="text-xl font-bold"><h3>Hirdetéseim</h3></span>
@@ -25,19 +29,85 @@
                 <img
                     [src]="getAdImage(ad)"
                     [alt]="ad.name"
+                    class="ad-image"
                 />
             </td>
             <td>{{ ad.price | currency: 'Ft' }}</td>
-            <td>{{ ad.category_id }}</td>
+            <td>{{ getCategoryName(ad.category_id) }}</td>
             <td>
                 <p-tag [value]="ad.status" />
             </td>
             <td>
-                <p-button severity="warn" label="Módosítás" (click)="editAd(ad.id)" />
-                <p-button severity="danger" label="Törlés" (click)="deleteAd(ad.id)" />
+                <div class="actions">
+                    <p-button severity="warn" label="Módosítás" (click)="openEditAd(ad)" />
+                    <p-button severity="danger" label="Törlés" (click)="deleteAd(ad.id)" />
+                </div>
             </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="footer"> <p>Összesen {{ myAds ? myAds.length : 0 }} hirdetés. </p></ng-template>
 </p-table>
+
+<p-dialog
+    maskStyleClass="backdrop-blur-3xl"
+    header="Hirdetés módosítása"
+    [(visible)]="editDialogVisible"
+    [modal]="true"
+    [style]="{ width: '45rem' }"
+    styleClass="myads-edit-dialog">
+
+    <div *ngIf="editModel" class="myads-form">
+        <div class="field">
+                <label for="ad-name">Termék neve</label>
+                <input id="ad-name" pInputText [(ngModel)]="editModel.name" />
+        </div>
+
+        <div class="field field--compact">
+                <label for="ad-price">Ár (Ft)</label>
+                <input id="ad-price" type="number" pInputText [(ngModel)]="editModel.price" />
+        </div>
+
+        <div class="field">
+                <label>Kategória</label>
+                <p-select
+                    optionLabel="name" optionValue="id"
+                    placeholder="Kategória kiválasztása"
+                    [options]="categories"
+                    [(ngModel)]="editModel.category_id"
+                    class="w-full" />
+        </div>
+
+        <div class="field">
+                <label>Fizetési mód</label>
+                <p-select
+                    optionLabel="name" optionValue="id"
+                    placeholder="Preferált fizetési mód"
+                    [options]="paymentMethods"
+                    [(ngModel)]="editModel.payment_method"
+                    class="w-full" />
+        </div>
+
+        <div class="field field--full">
+                <label for="ad-description">Leírás</label>
+                <textarea id="ad-description" pTextarea rows="5" [(ngModel)]="editModel.description"></textarea>
+        </div>
+
+        <div class="field">
+                <label>Státusz</label>
+                <p-select
+                    optionLabel="name" optionValue="value"
+                    placeholder="Státusz"
+                    [options]="statusOptions"
+                    [(ngModel)]="editModel.status"
+                    class="w-full" />
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="dialog-footer">
+            <p-button severity="secondary" label="Mégse" (click)="cancelEdit()" />
+            <p-button severity="warn" label="Mentés" [loading]="saving" (click)="saveEdit()" />
+        </div>
+    </ng-template>
+</p-dialog>
 </div>
