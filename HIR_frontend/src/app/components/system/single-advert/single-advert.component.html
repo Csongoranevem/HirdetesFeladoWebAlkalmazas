@@ -1,5 +1,15 @@
-<p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000">
-    <ng-template pTemplate="item" let-image>
-        <img [src]="image" alt="Ad Image">
-    </ng-template>
-</p-carousel>
+<div class="main">
+    <p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true"
+        [autoplayInterval]="4000">
+        <ng-template pTemplate="item" let-image>
+            <img [src]="image" alt="Ad Image">
+        </ng-template>
+    </p-carousel>
+
+
+    <p-card header="{{ advert?.name ? advert?.name : 'No title available' }}" class="descriptionCard">
+        <p class="m-0 mt-3">
+            {{ advert?.description ? advert?.description : 'No description available' }}
+        </p>
+    </p-card>
+</div>
