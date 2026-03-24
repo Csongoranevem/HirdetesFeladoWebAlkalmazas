@@ -14,6 +14,11 @@ module.exports = (sequelize)=>{
                 type:DataTypes.STRING(30),
                 allowNull:false
             },
+            profile_picture:{
+                type:DataTypes.STRING(),
+                allownull:true,
+                defaultValue:"none"
+            },
             email: {
                 type:DataTypes.STRING(25),
                 allowNull:false
