@@ -6,11 +6,12 @@ import { ApiService } from '../../../services/api.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment.development';
 import { CarouselModule } from 'primeng/carousel';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-single-advert',
   standalone: true,
-  imports: [CardModule, CarouselModule],
+  imports: [CardModule, CarouselModule, CurrencyPipe],
   templateUrl: './single-advert.component.html',
   styleUrl: './single-advert.component.scss'
 })

@@ -7,9 +7,17 @@
     </p-carousel>
 
 
-    <p-card header="{{ advert?.name ? advert?.name : 'No title available' }}" class="descriptionCard">
-        <p class="m-0 mt-3">
-            {{ advert?.description ? advert?.description : 'No description available' }}
-        </p>
+    <p-card class="descriptionCard">
+        <div class="card-content">
+            <h2 class="ad-name">{{ advert?.name ? advert?.name : 'No title available' }}</h2>
+            <div class="ad-category">{{ advert?.category_id ? (advert?.category_id) : 'No category' }}</div>
+            <p class="ad-description">
+                {{ advert?.description ? advert?.description : 'No description available' }}
+            </p>
+            <div class="card-footer">
+                <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') : '-'}}</span>
+                <button class="add-to-cart" type="button">Kosárba</button>
+            </div>
+        </div>
     </p-card>
 </div>

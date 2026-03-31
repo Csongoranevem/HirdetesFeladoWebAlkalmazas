@@ -2,24 +2,37 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
-    width: 450px !important;
-    margin: 3rem;
-
+    width: 650px !important;
+    height: 400px;
+    overflow: hidden;
 }
 
-::ng-deep .p-carousel{
-    width: 450px !important;
+::ng-deep .p-carousel {
+    width: 650px !important;
+    
 }
 
+::ng-deep .p-carousel .p-carousel-content,
+::ng-deep .p-carousel .p-carousel-viewport,
+::ng-deep .p-carousel .p-carousel-items-content {
+    height: 400px;
+    overflow: hidden;
+}
+
+::ng-deep .p-carousel .p-carousel-item {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .imageCard img {
-    width: 350px;
-    height: 300px;
-    max-height: 300px;
-    object-fit: cover;
+    height: 400px !important;
+    width: 550px !important;
+    max-width: 550px !important;
+    object-fit: cover !important;
+    border-radius: 0.8rem;
 }
-
 
 ::ng-deep .p-carousel-indicator-active .p-carousel-indicator-button{
     background-color: var(--primary-color)!important;
@@ -39,4 +52,19 @@
     margin: 0 auto;
     padding: 1rem;
     height: 400px;
+}
+
+
+
+.descriptionCard {
+    width: 900px !important;
+    height: 500px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.8rem;
+    background-color: var(--background-color);
 }
