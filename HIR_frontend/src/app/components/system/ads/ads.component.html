@@ -1,202 +1,157 @@
 <div class="card flex justify-center FilterBringOutDiv">
   <p-drawer header="Filterek" [(visible)]="FilterDrawerVisible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
     <hr>
-        <div class="FilterekDiv">
+    <div class="FilterekDiv">
 
+      <!-- Hirdetések / Felhasználók toggle -->
+      <p-accordion>
+        <p-accordion-panel value="0">
+          <p-accordion-header>Kártya tartalom</p-accordion-header>
+          <p-accordion-content>
+            <div class="UserOrAdDiv">
+              <h5>Hirdetések</h5>
+              <div class="card flex justify-center">
+                <p-toggleswitch [(ngModel)]="UserOrAd" />
+              </div>
+              <h5>Felhasználók</h5>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
 
-            <p-accordion>
-                <p-accordion-panel value="0">
-                    <p-accordion-header>Kártya tartalom</p-accordion-header>
-                        <p-accordion-content>
-                            <div class="UserOrAdDiv">
-                                <h5>Hirdetések</h5>
-                                <div class="card flex justify-center">
-                                    <p-toggleswitch [(ngModel)]="UserOrAd"/>
-                                </div>
-                                <h5>Felhasználók</h5>
-                            </div>
-                        </p-accordion-content>
-                </p-accordion-panel>
-            </p-accordion>
+      <!-- Price Range Filter -->
+      <p-accordion *ngIf="!UserOrAd">
+        <p-accordion-panel value="0">
+          <p-accordion-header>Árak</p-accordion-header>
+          <p-accordion-content>
+            <br>
+            <div class="card flex justify-center">
+              <p-slider [range]="true" [(ngModel)]="priceRange" [min]="0" [max]="100000" [step]="1000" styleClass="w-56" />
+            </div>
+            <div class="PriceSliderLabelDiv">
+              <p>Min.</p>
+              <p>Max.</p>
+            </div>
+            <div class="PriceSliderLabelDiv">
+              <b>{{ priceRange[0] | number:'1.0-0':'hu' }} Ft</b>
+              <b>{{ priceRange[1] | number:'1.0-0':'hu' }} Ft</b>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
 
+      <!-- Category Filter -->
+      <p-accordion *ngIf="!UserOrAd">
+        <p-accordion-panel value="1">
+          <p-accordion-header>Kategóriák</p-accordion-header>
+          <p-accordion-content>
+            <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
+              <div class="flex items-center" *ngFor="let category of cats">
+                <p-checkbox 
+                  [(ngModel)]="selectedCategories" 
+                  [value]="category.id"
+                  [inputId]="'cat_' + category.id"
+                />
+                <label [for]="'cat_' + category.id" class="ml-2">{{ category.name }}</label>
+              </div>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
 
-            <p-accordion *ngIf="!UserOrAd">
-                <p-accordion-panel value="0">
-                    <p-accordion-header>Árak</p-accordion-header>
-                    <p-accordion-content>
-                        <br>
-                        <div class="card flex justify-center">
-                            <!--NG Modellezhető a slider! : value: number[] = [x,y]-->
-                            <p-slider [range]="true" styleClass="w-56" />
-                        </div>
-                        <div class="PriceSliderLabelDiv">
-                            <p>Min.</p>
-                            <p>Max.</p>
-                        </div>
-                        <div class="PriceSliderLabelDiv">
-                            <b>0 Ft</b>
-                            <b>100,000 Ft</b>
-                        </div>
-                    </p-accordion-content>
-                </p-accordion-panel>
-            </p-accordion>
+      <!-- Condition Filter -->
+      <p-accordion *ngIf="!UserOrAd">
+        <p-accordion-panel value="2">
+          <p-accordion-header>Használtság</p-accordion-header>
+          <p-accordion-content>
+            <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
+              <div class="flex items-center">
+                <p-checkbox 
+                  [(ngModel)]="selectedConditions" 
+                  value="Selejt"
+                  inputId="condition_selejt"
+                />
+                <label for="condition_selejt" class="ml-2">Selejt</label>
+              </div>
+              <div class="flex items-center">
+                <p-checkbox 
+                  [(ngModel)]="selectedConditions" 
+                  value="Hasznalt"
+                  inputId="condition_hasznalt"
+                />
+                <label for="condition_hasznalt" class="ml-2">Használt</label>
+              </div>
+              <div class="flex items-center">
+                <p-checkbox 
+                  [(ngModel)]="selectedConditions" 
+                  value="Uj"
+                  inputId="condition_uj"
+                />
+                <label for="condition_uj" class="ml-2">Új</label>
+              </div>
+              <div class="flex items-center">
+                <p-checkbox 
+                  [(ngModel)]="selectedConditions" 
+                  value="Bontatlan"
+                  inputId="condition_bontatlan"
+                />
+                <label for="condition_bontatlan" class="ml-2">Bontatlan</label>
+              </div>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
 
-
-
-            <p-accordion *ngIf="!UserOrAd">
-                <p-accordion-panel value="1">
-                    <p-accordion-header>Kategóriák</p-accordion-header>
-                    <p-accordion-content>
-                        <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
-                            <div class="flex items-center" *ngFor="let category of cats">
-                                <p-checkbox inputId="ingredient1" name="{{category.name}}"value="{{category.id}}"/>
-                                <label for="ingredient1" class="ml-2"> {{category.name}} </label>
-                            </div>
-                        </div>
-                    </p-accordion-content>
-                </p-accordion-panel>
-
-
-                <p-accordion-panel value="2" *ngIf="!UserOrAd">
-                    <p-accordion-header>Használtság</p-accordion-header>
-                        <p-accordion-content>
-                            <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
-                                <div class="flex items-center">
-                                    <p-checkbox inputId="ingredient1" name="selejt" value="Selejt" />
-                                    <label for="ingredient1" class="ml-2">Selejt</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <p-checkbox inputId="ingredient1" name="hasznalt" value="Hasznalt" />
-                                    <label for="ingredient1" class="ml-2">Használt</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <p-checkbox inputId="ingredient1" name="uj" value="Uj" />
-                                    <label for="ingredient1" class="ml-2">Új</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <p-checkbox inputId="ingredient1" name="bontatlan" value="Bontatlan" />
-                                    <label for="ingredient1" class="ml-2">Bontatlan</label>
-                                </div>
-                            </div>
-                        </p-accordion-content>
-                </p-accordion-panel>
-            </p-accordion>
-        </div>
-    </p-drawer>
-
+      <!-- Reset button -->
+      <div class="mt-4">
+        <p-button 
+          label="Szűrők törlése" 
+          (click)="resetFilters()" 
+          severity="secondary" 
+          styleClass="w-full"
+        />
+      </div>
+    </div>
+  </p-drawer>
 </div>
 
 <div class="container">
-    <p-fluid>
-        <div class="SearchBarDiv">
-            <div class="FilterGombDiv SearchLeft">
-                    <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
-            </div>
+  <p-fluid>
+    <div class="SearchBarDiv">
+      <div class="FilterGombDiv SearchLeft">
+        <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
+      </div>
 
-            <div class="SearchMid">
-                <p-inputgroup>
-                    <input pInputText placeholder="Keresés" [(ngModel)]="query" />
-                    <p-inputgroup-addon>
-                        <p-button icon="pi pi-search" severity="secondary" variant="text" />
-                    </p-inputgroup-addon>
-                </p-inputgroup>
-            </div>
+      <div class="SearchMid">
+        <p-inputgroup>
+          <input pInputText placeholder="Keresés" [(ngModel)]="query" />
+          <p-inputgroup-addon>
+            <p-button icon="pi pi-search" severity="secondary" variant="text" />
+          </p-inputgroup-addon>
+        </p-inputgroup>
+      </div>
 
-            <div class="card flex justify-center SearchRight">
-                <p-select [options]="SortingCategories" [(ngModel)]="selectedSort" [checkmark]="true" optionLabel="label" [showClear]="true" placeholder="Szortírozás" class="w-full md:w-56" />
-            </div>
-        </div>
-        <p-divider></p-divider>
-    </p-fluid>
-    <div class="CardsDiv" >
-            <app-cards *ngIf="!UserOrAd"></app-cards>
+      <div class="card flex justify-center SearchRight">
+        <p-select 
+          [options]="SortingCategories" 
+          [(ngModel)]="selectedSort" 
+          [checkmark]="true" 
+          optionLabel="label" 
+          [showClear]="true" 
+          placeholder="Szortírozás" 
+          class="w-full md:w-56"
+        />
+      </div>
     </div>
-    <div class="UserAdvertDiv" *ngIf="UserOrAd">
-        <div class="UserElement">
-            <img src="hammer.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="house.jpg" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="pali.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="walter.avif" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="plush.jpg" alt="" srcset="">
-            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quibusdam nobis ipsa veniam excepturi quisquam facilis necessitatibus sapiente earum officia? Quaerat dolorem consectetur consequuntur velit consequatur corrupti nobis eligendi ex.sername</h5>
-        </div>
-        <div class="UserElement">
-            <img src="Postas.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="PostManIcon.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
+    <p-divider></p-divider>
+  </p-fluid>
 
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-        <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-                <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-                <div class="UserElement">
-            <img src="main_logo.png" alt="" srcset="">
-            <h5>Username</h5>
-        </div>
-    </div>
+  <div class="CardsDiv">
+    <app-cards *ngIf="!UserOrAd" [ads]="filteredAds"></app-cards>
+  </div>
 
+
+  <div class="UserAdvertDiv" *ngIf="UserOrAd">
+    
+  </div>
 </div>
