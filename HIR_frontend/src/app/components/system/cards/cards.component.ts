@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
 import { CardModule } from 'primeng/card';
@@ -22,7 +22,7 @@ registerLocaleData(localeHu);
 })
 export class CardsComponent implements OnInit {
 
-  ads: Ad[] = [];
+  @Input() ads: Ad[] = [];
 
   constructor(
     private apiService: ApiService,

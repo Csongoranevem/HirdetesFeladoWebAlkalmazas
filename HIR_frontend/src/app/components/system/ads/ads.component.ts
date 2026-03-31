@@ -65,6 +65,16 @@ export class AdsComponent {
   ads: Ad[] = [];
   cats: Category[] = []
 
+  // Filter properties
+  priceRange: number[] = [0, 100000];
+  selectedCategories: string[] = [];
+  selectedConditions: string[] = [];
+
+  // Search & sort
+  query: string = '';
+  selectedSort: SortBy | undefined;
+  SortingCategories: SortBy[] | undefined;
+
   getAds() {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
@@ -83,24 +93,19 @@ export class AdsComponent {
     return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
   }
 
-  SortingCategories: SortBy[] | undefined;
-
-  selectedSort: SortBy | undefined;
-
-    constructor(
-      private apiService: ApiService,
-      private authService: AuthService
-    ) { }
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) { }
   ngOnInit() {
       this.SortingCategories = [
           {label:"Időrendi sorrendbe",value:0},
           {label:"Relevancia",value:1}
         ];
-      this.getCategories()
+      this.getCategories();
+      this.getAds();
   }
-  //Search
-
-  query: string = ''
+  
   querySelectedAdvert: Ad | 'All' = 'All';
       get filterAds(): Ad[] {
       const q = this.query.trim().toLowerCase();
@@ -110,5 +115,52 @@ export class AdsComponent {
         return matchesQuery && matchesCat;
       });
       return filtered;
+  }
+
+get filteredAds(): Ad[] {
+    let result = [...this.ads];
+
+    if (this.query.trim()) {
+      const q = this.query.trim().toLowerCase();
+      result = result.filter(ad =>
+        ad.name.toLowerCase().includes(q) ||
+        ad.description.toLowerCase().includes(q)
+      );
+    }
+
+    if (this.selectedCategories.length > 0) {
+      result = result.filter(ad =>
+        this.selectedCategories.includes(ad.category_id)
+      );
+    }
+
+    result = result.filter(ad =>
+      ad.price >= this.priceRange[0] && ad.price <= this.priceRange[1]
+    );
+
+    if (this.selectedSort) {
+      if (this.selectedSort.value === 0) {
+        result.sort((a, b) => {
+          const dateA = new Date(a.date_of_upload || 0).getTime();
+          const dateB = new Date(b.date_of_upload || 0).getTime();
+          return dateB - dateA;
+        });
+      } else if (this.selectedSort.value === 1) {
+        result.sort((a, b) => {
+          const q = this.query.toLowerCase();
+          const scoreA = a.name.toLowerCase().indexOf(q);
+          const scoreB = b.name.toLowerCase().indexOf(q);
+          return scoreA - scoreB;
+        });
+      }
+    }
+
+    return result;
+  }
+  resetFilters() {
+    this.query = '';
+    this.priceRange = [0, 100000];
+    this.selectedCategories = [];
+    this.selectedSort = undefined;
   }
 }
