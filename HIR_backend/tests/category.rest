@@ -13,7 +13,7 @@ POST http://localhost:3000/categories
 Content-Type: application/json
 
 {
-    "name":"Placeholder 3"
+    "name":"hfksjdhfjsdghujsdgfjhsdgfujsdgfhsdgfjuhsdgujfgsduhfvgtsduhjksdhfjlsdhfjsdhfjsdhfkjlsdhfjsdhfkjsdhfujsdhzfujsdzfuswdtfz7isd vépierufukgsdvlidfoi 8gfv9o8wstgfedfhjvoeruzuvkefhvc.lovuezfkusftvsifvzwdtfjzsdzfisdftsdjkzfisk"
 }
 
 ### update category by id
