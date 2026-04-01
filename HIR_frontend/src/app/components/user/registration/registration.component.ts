@@ -29,7 +29,8 @@ export class RegistrationComponent  {
     password: "",
     confirmPassword: "",
     address: "",
-    phone: ""
+    phone: "",
+    role_id: 0
   };
 
   constructor(

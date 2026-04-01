@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  isAdmin: boolean = false;
+  isAdmin: boolean = this.auth.isAdmin();
   selectedItem: any;
   filteredItems: any[] = [];
 
@@ -98,6 +98,7 @@ export class HeaderComponent implements OnInit {
     ...this.isLoggedIn ? [
       { label: 'Profil', icon: 'pi pi-user', routerLink: '/profil ' },
       { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads' },
+      ...this.isAdmin ? [{ label: "Felhasználók kezelése", icon: 'pi pi-users', routerLink: '/useractions' }] : []
     ] : [],
 
     ...!this.isLoggedIn ? [
