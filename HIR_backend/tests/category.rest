@@ -13,7 +13,7 @@ POST http://localhost:3000/categories
 Content-Type: application/json
 
 {
-    "name":"Kerti bútor"
+    "name":"Placeholder 3"
 }
 
 ### update category by id
