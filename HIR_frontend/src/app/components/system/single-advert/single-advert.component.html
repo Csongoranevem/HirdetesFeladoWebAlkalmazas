@@ -1,23 +1,33 @@
-<div class="main">
-    <p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true"
-        [autoplayInterval]="4000">
-        <ng-template pTemplate="item" let-image>
-            <img [src]="image" alt="Ad Image">
-        </ng-template>
-    </p-carousel>
-
-
-    <p-card class="descriptionCard">
-        <div class="card-content">
-            <h2 class="ad-name">{{ advert?.name ? advert?.name : 'No title available' }}</h2>
+<p-card class="main">
+    <div class="card-content">
+        <p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true"
+            [autoplayInterval]="4000">
+            <ng-template pTemplate="item" let-image>
+                <img [src]="image" alt="Ad Image">
+            </ng-template>
+        </p-carousel>
+        <div class="data">
+            <h2 class="ad-name">
+                {{ advert?.name ? advert?.name : 'No title available' }}
+            </h2>
             <div class="ad-category">{{ advert?.category_id ? (advert?.category_id) : 'No category' }}</div>
-            <p class="ad-description">
-                {{ advert?.description ? advert?.description : 'No description available' }}
-            </p>
+
             <div class="card-footer">
-                <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') : '-'}}</span>
+                <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') :
+                    '-'}}</span>
                 <button class="add-to-cart" type="button">Kosárba</button>
             </div>
         </div>
-    </p-card>
-</div>
+    </div>
+    <p-accordion value="0" class="ad-description">
+        <p-accordion-panel value="0">
+            <p-accordion-header>Leírás</p-accordion-header>
+            <p-accordion-content>
+                <p class="m-0">
+                    {{ advert?.description ? advert?.description : 'No description available' }}
+
+                </p>
+            </p-accordion-content>
+        </p-accordion-panel>
+    </p-accordion>
+</p-card>

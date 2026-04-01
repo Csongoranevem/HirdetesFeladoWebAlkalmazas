@@ -7,11 +7,12 @@ import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment.development';
 import { CarouselModule } from 'primeng/carousel';
 import { CurrencyPipe } from '@angular/common';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-single-advert',
   standalone: true,
-  imports: [CardModule, CarouselModule, CurrencyPipe],
+  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule],
   templateUrl: './single-advert.component.html',
   styleUrl: './single-advert.component.scss'
 })
@@ -27,6 +28,7 @@ export class SingleAdvertComponent {
   ) { }
 
   ngOnInit(): void {
+    this.scrollToTop();
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id) {
@@ -52,5 +54,11 @@ export class SingleAdvertComponent {
       this.adImages = ad.images.map((img: any) => `${environment.serverUrl}${img.url}`) || "no-image.png";
       
     }
+  }
+
+
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
