@@ -61,7 +61,7 @@ interface SortBy {
 })
 export class AdsComponent {
   FilterDrawerVisible: boolean = false;
-  UserOrAd: boolean = true
+  UserOrAd: boolean = false
 
   ads: Ad[] = [];
   users: User[] = [];
