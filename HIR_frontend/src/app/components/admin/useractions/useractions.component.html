@@ -1,1 +1,96 @@
-<p>useractions works!</p>
+<div class="container">
+	<p-toast></p-toast>
+
+	<p-table
+		[value]="users"
+		[loading]="loading"
+		responsiveLayout="scroll"
+		[tableStyle]="{ width: '100%' }"
+		styleClass="useractions-table">
+
+		<ng-template pTemplate="caption">
+			<div class="flex items-center justify-between">
+				<span class="text-xl font-bold"><h3>Felhasználók kezelése</h3></span>
+			</div>
+		</ng-template>
+
+		<ng-template pTemplate="header">
+			<tr>
+				<th>Név</th>
+				<th>Email</th>
+				<th>Szerepkör</th>
+				<th>Státusz</th>
+				<th>Műveletek</th>
+			</tr>
+		</ng-template>
+
+		<ng-template pTemplate="body" let-user>
+			<tr>
+				<td><b>{{ user.name }}</b></td>
+				<td>{{ user.email }}</td>
+				<td>
+					<p-tag
+						[value]="roleLabel(user)"
+						[severity]="isAdminUser(user) ? 'info' : 'secondary'"
+					/>
+				</td>
+				<td>
+					<p-tag [value]="statusLabel(user)" [severity]="statusSeverity(user)" />
+				</td>
+				<td>
+					<div class="actions">
+						<p-button
+							*ngIf="!isBanned(user)"
+							severity="danger"
+							label="Kitiltás"
+							(click)="openConfirmBan(user)"
+						/>
+						<p-button
+							*ngIf="isBanned(user)"
+							severity="success"
+							label="Visszaállítás"
+							(click)="openConfirmUnban(user)"
+						/>
+					</div>
+				</td>
+			</tr>
+		</ng-template>
+
+		<ng-template pTemplate="footer">
+			<p>Összesen {{ users ? users.length : 0 }} felhasználó.</p>
+		</ng-template>
+	</p-table>
+
+	<p-dialog
+		maskStyleClass="backdrop-blur-3xl"
+		[header]="confirmAction === 'ban' ? 'Felhasználó kitiltása' : 'Felhasználó visszaállítása'"
+		[(visible)]="confirmVisible"
+		[modal]="true"
+		[style]="{ width: '35rem' }"
+		styleClass="useractions-confirm-dialog">
+
+		<div class="confirm-body" *ngIf="selectedUser">
+			<p>
+				Biztosan szeretnéd
+				<b>{{ confirmAction === 'ban' ? 'kitiltani' : 'visszaállítani' }}</b>
+				ezt a felhasználót?
+			</p>
+			<div class="confirm-card">
+				<div><b>Név:</b> {{ selectedUser.name }}</div>
+				<div><b>Email:</b> {{ selectedUser.email }}</div>
+			</div>
+		</div>
+
+		<ng-template pTemplate="footer">
+			<div class="dialog-footer">
+				<p-button severity="secondary" label="Mégse" (click)="cancelConfirm()" />
+				<p-button
+					[severity]="confirmAction === 'ban' ? 'danger' : 'success'"
+					[label]="confirmAction === 'ban' ? 'Kitiltás' : 'Visszaállítás'"
+					[loading]="saving"
+					(click)="confirmSave()"
+				/>
+			</div>
+		</ng-template>
+	</p-dialog>
+</div>
