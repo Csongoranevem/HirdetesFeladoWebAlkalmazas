@@ -154,6 +154,41 @@ img {
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 1.5%;
 }
+
+.profile-embedded{
+    margin-top: 0.5rem;
+}
+
+/* Make the embedded MyAds component match the modal glass background */
+:host ::ng-deep .profile-embedded app-myads .container{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 0.75rem 0.75rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-style: solid !important;
+    border-radius: 12px !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+:host ::ng-deep .profile-embedded app-myads .myads-table{
+    background: transparent;
+}
+
+:host ::ng-deep .profile-embedded app-myads .p-datatable{
+    background: transparent;
+}
+
+:host ::ng-deep .profile-embedded app-myads .p-datatable thead th{
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+:host ::ng-deep .profile-embedded app-myads .p-datatable tbody td{
+    background: transparent;
+}
 .PublicProfileDiv>p-button{
     width: 100%;
     justify-content: end;

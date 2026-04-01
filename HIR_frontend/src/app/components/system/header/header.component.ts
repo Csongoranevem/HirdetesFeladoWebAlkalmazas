@@ -20,6 +20,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { Toast } from 'primeng/toast';
+import { MyadsComponent } from '../../user/myads/myads.component';
 
 @Component({
   selector: 'app-header',
@@ -45,6 +46,7 @@ import { Toast } from 'primeng/toast';
     TableModule,
     RouterModule,
     Toast,
+    MyadsComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
