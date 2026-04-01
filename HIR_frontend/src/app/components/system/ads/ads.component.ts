@@ -23,6 +23,7 @@ import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment.development';
 import { Category } from '../../../interfaces/category';
+import { User } from '../../../interfaces/user';
 
 interface SortBy {
   label: string;
@@ -63,6 +64,7 @@ export class AdsComponent {
   UserOrAd: boolean = true
 
   ads: Ad[] = [];
+  users: User[] = [];
   cats: Category[] = []
 
   // Filter properties
@@ -104,10 +106,15 @@ export class AdsComponent {
         ];
       this.getCategories();
       this.getAds();
+      this.getUsers();
   }
   
   querySelectedAdvert: Ad | 'All' = 'All';
-      get filterAds(): Ad[] {
+  querySelectedUser: User | 'All' = 'All';
+
+
+
+  get filterAds(): Ad[] {
       const q = this.query.trim().toLowerCase();
       const filtered = this.ads.filter((r) => {
         const matchesQuery = !q || r.name.toLowerCase().includes(q);
@@ -117,7 +124,7 @@ export class AdsComponent {
       return filtered;
   }
 
-get filteredAds(): Ad[] {
+  get filteredAds(): Ad[] {
     let result = [...this.ads];
 
     if (this.query.trim()) {
@@ -163,4 +170,38 @@ get filteredAds(): Ad[] {
     this.selectedCategories = [];
     this.selectedSort = undefined;
   }
+
+
+
+
+  getUsers(){
+    this.apiService.selectByField('users', 'status', 'eq', '1').subscribe(users => {
+      this.users = users as User[];
+    });
+  }
+
+  get filterUsers(){
+      const q = this.query.trim().toLowerCase();
+      const filtered = this.users.filter((r) => {
+        const matchesQuery = !q || r.name.toLowerCase().includes(q);
+        const matchesCat = this.querySelectedUser === 'All' || r.name === this.querySelectedUser.name;
+        return matchesQuery && matchesCat;
+      });
+      return filtered;
+  }
+
+  get filteredUsers(){
+    let result = [...this.users];
+
+    if (this.query.trim()) {
+      const q = this.query.trim().toLowerCase();
+      result = result.filter(user =>
+        user.name.toLowerCase().includes(q) ||
+        user.email.toLowerCase().includes(q)
+      );
+    }
+
+    return result;
+  }
+
 }

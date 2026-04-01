@@ -7,4 +7,5 @@ export interface User {
     confirmPassword?: string;
     address: string;
     phone: string;
+    profilePicture?: string;
 }
