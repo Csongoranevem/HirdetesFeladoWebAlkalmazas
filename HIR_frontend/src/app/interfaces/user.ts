@@ -8,4 +8,5 @@ export interface User {
     address: string;
     phone: string;
     profilePicture?: string;
+    role_id: number;
 }
