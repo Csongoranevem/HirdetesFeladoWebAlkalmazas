@@ -1,0 +1,52 @@
+
+.container{
+	margin-top: 30px;
+	border: 2px dashed var(--p-surface-300);
+	border-radius: 6px;
+	background-color: var(--p-surface-1);
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+.useractions-table{
+	width: 100%;
+}
+
+.actions{
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.confirm-body{
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.confirm-card{
+	border: 1px solid var(--p-surface-200);
+	background: var(--p-surface-0);
+	border-radius: 8px;
+	padding: 0.75rem 1rem;
+	display: grid;
+	gap: 0.25rem;
+}
+
+.dialog-footer{
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	width: 100%;
+}
+
+@media (max-width: 768px){
+	.container{
+		padding: 1rem;
+	}
+}

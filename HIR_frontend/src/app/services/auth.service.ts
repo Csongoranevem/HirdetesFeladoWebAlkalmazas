@@ -57,8 +57,11 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    const user: any = this.LoggedUser();
-    return user.role === 'admin';
+    const user = this.GetLoggedUser();
+    if (user && user.role_id === 1) { // Assuming role_id 1 is admin
+      return true;
+    }
+    return false;
   }
 
 

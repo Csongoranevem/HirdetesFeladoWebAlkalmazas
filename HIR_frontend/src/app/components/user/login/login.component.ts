@@ -29,7 +29,8 @@ export class LoginComponent {
     backup_email: '',
     password: '',
     address: '',
-    phone: ''
+    phone: '',
+    role_id: 0
   }
 
   constructor(
