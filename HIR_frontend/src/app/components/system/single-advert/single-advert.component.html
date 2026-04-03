@@ -1,31 +1,68 @@
 <p-card class="main">
-    <div class="card-content">
-        <p-carousel class="imageCard" [value]="adImages" [numVisible]="1" [numScroll]="1" [circular]="true"
-            [autoplayInterval]="4000">
-            <ng-template pTemplate="item" let-image>
-                <img [src]="image" alt="Ad Image">
-            </ng-template>
-        </p-carousel>
-        <div class="data">
-            <h2 class="ad-name">
-                {{ advert?.name ? advert?.name : 'No title available' }}
-            </h2>
-            <div class="ad-category">{{ advert?.category_id ? (advert?.category_id) : 'No category' }}</div>
+    <div class="advert-layout">
+        <section class="media-section">
+            <div class="info-box media-box">
+                <span class="item-title">Képek</span>
+                @if (adImages.length > 0) {
+                    <p-carousel class="image-carousel" [value]="adImages" [numVisible]="1" [numScroll]="1"
+                        [circular]="adImages.length > 1" [autoplayInterval]="adImages.length > 1 ? 4000 : 0"
+                        [showNavigators]="adImages.length > 1" [showIndicators]="adImages.length > 1">
+                        <ng-template pTemplate="item" let-image>
+                            <div class="image-frame">
+                                <img [src]="image" [alt]="advert?.name || 'Hirdetés képe'">
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                } @else {
+                    <div class="image-placeholder">Nincs feltöltött kép ehhez a hirdetéshez.</div>
+                }
+            </div>
+        </section>
 
-            <div class="card-footer">
-                <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') :
-                    '-'}}</span>
+        <section class="details-section">
+            <div class="info-box title-box">
+                <h2 class="item-value title-value">{{ advert?.name || 'Nincs cím megadva' }}</h2>
+            </div>
+
+            <div class="meta-grid">
+                <div class="info-box">
+                    <span class="item-title">Kategória</span>
+                    <span class="item-value">{{ categoryName }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="item-title">Feltöltő neve</span>
+                    <span class="item-value">{{ uploaderName }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="item-title">Feltöltő városa</span>
+                    <span class="item-value">{{ cityName }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="item-title">Feltöltés ideje</span>
+                    <span class="item-value">{{ uploadedAtLabel }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="item-title">Fizetés módja</span>
+                    <span class="item-value">{{ paymentMethodName }}</span>
+                </div>
+            </div>
+
+            <div class="purchase-box">
+                <div class="price-block">
+                    <span class="item-title">Ár</span>
+                    <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') : '-' }}</span>
+                </div>
                 <button class="add-to-cart" type="button">Kosárba</button>
             </div>
-        </div>
+        </section>
     </div>
-    <p-accordion value="0" class="ad-description">
+
+    <p-accordion value="0" class="description-accordion">
         <p-accordion-panel value="0">
             <p-accordion-header>Leírás</p-accordion-header>
             <p-accordion-content>
-                <p class="m-0">
-                    {{ advert?.description ? advert?.description : 'No description available' }}
-
+                <p class="description-text">
+                    {{ advert?.description || 'Nincs leírás megadva' }}
                 </p>
             </p-accordion-content>
         </p-accordion-panel>

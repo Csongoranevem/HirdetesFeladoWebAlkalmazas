@@ -1,153 +1,229 @@
-::ng-deep .p-card-body,
-.main,
-.ad-description {
+:host {
+    display: block;
+    width: 100%;
+}
+
+.main {
+    width: min(1160px, 96vw) !important;
+    width: fit-content !important;
+    margin: 2rem auto;
+}
+
+::ng-deep .main .p-card-body {
+    padding: clamp(1rem, 1.8vw, 2rem);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    height: fit-content !important;
-    padding-top: 2rem;
-    padding: 4rem;
-    width: 95vw !important;
-    margin: 0 auto !important;
-    overflow: hidden;
+    gap: 1.25rem;
 }
 
-.imageCard {
+.advert-layout {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh!important;
-    width: 40vw!important;
-    overflow: hidden;
-    width: 40% !important;
-    max-width: 45vw;
-    padding-right: 5vw !important;
+    align-items: stretch;
+    gap: 1.25rem;
 }
 
-::ng-deep .p-carousel {
-    width: 50vw !important;
-    margin-bottom: 2rem;
-    padding-left: 15vw !important;
+.media-section,
+.details-section {
+    min-width: 0;
 }
 
-::ng-deep .p-carousel .p-carousel-content,
-::ng-deep .p-carousel .p-carousel-viewport,
-::ng-deep .p-carousel .p-carousel-items-content {
-    height: 40vh;
-    overflow: hidden;
+.media-section {
+    flex: 1 1 42%;
 }
 
-::ng-deep .p-carousel .p-carousel-item {
-
+.details-section {
+    flex: 1 1 58%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.85rem;
 }
 
-.imageCard img {
-    height: 40vh !important;
-    width: 30vw !important;
-    max-width: 40vw;
-    object-fit: cover !important;
-    border-radius: 0.8rem;
-}
-
-::ng-deep .p-carousel-indicator-active .p-carousel-indicator-button {
-    background-color: var(--primary-color) !important;
-}
-
-
-
-.data {
-    width: 60% !important;
-}
-
-.card-content {
+.info-box {
+    background: var(--highlight-bg);
+    border: 1px solid #d8dce3;
+    border-radius: 0.7rem;
+    padding: 0.7rem 0.9rem;
     display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    padding: 2rem;
-    box-sizing: border-box;
-    text-align: left;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-height: 4.25rem;
 }
 
-.ad-name {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 0.25rem;
-    width: 75% !important;
-    height: fit-content;
-    word-wrap: break-word;
-    overflow: hidden;
+.media-box {
+    min-height: 21rem;
 }
 
-.ad-category {
-    opacity: 0.7;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-}
-
-.ad-description {
-    font-style: italic;
-    flex: 1;
-    overflow-y: auto;
-    margin: 0;
-    padding-right: 1rem;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 5rem;
-    width: 20rem !important;
-    height: fit-content !important;
-    margin-top: 22vh !important;
-    margin-right: 10vw;
-    float: right !important;
-
-    position: relative !important;
-    bottom: 0 !important;
-    margin-left: 1rem;
-    background-color: var(--primary-color) !important;
-    color: #ffffff;
-    border: none;
-    border-radius: 0.4rem;
-    padding: 0.8rem 1.5rem;
+.item-title {
+    font-size: 0.78rem;
     font-weight: 600;
-    font-size: 1rem;
-    cursor: default;
-    transition: filter 0.2s ease;
-    &:hover {
-        filter: drop-shadow(0 0 2px var(--primary-color));
-    }
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.72;
+}
+
+.item-value {
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.title-box {
+    min-height: 5.7rem;
+    border: none !important;
+}
+
+.title-value {
+    margin: 0;
+    font-size: clamp(1.3rem, 2vw, 2rem);
+    line-height: 1.2;
+    color: var(--primary-color);
+}
+
+.image-carousel {
+    width: 100%;
+}
+
+::ng-deep .image-carousel .p-carousel-content,
+::ng-deep .image-carousel .p-carousel-viewport,
+::ng-deep .image-carousel .p-carousel-items-content {
+    width: 100%;
+}
+
+::ng-deep .image-carousel .p-carousel-item {
+    display: flex;
+    justify-content: center;
+}
+
+.image-frame {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 28rem;
+    overflow: hidden;
+    border-radius: 0.6rem;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    width: 100%;
+    min-height: 16rem;
+    border-radius: 0.6rem;
+    display: grid;
+    place-items: center;
+    color: #6d7480;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+::ng-deep .image-carousel .p-carousel-indicator-active .p-carousel-indicator-button {
+    background-color: var(--primary-color);
+}
+
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.purchase-box {
+    margin-top: auto;
+    background: var(--primary-color);
+    color: #ffffff;
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.purchase-box .item-title {
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 1;
+}
+
+.price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
 }
 
 .ad-price {
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: clamp(1.2rem, 2.1vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .add-to-cart {
-    background-color: var(--primary-font-color);
-    color: var(--primary-dark-color);
+    background: #ffffff;
+    color: var(--primary-color);
     border: none;
-    border-radius: 0.4rem;
-    padding: 0.8rem 1.5rem;
-    font-weight: 600;
-    font-size: 1rem;
+    border-radius: 0.45rem;
+    padding: 0.65rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.96rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .add-to-cart:hover {
-    box-shadow: inset 0 0 0 2px var(--primary-font-color);
+    animation: buttonHover 0.3s ease forwards;
     background-color: var(--primary-dark-color);
     color: var(--primary-font-color);
-    animation: buttonHover 0.3s ease-in-out;
+    box-shadow: inset 0 0 0 3px var(--primary-font-color);
+
+}
+
+.description-accordion {
+    width: 100%;
+}
+
+::ng-deep .description-accordion .p-accordionpanel {
+    border-radius: 0.7rem;
+    overflow: hidden;
+}
+
+.description-text {
+    margin: 0;
+    white-space: pre-line;
+    line-height: 1.65;
+}
+
+@media (max-width: 1024px) {
+    .advert-layout {
+        flex-direction: column;
+    }
+
+    .media-box {
+        min-height: 17rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .main {
+        width: 96vw;
+        margin: 1rem auto;
+    }
+
+    ::ng-deep .main .p-card-body {
+        padding: 0.75rem;
+    }
+
+    .meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .purchase-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .add-to-cart {
+        width: 100%;
+    }
 }
