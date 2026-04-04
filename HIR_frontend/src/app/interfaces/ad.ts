@@ -18,4 +18,5 @@ export interface Ad {
     status: "active" | "inactive";
     date_of_upload?: Date;
     images?: AdImage[];
+    rating?: number;
 }

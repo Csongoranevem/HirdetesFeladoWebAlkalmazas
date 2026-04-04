@@ -4,17 +4,17 @@
             <div class="info-box media-box">
                 <span class="item-title">Képek</span>
                 @if (adImages.length > 0) {
-                    <p-carousel class="image-carousel" [value]="adImages" [numVisible]="1" [numScroll]="1"
-                        [circular]="adImages.length > 1" [autoplayInterval]="adImages.length > 1 ? 4000 : 0"
-                        [showNavigators]="adImages.length > 1" [showIndicators]="adImages.length > 1">
-                        <ng-template pTemplate="item" let-image>
-                            <div class="image-frame">
-                                <img [src]="image" [alt]="advert?.name || 'Hirdetés képe'">
-                            </div>
-                        </ng-template>
-                    </p-carousel>
+                <p-carousel class="image-carousel" [value]="adImages" [numVisible]="1" [numScroll]="1"
+                    [circular]="adImages.length > 1" [autoplayInterval]="adImages.length > 1 ? 4000 : 0"
+                    [showNavigators]="adImages.length > 1" [showIndicators]="adImages.length > 1">
+                    <ng-template pTemplate="item" let-image>
+                        <div class="image-frame">
+                            <img [src]="image" [alt]="advert?.name || 'Hirdetés képe'">
+                        </div>
+                    </ng-template>
+                </p-carousel>
                 } @else {
-                    <div class="image-placeholder">Nincs feltöltött kép ehhez a hirdetéshez.</div>
+                <div class="image-placeholder">Nincs feltöltött kép ehhez a hirdetéshez.</div>
                 }
             </div>
         </section>
@@ -25,32 +25,36 @@
             </div>
 
             <div class="meta-grid">
-                <div class="info-box">
-                    <span class="item-title">Kategória</span>
+                <div class="data-box">
+                    <span class="item-title">Kategória: </span>
                     <span class="item-value">{{ categoryName }}</span>
                 </div>
-                <div class="info-box">
-                    <span class="item-title">Feltöltő neve</span>
+                <div><!--üres div, az elrendezéshez--></div>
+                <div class="data-box">
+                    <span class="item-title">Feltöltő neve: </span>
                     <span class="item-value">{{ uploaderName }}</span>
+                </div>
+                <div><!--üres div, az elrendezéshez--></div>
+                <div class="data-box">
+                    <span class="item-title">Feltöltés ideje: </span>
+                    <span class="item-value">{{ uploadedAtLabel }}</span>
+                </div>
+                <div><!--üres div, az elrendezéshez--></div>
+                <div class="info-box">
+                    <span class="item-title">Fizetés módja</span>
+                    <span class="item-value">{{ paymentMethodName }}</span>
                 </div>
                 <div class="info-box">
                     <span class="item-title">Feltöltő városa</span>
                     <span class="item-value">{{ cityName }}</span>
-                </div>
-                <div class="info-box">
-                    <span class="item-title">Feltöltés ideje</span>
-                    <span class="item-value">{{ uploadedAtLabel }}</span>
-                </div>
-                <div class="info-box">
-                    <span class="item-title">Fizetés módja</span>
-                    <span class="item-value">{{ paymentMethodName }}</span>
                 </div>
             </div>
 
             <div class="purchase-box">
                 <div class="price-block">
                     <span class="item-title">Ár</span>
-                    <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0') : '-' }}</span>
+                    <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0')
+                        : '-' }}</span>
                 </div>
                 <button class="add-to-cart" type="button">Kosárba</button>
             </div>
@@ -67,4 +71,16 @@
             </p-accordion-content>
         </p-accordion-panel>
     </p-accordion>
+    <div class="rating">
+        <div>
+            <span class="item-title">Értékelés: </span>
+            <p-rating [readonly]="true"></p-rating>
+            <span class="rating-value">{{ advert?.rating != null ? advert?.rating?.toFixed(1) : 'N/A' }}</span>
+        </div>
+        <div>
+            Értékeld a hirdetést:
+            <p-rating [(ngModel)]="userRating"></p-rating>
+            <p-button (click)="submitRating()">Értékelés küldése</p-button>
+        </div>
+    </div>
 </p-card>

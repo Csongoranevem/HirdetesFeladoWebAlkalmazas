@@ -49,6 +49,14 @@
     min-height: 4.25rem;
 }
 
+.data-box {
+    background: var(--highlight-bg);
+    border-radius: 0.7rem;
+    padding: 0.7rem 0.9rem;
+    gap: 0.5rem;
+    min-height: 4.25rem;
+}
+
 .media-box {
     min-height: 21rem;
 }
@@ -192,6 +200,12 @@
     margin: 0;
     white-space: pre-line;
     line-height: 1.65;
+}
+
+.rating{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 @media (max-width: 1024px) {

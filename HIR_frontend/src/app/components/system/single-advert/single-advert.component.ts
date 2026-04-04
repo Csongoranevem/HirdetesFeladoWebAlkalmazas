@@ -12,6 +12,11 @@ import { catchError, forkJoin, of } from 'rxjs';
 import { Category } from '../../../interfaces/category';
 import { User } from '../../../interfaces/user';
 import { Payment } from '../../../interfaces/payments';
+import { RatingModule } from 'primeng/rating';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { Rating } from '../../../interfaces/ratings';
+import { AuthService } from '../../../services/auth.service';
 
 interface City {
   id: string;
@@ -21,7 +26,7 @@ interface City {
 @Component({
   selector: 'app-single-advert',
   standalone: true,
-  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule],
+  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule, RatingModule, ButtonModule, FormsModule],
   templateUrl: './single-advert.component.html',
   styleUrl: './single-advert.component.scss'
 })
@@ -34,11 +39,14 @@ export class SingleAdvertComponent implements OnInit {
   cityName: string = 'Ismeretlen város';
   paymentMethodName: string = 'Nincs megadva';
   uploadedAtLabel: string = 'Nincs dátum';
+  userRating: number = 0;
+  ratings: Rating[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +105,19 @@ export class SingleAdvertComponent implements OnInit {
     });
   }
 
+  getAllratingsForAd(): void {
+    if (!this.advert || !this.advert.id) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+      return;
+    }
+
+    this.api.selectByField('ratings', 'ad_id', 'eq', this.advert.id).subscribe({
+      next: (ratings) => {
+        this.ratings = ratings as Rating[];
+      }
+    });
+  }
+
   private loadRelatedData(ad: Ad): void {
     const categoryRequest = ad.category_id
       ? this.api.selectById('categories', ad.category_id).pipe(catchError(() => of(null)))
@@ -127,6 +148,31 @@ export class SingleAdvertComponent implements OnInit {
     });
   }
 
+  submitRating(): void {
+    if (!this.advert || !this.advert.id) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+      return;
+    }
+    const userId = this.auth.GetLoggedUser()?.id;
+    if (!userId) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Kérem jelentkezzen be a értékeléshez!', key: 'br' });
+      return;
+    }
+  }
+
+  getAdAvgRating(): number {
+
+    this.api.selectByField('ratings', 'ad_id', 'eq', this.advert?.id ?? '').subscribe({
+      next: (ratings) => {
+        this.ratings = ratings as Rating[];
+        if (this.ratings.length > 0) {
+          const sum = this.ratings.reduce((acc, rating) => acc + rating.rating, 0);
+          this.advert!.rating = sum / this.ratings.length;
+        }
+      }
+    });
+    return this.advert!.rating? this.advert!.rating : 0;
+  }
 
 
   scrollToTop(): void {
