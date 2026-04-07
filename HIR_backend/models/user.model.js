@@ -21,7 +21,8 @@ module.exports = (sequelize)=>{
             },
             email: {
                 type:DataTypes.STRING(25),
-                allowNull:false
+                allowNull:false,
+                unique:true
             },
             backup_email: {
                 type:DataTypes.STRING(25),

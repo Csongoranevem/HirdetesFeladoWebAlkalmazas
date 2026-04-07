@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+// UI (PrimeNG) modulok: a template-ben használt inputok/gombok/stíluselemek.
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ApiService } from '../../../services/api.service';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { User } from '../../../interfaces/user';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
+
+// Alkalmazás-szintű szolgáltatások és típusok.
 import { Router } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'app-registration',
@@ -20,8 +24,12 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent  {
 
-
-  user:User = {
+  /**
+   * Kétirányú adatbinding (`ngModel`) célobjektuma a template-ben.
+   * `confirmPassword` csak kliens oldali ellenőrzésre szolgál,
+   * ezt NEM küldjük fel az API-nak.
+   */
+  user: User = {
     id: "",
     name: "",
     email: "",
@@ -39,8 +47,16 @@ export class RegistrationComponent  {
     private router:Router
   ) { }
 
-  register(){
-    if (this.user.password != this.user.confirmPassword){
+  /**
+   * Regisztráció folyamata:
+   * 1) kliens oldali validáció (kötelező mezők, jelszó egyezés)
+   * 2) DTO összeállítása (csak a backend által várt mezők)
+   * 3) API hívás → visszajelzés toast üzenettel
+   * 4) siker esetén mezők ürítése + navigáció a login oldalra
+   */
+  register(): void {
+    // 1) Egyszerű, gyors kliens oldali validációk (UX):
+    if (this.user.password !== this.user.confirmPassword){
       this.messageService.add({severity:'error', summary: 'Hiba', detail: 'A jelszavak nem egyeznek!', key: 'br', life: 3000});
       return;
     }
@@ -48,11 +64,8 @@ export class RegistrationComponent  {
       this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Kérem töltse ki az összes mezőt!', key: 'br', life: 3000});
       return;
     }
-    if(this.user.password!== this.user.confirmPassword){
-      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'A jelszavak nem egyeznek!', key: 'br', life: 3000});
-      return;
-    }
 
+    // 2) A backend felé küldött payload (ne küldjük a confirmPassword-öt).
     const data = {
       name: this.user.name,
       email: this.user.email,
@@ -68,15 +81,18 @@ export class RegistrationComponent  {
       next: (res) => {
         this.messageService.add({severity:'success', summary: 'Siker', detail: 'Sikeres regisztráció!', key: 'br', life: 3000});
         console.log(res);
-          this.user.name = "";
-          this.user.email = "";
-          this.user.backup_email = "";
-          this.user.password = "";
-          this.user.confirmPassword = "";
-          this.user.address = "";
-          this.user.phone = "";
 
-          this.router.navigateByUrl("login");
+        // 3) Form állapotának visszaállítása (hogy ne maradjon benne érzékeny adat).
+        this.user.name = "";
+        this.user.email = "";
+        this.user.backup_email = "";
+        this.user.password = "";
+        this.user.confirmPassword = "";
+        this.user.address = "";
+        this.user.phone = "";
+
+        // 4) Következő logikus lépés: bejelentkezés.
+        this.router.navigateByUrl("login");
       },
       error: (err) => {
         this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Sikertelen regisztráció!', key: 'br', life: 3000});
