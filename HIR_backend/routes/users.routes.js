@@ -3,6 +3,7 @@ const{User}=require('../models/index');
 const bcrypt = require('bcrypt');
 const { operatorMap } = require('../models/index');
 const { authenticate, generateToken } = require('../middlewares/auth.middleware');
+const { sendRegistrationSuccessEmail } = require('../services/email.service');
 
 //USER CRUD operators
 
@@ -58,6 +59,17 @@ router.post('/register',async (req,res)=>{
     const user=await User.create({name, email, backup_email, phone, address, password});
 
     res.status(201).json(user);
+
+    void sendRegistrationSuccessEmail({
+        to: user.email,
+        name: user.name,
+        email: user.email,
+        backupEmail: user.backup_email,
+        phone: user.phone,
+        address: user.address
+    }).catch((err) => {
+        console.error('Registration email failed:', err);
+    });
     }
     catch(err)
     {

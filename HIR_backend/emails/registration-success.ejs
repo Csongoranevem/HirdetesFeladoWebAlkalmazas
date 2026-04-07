@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sikeres regisztráció</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f7fb;">
+    <div style="max-width:640px;margin:0 auto;padding:24px;font-family:Arial, Helvetica, sans-serif;color:#111827;">
+        <div style="background:#ffffff;border-radius:12px;padding:24px;">
+            <h1 style="margin:0 0 12px 0;font-size:20px;line-height:28px;">Sikeres regisztráció</h1>
+            <p style="margin:0 0 16px 0;font-size:14px;line-height:22px;">
+                Szia <strong><%= name %></strong>!
+            </p>
+            <p style="margin:0 0 16px 0;font-size:14px;line-height:22px;">
+                A regisztrációd sikeres volt. Az alábbi adatokat rögzítettük:
+            </p>
+
+            <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px;">
+                <tr>
+                    <td style="padding:8px 0;color:#6b7280;">Név</td>
+                    <td style="padding:8px 0;"><%= name %></td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0;color:#6b7280;">Email</td>
+                    <td style="padding:8px 0;"><%= email %></td>
+                </tr>
+                <% if (backupEmail) { %>
+                <tr>
+                    <td style="padding:8px 0;color:#6b7280;">Tartalék email</td>
+                    <td style="padding:8px 0;"><%= backupEmail %></td>
+                </tr>
+                <% } %>
+                <tr>
+                    <td style="padding:8px 0;color:#6b7280;">Telefon</td>
+                    <td style="padding:8px 0;"><%= phone %></td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0;color:#6b7280;">Cím</td>
+                    <td style="padding:8px 0;"><%= address %></td>
+                </tr>
+            </table>
+
+            <p style="margin:16px 0 0 0;font-size:13px;line-height:20px;color:#6b7280;">
+                Biztonsági okokból a jelszavadat nem küldjük el emailben.
+            </p>
+        </div>
+
+        <p style="margin:12px 0 0 0;font-size:12px;line-height:18px;color:#9ca3af;">
+            Küldés ideje: <%= createdAt.toLocaleString('hu-HU') %>
+        </p>
+    </div>
+</body>
+</html>
