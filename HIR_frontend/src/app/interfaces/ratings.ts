@@ -1,6 +1,6 @@
 export interface Rating {
-  id: number;
-  ad_id: number;
+  id: number | string;
+  ad_id: string;
   rating: number;
-  user_id: number;
+  user_id: string;
 }

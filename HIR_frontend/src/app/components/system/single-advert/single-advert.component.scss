@@ -137,6 +137,8 @@
     gap: 0.75rem;
 }
 
+// Vásárlási rész stílusai
+
 .purchase-box {
     margin-top: auto;
     background: var(--primary-color);
@@ -187,6 +189,8 @@
 
 }
 
+// Leírás stílusai
+
 .description-accordion {
     width: 100%;
 }
@@ -202,10 +206,99 @@
     line-height: 1.65;
 }
 
-.rating{
+// Értékelés panel stílusai
+
+.rating-panel {
+    border: 1px solid #d8dce3;
+    border-radius: 0.75rem;
+    background: var(--highlight-bg);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 50vw;
+    margin: 2vh auto;
+
+}
+
+.rating-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.55rem 0;
+}
+
+.rating-row+.rating-row {
+    border-top: 1px solid #e6e9ef;
+}
+
+.rating-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    color: var(--primary-font-color) !important;
+
+}
+
+.rating-label {
+    font-size: 0.9rem;
+    color: #6d7480;
+}
+
+// csillagok formázása, értékelés küldése gomb stílusa
+
+.rating-stars {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.action-stars {
+    gap: 0.85rem;
+}
+
+.rating-value {
+    font-weight: 700;
+    background: var(--primary-font-color);
+    color: #8a6700;
+    border: 1px solid #f3d172 !important;
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    line-height: 1;
+}
+
+::ng-deep .rating-panel .p-rating .p-rating-option .p-rating-icon {
+    color: invert(var(--highlight-bg)) !important;
+    font-size: 1.1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+::ng-deep .rating-panel .p-rating .p-rating-option-active .p-rating-icon,
+::ng-deep .rating-panel .p-rating .p-rating-option:hover .p-rating-icon {
+    color: #f5bf16 !important;
+}
+
+::ng-deep .rating-panel .p-rating:not(.p-disabled) .p-rating-option:hover .p-rating-icon {
+    transform: translateY(-1px) scale(1.06);
+}
+
+::ng-deep .rating-panel .rating-submit-btn {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-font-color);
+    font-weight: 700;
+}
+
+::ng-deep .rating-panel .rating-submit-btn:enabled:hover {
+    animation: buttonHover 0.3s ease forwards;
+    background-color: var(--primary-dark-color);
+    color: var(--primary-font-color);
+    box-shadow: inset 0 0 0 3px var(--primary-font-color);
+    outline: 0 !important;
 }
 
 @media (max-width: 1024px) {
@@ -238,6 +331,20 @@
     }
 
     .add-to-cart {
+        width: 100%;
+    }
+
+    .rating-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .rating-stars {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    ::ng-deep .rating-panel .rating-submit-btn {
         width: 100%;
     }
 }

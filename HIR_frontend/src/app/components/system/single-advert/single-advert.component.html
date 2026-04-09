@@ -71,16 +71,28 @@
             </p-accordion-content>
         </p-accordion-panel>
     </p-accordion>
-    <div class="rating">
-        <div>
-            <span class="item-title">Értékelés: </span>
-            <p-rating [readonly]="true"></p-rating>
-            <span class="rating-value">{{ advert?.rating != null ? advert?.rating?.toFixed(1) : 'N/A' }}</span>
+    <div class="rating-panel">
+        <div class="rating-row">
+            <div class="rating-texts">
+                <span class="item-title">Értékelés</span>
+                <span class="rating-label">Felhasználói átlag</span>
+            </div>
+            <div class="rating-stars">
+                <p-rating [readonly]="true" [ngModel]="averageRating ?? 0"></p-rating>
+                <span class="rating-value">{{ averageRating != null ? averageRating.toFixed(1) : 'N/A' }}</span>
+            </div>
         </div>
-        <div>
-            Értékeld a hirdetést:
-            <p-rating [(ngModel)]="userRating"></p-rating>
-            <p-button (click)="submitRating()">Értékelés küldése</p-button>
+
+        <div class="rating-row">
+            <div class="rating-texts">
+                <span class="item-title">Értékeld a hirdetést</span>
+                <span class="rating-label">{{ isLoggedIn ? 'Mondd el, mennyire tetszik' : 'Értékeléshez jelentkezz be' }}</span>
+            </div>
+            <div class="rating-stars action-stars">
+                <p-rating [(ngModel)]="userRating" [readonly]="!isLoggedIn"></p-rating>
+                <p-button styleClass="rating-submit-btn" [disabled]="!isLoggedIn || !userRating || isSubmittingRating"
+                    (click)="submitRating()">Értékelés küldése</p-button>
+            </div>
         </div>
     </div>
 </p-card>
