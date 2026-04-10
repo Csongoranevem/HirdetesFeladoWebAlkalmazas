@@ -3,4 +3,17 @@
 <app-footer></app-footer>
 
 
+<button
+	*ngIf="showScrollTop"
+	type="button"
+	class="scroll-to-top"
+	(click)="scrollToTop()"
+	aria-label="Vissza a lap tetejére"
+	title="Vissza a tetejére"
+>
+	<i class="bi bi-arrow-up" aria-hidden="true"></i>
+	<span class="visually-hidden">Vissza a tetejére</span>
+</button>
+
+
  <p-toast position="bottom-right" key="br" />

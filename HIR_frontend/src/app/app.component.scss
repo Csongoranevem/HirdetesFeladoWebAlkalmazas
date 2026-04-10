@@ -3,3 +3,27 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1050;
+
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 9999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--primary-color);
+    color: var(--primary-font-color);
+}
+
+.scroll-to-top:focus-visible {
+    outline: 2px solid var(--primary-dark-color);
+    outline-offset: 2px;
+}
