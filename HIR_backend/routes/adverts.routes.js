@@ -1,5 +1,6 @@
 const router=require('express').Router();
-const{Advert, Image}=require('../models/index')
+const{Advert, Image, Category}=require('../models/index')
+const { Op, fn, col, where } = require('sequelize');
 
 
 //Advertisements CRUD operators
@@ -11,6 +12,61 @@ router.get('/',async(_req,res)=>{
         include: [{ model: Image, as: 'images' }]
     });
     res.status(200).json(adverts);
+});
+
+//SEARCH adverts by name (query string)
+// GET /adverts/search?q=Sony%20kamera
+router.get('/search', async (req, res) => {
+    try {
+        const queryRaw = String(req.query.q ?? '').trim();
+        const limitRaw = Number(req.query.limit ?? 10);
+        const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 50) : 10;
+
+        if (!queryRaw) {
+            return res.status(200).json([]);
+        }
+
+        const tokens = queryRaw
+            .split(/\s+/)
+            .map((token) => token.trim())
+            .filter(Boolean)
+            .slice(0, 10);
+
+        // Whitespace-insensitive matching ("sonykamera" should match "Sony kamera")
+        const compactQuery = queryRaw.replace(/\s+/g, '');
+        const compactName = fn('REPLACE', col('name'), ' ', '');
+
+        const whereClause = tokens.length <= 1
+            ? {
+                [Op.or]: [
+                    { name: { [Op.like]: `%${compactQuery}%` } },
+                    where(compactName, { [Op.like]: `%${compactQuery}%` })
+                ]
+            }
+            : {
+                [Op.and]: tokens.map((token) => ({
+                    name: { [Op.like]: `%${token}%` }
+                }))
+            };
+
+        const adverts = await Advert.findAll({
+            where: whereClause,
+            include: [
+                {
+                    model: Category,
+                    as: 'category',
+                    attributes: ['id', 'name'],
+                    required: false
+                }
+            ],
+            attributes: ['id', 'name', 'price', 'status', 'category_id'],
+            limit
+        });
+
+        res.status(200).json(adverts);
+    } catch (err) {
+        res.status(500).json({ message: 'Search failed', error: err.message });
+    }
 });
 
 

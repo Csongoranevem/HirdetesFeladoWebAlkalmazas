@@ -54,4 +54,7 @@ Image.belongsTo(Advert, { foreignKey: 'advert_id', as: 'advert' });
 Rating.belongsTo(Advert, { foreignKey: 'ad_id', as: 'advert' });
 Rating.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
+// Advert metadata relations
+Advert.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
+
 module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, Rating, operatorMap}

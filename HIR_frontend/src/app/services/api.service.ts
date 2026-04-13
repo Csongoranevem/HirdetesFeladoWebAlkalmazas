@@ -54,6 +54,15 @@ export class ApiService {
     return this.http.get(`${this.server}/public/${table}`);
   }
 
+  searchAdverts(query: string, limit: number = 10) {
+    return this.http.get(`${this.server}/adverts/search`, {
+      params: {
+        q: query,
+        limit: String(limit)
+      }
+    });
+  }
+
   sendMail(data: object){
     return this.http.post(`${this.server}/sendmail`, data);
   }

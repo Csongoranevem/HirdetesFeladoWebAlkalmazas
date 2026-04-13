@@ -5,9 +5,27 @@
             <div class="flex items-center gap-2 left">
                 <img src="main_logo.png" alt="Logo" id="mainLogo" (click)="navigateToHome()"/>
                 <div class="card flex justify-center" id="searchCard">
+                    <!-- Kereső: találatokat listáz, kiválasztáskor SingleAdvert-ra navigál -->
                     <p-autocomplete id="filter" [(ngModel)]="selectedItem" [suggestions]="filteredItems"
                         (completeMethod)="filterItems($event)" [placeholder]="'Keress terméket vagy felhasználót'"
-                        optionLabel="name" />
+                        field="name" (onSelect)="onSelectItem($event)" [showEmptyMessage]="true"
+                        emptyMessage="Nincs ilyen termék" panelStyleClass="search-panel" [forceSelection]="false">
+
+                        <ng-template pTemplate="item" let-item>
+                            <div class="search-item">
+                                <div class="search-name">{{ item.name }}</div>
+                                <div class="search-meta">
+                                    <span class="search-category">{{ item.category?.name || 'Nincs kategória' }}</span>
+                                    <span class="search-sep">•</span>
+                                    <span class="search-price">{{ item.price | number:'1.0-0' }} Ft</span>
+                                    <span class="search-sep">•</span>
+                                    <span class="search-status" [class.active]="item.status === 'active'" [class.inactive]="item.status !== 'active'">
+                                        {{ availabilityLabel(item.status) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-autocomplete>
                 </div>
                 <p-button text plain severity="contrast" size="small"><i class="pi pi-search"></i></p-button>
             </div>

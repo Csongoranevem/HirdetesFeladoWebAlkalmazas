@@ -21,6 +21,19 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { Toast } from 'primeng/toast';
 import { MyadsComponent } from '../../user/myads/myads.component';
+import { ApiService } from '../../../services/api.service';
+import { catchError, of } from 'rxjs';
+
+interface AdvertSearchResult {
+  id: string;
+  name: string;
+  price?: number;
+  status?: 'active' | 'inactive' | string;
+  category?: {
+    id?: string;
+    name?: string;
+  };
+}
 
 @Component({
   selector: 'app-header',
@@ -75,7 +88,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private api: ApiService
   ) {
     //subscribe
     this.auth.isLoggedIn$.subscribe(logged => {
@@ -85,13 +99,50 @@ export class HeaderComponent implements OnInit {
   }
 
   isAdmin: boolean = this.auth.isAdmin();
-  selectedItem: any;
-  filteredItems: any[] = [];
+
+  // --- KERESŐ / AUTOCOMPLETE ---
+  // selectedItem: a mező aktuális értéke (szöveg vagy kiválasztott találat)
+  // filteredItems: a backendből jövő találati lista a lenyíló panelhez
+  selectedItem: AdvertSearchResult | string | null = null;
+  filteredItems: AdvertSearchResult[] = [];
 
   sign: string = this.auth.isLoggedUser() ? "Kijelentkezés" : "Bejelentkezés";
   isLoggedIn: boolean = this.auth.isLoggedUser();
 
-  filterItems(event: any) { }
+  // PrimeNG AutoComplete: gépeléskor meghívódik, és a backendből kér találatokat.
+  filterItems(event: { query?: string }) {
+    const query = String(event?.query ?? '').trim();
+
+    if (!query) {
+      this.filteredItems = [];
+      return;
+    }
+
+    this.api.searchAdverts(query).pipe(
+      catchError((err) => {
+        console.error(err);
+        return of([] as AdvertSearchResult[]);
+      })
+    ).subscribe((res) => {
+      this.filteredItems = (res as AdvertSearchResult[]) ?? [];
+    });
+  }
+
+  availabilityLabel(status?: string): string {
+    return status === 'active' ? 'Elérhető' : 'Nem elérhető';
+  }
+
+  // Találat kiválasztásakor a SingleAdvert oldalra visz.
+  onSelectItem(event: { value?: AdvertSearchResult }) {
+    const selected = event?.value;
+    if (!selected?.id) {
+      return;
+    }
+
+    this.router.navigate(['/singleAdvert', selected.id]);
+    this.selectedItem = null;
+    this.filteredItems = [];
+  }
 
 
 

@@ -335,3 +335,43 @@ img {
         width: 10rem !important;
     }
 }
+
+/* --- Search / AutoComplete dropdown finom dizájn --- */
+:host ::ng-deep .search-panel{
+    overflow: hidden;
+}
+
+:host ::ng-deep .search-panel .p-autocomplete-item{
+    padding: 0.65rem 0.75rem;
+}
+
+:host ::ng-deep .search-item{
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+:host ::ng-deep .search-name{
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+:host ::ng-deep .search-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-color-secondary);
+}
+
+:host ::ng-deep .search-sep{
+    opacity: 0.7;
+}
+
+:host ::ng-deep .search-status.active{
+    color: var(--p-green-400);
+}
+
+:host ::ng-deep .search-status.inactive{
+    color: var(--p-red-400);
+}
