@@ -175,7 +175,7 @@ export class NewadvertComponent implements OnInit {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Siker!',
-                  detail: 'A hírdetés és a képek sikeresen feltöltve!',
+                  detail: 'A hirdetés és a képek sikeresen feltöltve!',
                   life: 4000
                 });
                 this.selectedFiles = [];
@@ -184,7 +184,7 @@ export class NewadvertComponent implements OnInit {
                 this.messageService.add({
                   severity: 'warn',
                   summary: 'Részleges siker',
-                  detail: 'A hírdetés feladva, de a képek feltöltése sikertelen.',
+                  detail: 'A hirdetés feladva, de a képek feltöltése sikertelen.',
                   life: 4000
                 });
               }
@@ -193,7 +193,7 @@ export class NewadvertComponent implements OnInit {
             this.messageService.add({
               severity: 'success',
               summary: 'Siker!',
-              detail: 'A hírdetés sikeresen feladva!',
+              detail: 'A hirdetés sikeresen feladva!',
               life: 4000
             });
           }
@@ -203,7 +203,7 @@ export class NewadvertComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: 'Hiba',
-            detail: 'Hiba történt a hírdetés feladása során. Kérjük próbálja újra!',
+            detail: 'Hiba történt a hirdetés feladása során. Kérjük próbálja újra!',
             life: 4000
           });
         }

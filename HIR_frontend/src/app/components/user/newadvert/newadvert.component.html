@@ -1,10 +1,10 @@
 <p-toast />
-<h3>Új hírdetés feladása</h3>
+<h3>Új hirdetés feladása</h3>
 
 <div id="stepper" class="card flex justify-center">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
         <p-step-list>
-            <p-step [value]="1">Hírdetés adatai</p-step>
+            <p-step [value]="1">hirdetés adatai</p-step>
             <p-step [value]="2">Képek feltöltése</p-step>
             <p-step [value]="3">Összegzés</p-step>
         </p-step-list>
@@ -98,7 +98,7 @@
                                         <span>{{selectedFiles.length}} kép kiválasztva</span>
                                     </div>
                                     <div class="flex justify-end pt-4">
-                                        <p-button label="Hírdetés feladása" severity="warn" icon="pi pi-check" iconPos="right"
+                                        <p-button label="hirdetés feladása" severity="warn" icon="pi pi-check" iconPos="right"
                                             (onClick)="postAdvert()" />
                                     </div>
                                 </p-panel>

@@ -193,7 +193,7 @@ export class HeaderComponent implements OnInit {
       this.messageService.add({
         severity: 'warn',
         summary: 'Bejelentkezés szükséges',
-        detail: 'Az új hírdetés feltöltéséhez be kell jelentkezz!',
+        detail: 'Az új hirdetés feltöltéséhez be kell jelentkezz!',
         key: 'br'
       });
     }
