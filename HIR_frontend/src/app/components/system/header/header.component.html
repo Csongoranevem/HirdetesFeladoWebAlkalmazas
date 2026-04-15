@@ -70,7 +70,6 @@
                     <p (click)="ChangeModalNumber(2)">Kívánságlistám</p>
                     <p (click)="ChangeModalNumber(3)">Hirdetéseim</p>
                     <p (click)="ChangeModalNumber(4)">Support</p>
-                    <p>Opció 6</p>
                 </div>
             </ng-template>
             <ng-template pTemplate class="h-full">
@@ -83,27 +82,27 @@
                         <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
                             <div class="ProfilMid">
                                 <img src="{{ProfileData?.profilePicture}}" alt="">
-                                <h4>{{ProfileData?.name}} <i (click)="ChangeNickname()" class="pi pi-pencil"></i></h4>
+                                <h4>{{ProfileData?.name}} <i (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
                             </div>
                             <hr>
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" autocomplete="off" [style]="{width:'100%'}"/>
                                     <label for="on_label"><i class="pi "></i> Vezetéknév</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing"  autocomplete="off" [style]="{width:'100%'}"/>
                                     <label for="on_label"><i class="pi "></i>Keresztnév</label>
                                 </p-floatlabel>
                             </div>
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
-                                    <label for="on_label"><i class="pi pi-phone"></i>{{ProfileData?.phone}}</label>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" [(ngModel)]="ProfileData!.phone" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
-                                    <label for="on_label"><i class="pi pi-home"></i>{{ProfileData?.address}}</label>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" [(ngModel)]="ProfileData!.address" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <label for="on_label"><i class="pi pi-home"></i>Cím</label>
                                 </p-floatlabel>
                             </div>
 
@@ -127,30 +126,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="AdvertisementsDiv">
-                                <h4>{{ProfileData?.name}} hirdetései</h4>
-                                <hr>
-                                <div class="card">
-                                    <p-table [tableStyle]="{ 'min-width': '20rem' }">
-                                        <ng-template #header>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Név</th>
-                                                <th>Kategória</th>
-                                                <th>Elérés</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template #body>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Kalapács</td>
-                                                <td>Szerszám</td>
-                                                <td><p-button>Katt</p-button></td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
-                            </div>
+                            
                         </p-scrollpanel>
                         <p-divider></p-divider>
                         <p class="ProfileNote"><sub>Az itt található adataid publikusak</sub></p>
@@ -170,7 +146,7 @@
                         </p-floatlabel>
                         <p-floatlabel variant="on">
                             <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-key"></i>************</label>
+                            <label for="on_label"><i class="pi pi-key"></i>{{ProfileData?.password}}</label>
                         </p-floatlabel>
                         <p-divider></p-divider>
                         <div class="AccountButtonDiv">

@@ -25,6 +25,12 @@ import { ApiService } from '../../../services/api.service';
 import { catchError, of } from 'rxjs';
 import { User } from '../../../interfaces/user';
 import { SupportComponent } from '../support/support.component';
+import { InputText } from "primeng/inputtext";
+import { BrowserModule } from "@angular/platform-browser";
+import { UploaderModule } from "angular-uploader";
+import { Uploader, UploadWidgetConfig, UploadWidgetResult } from 'uploader';
+
+
 
 interface AdvertSearchResult {
   id: string;
@@ -63,7 +69,9 @@ interface AdvertSearchResult {
     Toast,
     MyadsComponent,
     SupportComponent,
-  ],
+    InputText,
+    UploaderModule
+],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -183,7 +191,14 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  ChangeNickname(){
+  ProfileEditing:boolean = false;
+  ProfileEdit(){
+    if(this.ProfileEditing == false){
+      this.ProfileEditing = true
+    }
+    else{
+      this.ProfileEditing = false
+    }
   }
   AccountEditing:boolean = false;
   EditAccount(){
@@ -208,6 +223,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+
+
+  //PFP 
 
 
 }
