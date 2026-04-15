@@ -68,7 +68,9 @@ export class AdsComponent {
   cats: Category[] = []
 
   // Filter properties
-  priceRange: number[] = [0, 100000];
+  maxAdPrice: number = 0
+
+  priceRange: number[] = [0, this.maxAdPrice];
   selectedCategories: string[] = [];
   selectedConditions: string[] = [];
 
@@ -80,10 +82,13 @@ export class AdsComponent {
   getAds() {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
+      this.maxAdPrice = this.ads.reduce((max, ad) => ad.price > max ? ad.price : max, 0);
+      this.priceRange = [0, this.maxAdPrice];
     });
   }
-  getCategories(){
-    this.apiService.selectAll('categories').subscribe(categs =>{
+
+  getCategories() {
+    this.apiService.selectAll('categories').subscribe(categs => {
       this.cats = categs as Category[]
     })
   }
@@ -100,28 +105,29 @@ export class AdsComponent {
     private authService: AuthService
   ) { }
   ngOnInit() {
-      this.SortingCategories = [
-          {label:"Időrendi sorrendbe",value:0},
-          {label:"Relevancia",value:1}
-        ];
-      this.getCategories();
-      this.getAds();
-      this.getUsers();
+    this.SortingCategories = [
+      { label: "Időrendi sorrendbe", value: 0 },
+      { label: "Relevancia", value: 1 }
+    ];
+    this.getCategories();
+    this.getAds();
+    this.getUsers();
   }
-  
+
+
   querySelectedAdvert: Ad | 'All' = 'All';
   querySelectedUser: User | 'All' = 'All';
 
 
 
   get filterAds(): Ad[] {
-      const q = this.query.trim().toLowerCase();
-      const filtered = this.ads.filter((r) => {
-        const matchesQuery = !q || r.name.toLowerCase().includes(q);
-        const matchesCat = this.querySelectedAdvert === 'All' || r.name === this.querySelectedAdvert.name;
-        return matchesQuery && matchesCat;
-      });
-      return filtered;
+    const q = this.query.trim().toLowerCase();
+    const filtered = this.ads.filter((r) => {
+      const matchesQuery = !q || r.name.toLowerCase().includes(q);
+      const matchesCat = this.querySelectedAdvert === 'All' || r.name === this.querySelectedAdvert.name;
+      return matchesQuery && matchesCat;
+    });
+    return filtered;
   }
 
   get filteredAds(): Ad[] {
@@ -174,23 +180,23 @@ export class AdsComponent {
 
 
 
-  getUsers(){
+  getUsers() {
     this.apiService.selectByField('users', 'status', 'eq', '1').subscribe(users => {
       this.users = users as User[];
     });
   }
 
-  get filterUsers(){
-      const q = this.query.trim().toLowerCase();
-      const filtered = this.users.filter((r) => {
-        const matchesQuery = !q || r.name.toLowerCase().includes(q);
-        const matchesCat = this.querySelectedUser === 'All' || r.name === this.querySelectedUser.name;
-        return matchesQuery && matchesCat;
-      });
-      return filtered;
+  get filterUsers() {
+    const q = this.query.trim().toLowerCase();
+    const filtered = this.users.filter((r) => {
+      const matchesQuery = !q || r.name.toLowerCase().includes(q);
+      const matchesCat = this.querySelectedUser === 'All' || r.name === this.querySelectedUser.name;
+      return matchesQuery && matchesCat;
+    });
+    return filtered;
   }
 
-  get filteredUsers(){
+  get filteredUsers() {
     let result = [...this.users];
 
     if (this.query.trim()) {
