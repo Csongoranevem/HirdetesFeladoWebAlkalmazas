@@ -19,5 +19,12 @@ module.exports = (sequelize)=>{
 
     );
 
+    Category.associate = (models) => {
+        Category.belongsTo(models.adverts, {
+            foreignKey: 'advert_id',
+            as: 'advert'
+        });
+    };
+
     return Category;
 }
