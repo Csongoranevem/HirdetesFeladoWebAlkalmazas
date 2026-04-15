@@ -98,7 +98,21 @@ export class HeaderComponent implements OnInit {
     //get logged user data
     if(this.auth.isLoggedUser()) {
       this.ProfileData = this.auth.GetLoggedUser();
-      console.log(this.ProfileData);
+      console.log('Initial ProfileData:', this.ProfileData);
+      
+      this.api.selectById('users', this.ProfileData!.id).subscribe(
+        (user: any) => {
+          console.log('Raw backend response:', user);
+          console.log('Profile picture field:', user.profile_picture);
+          
+          this.ProfileData = user;
+          console.log('User data refreshed:', this.ProfileData);
+          console.log('Profile picture field:', this.ProfileData?.profile_picture);
+        },
+        (error) => {
+          console.error('Error fetching user data:', error);
+        }
+      );
     }
   }
 
@@ -226,6 +240,61 @@ export class HeaderComponent implements OnInit {
 
 
   //PFP 
+
+  uploadedFileUrl: string = ''
+  uploader = Uploader({
+    apiKey: 'free', // <-- Get production-ready API keys from Bytescale
+  });
+  options: UploadWidgetConfig = {
+    multi: false,
+  };
+  
+  onComplete = (files: UploadWidgetResult[]) => {
+    if (files && files.length > 0) {
+      this.uploadedFileUrl = files[0]?.fileUrl;
+      console.log(this.uploadedFileUrl);
+      
+      // Update profile picture in component
+      if (this.ProfileData) {
+        this.ProfileData.profile_picture = this.uploadedFileUrl;
+      }
+      
+      // Save to database
+      this.saveProfilePictureToDatabase(this.uploadedFileUrl);
+    }
+  };
+
+  saveProfilePictureToDatabase(imageUrl: string) {
+    if (!this.ProfileData?.id) {
+      console.error('User ID not found');
+      return;
+    }
+
+    const updateData = {
+      profile_picture: imageUrl
+    };
+
+    this.api.update('users', this.ProfileData.id, updateData).subscribe(
+      (response) => {
+        console.log('Profile picture updated successfully', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sikeres frissítés',
+          detail: 'Profilkép sikeresen frissítve!',
+          key: 'br'
+        });
+      },
+      (error) => {
+        console.error('Error updating profile picture', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Profilkép frissítése sikertelen!',
+          key: 'br'
+        });
+      }
+    );
+  }
 
 
 }

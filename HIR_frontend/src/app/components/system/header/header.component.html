@@ -81,9 +81,19 @@
                         <p-divider></p-divider>
                         <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
                             <div class="ProfilMid">
-                                <img src="{{ProfileData?.profilePicture}}" alt="">
+                                <img [src]="ProfileData?.profile_picture" alt="Profile Picture">
                                 <h4>{{ProfileData?.name}} <i (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
                             </div>
+
+                                <button
+                                uploadButton
+                                [uploadComplete]="onComplete"
+                                [uploadOptions]="options"
+                                [uploader]="uploader"
+                                >
+                                Upload a file...
+                                </button>
+
                             <hr>
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">

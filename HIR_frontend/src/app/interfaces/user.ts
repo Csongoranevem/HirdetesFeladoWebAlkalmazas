@@ -7,7 +7,7 @@ export interface User {
     confirmPassword?: string;
     address: string;
     phone: string;
-    profilePicture?: string;
+    profile_picture?: string;
     role_id: number;
     createdAt?: Date;
     updatedAt?: Date;
