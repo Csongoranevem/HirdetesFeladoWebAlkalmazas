@@ -1,6 +1,7 @@
 const router=require('express').Router();
-const{Advert, Image, Category}=require('../models/index')
+const{Advert, Image, Category, User}=require('../models/index')
 const { Op, fn, col, where } = require('sequelize');
+const emailService = require('../services/email.service');
 
 
 //Advertisements CRUD operators
@@ -109,6 +110,27 @@ router.post('/',async (req,res)=>{
     try{
     const{ name,user_id,description,price, city_id, product_id, category_id, payment_method, status }=req.body;
     const advert=await Advert.create({name, user_id, description, price, city_id, product_id, category_id, payment_method, status});
+    
+    // Asynchronously send email notification if user has an email and category exists
+    Category.findByPk(category_id).then(async (category) => {
+        if (!category) return;
+        const user = await User.findByPk(user_id);
+        if (user && user.email) {
+            // Retrieve image if attached separately (logic depends on your app) or just omit it
+            let imageUrl = null;
+            // Example: const image = await Image.findOne({ where: { advert_id: advert.id } });
+            // if (image) imageUrl = image.url; // Or adjust according to how images are stored
+            
+            emailService.sendAdvertCreationEmail({
+                to: user.email,
+                advertName: name,
+                categoryName: category.name,
+                price: price,
+                imageUrl: imageUrl
+            }).catch(e => console.error("Email send error:", e));
+        }
+    }).catch(e => console.error("Error fetching category for email:", e));
+
     res.status(201).json(advert);
     }
     catch(err)
