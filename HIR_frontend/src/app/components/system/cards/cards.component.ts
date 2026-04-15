@@ -9,6 +9,7 @@ import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
+import { Category } from '../../../interfaces/category';
 
 registerLocaleData(localeHu);
 
@@ -23,6 +24,7 @@ registerLocaleData(localeHu);
 export class CardsComponent implements OnInit {
 
   @Input() ads: Ad[] = [];
+  categories: Category[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -32,6 +34,7 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAds();
+    this.getCategories();
   }
 
 
@@ -39,6 +42,14 @@ export class CardsComponent implements OnInit {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
     });
+  }
+  getCategories(){
+    this.apiService.selectAll('categories').subscribe(categories => {
+      this.categories = categories as Category[];
+    });
+  }
+  getCategoryName(categoryId: string): string {
+    return this.categories.find(category => category.id === categoryId)?.name || '';
   }
 
   getAdImage(ad: Ad): string {

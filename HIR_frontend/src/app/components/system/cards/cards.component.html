@@ -8,7 +8,8 @@
             </div>
         </ng-template>
         <ng-template pTemplate="title" class="cardTitle">{{ad.name}}</ng-template>
-        <ng-template pTemplate="subtitle">{{ad.category_id}}</ng-template>
+        <!--Category ID's name-->
+        <ng-template pTemplate="subtitle">{{getCategoryName(ad.category_id)}}</ng-template>
         <p class="cardDescription">{{ad.description}}</p>
         <ng-template pTemplate="footer">
             <div class="flex gap-4 mt-1 cardFooter">

@@ -23,6 +23,8 @@ import { Toast } from 'primeng/toast';
 import { MyadsComponent } from '../../user/myads/myads.component';
 import { ApiService } from '../../../services/api.service';
 import { catchError, of } from 'rxjs';
+import { User } from '../../../interfaces/user';
+import { SupportComponent } from '../support/support.component';
 
 interface AdvertSearchResult {
   id: string;
@@ -59,7 +61,8 @@ interface AdvertSearchResult {
     TableModule,
     RouterModule,
     Toast,
-    MyadsComponent
+    MyadsComponent,
+    SupportComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -67,6 +70,7 @@ interface AdvertSearchResult {
 export class HeaderComponent implements OnInit {
 
 
+  ProfileData: User | null = null;
   ProfileVisible: boolean = false;
   loggedUsername: string = 'Username';
   CurrentProfileModalContent: number = 0
@@ -82,6 +86,11 @@ export class HeaderComponent implements OnInit {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       this.toggleTheme();
+    }
+    //get logged user data
+    if(this.auth.isLoggedUser()) {
+      this.ProfileData = this.auth.GetLoggedUser();
+      console.log(this.ProfileData);
     }
   }
 
@@ -198,5 +207,8 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
+
+
+
 }
 

@@ -9,4 +9,6 @@ export interface User {
     phone: string;
     profilePicture?: string;
     role_id: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

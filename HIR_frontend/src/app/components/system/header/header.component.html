@@ -82,8 +82,8 @@
                         <p-divider></p-divider>
                         <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
                             <div class="ProfilMid">
-                                <img src="pali.png" alt="">
-                                <h4>{{loggedUsername}} <i (click)="ChangeNickname()" class="pi pi-pencil"></i></h4>
+                                <img src="{{ProfileData?.profilePicture}}" alt="">
+                                <h4>{{ProfileData?.name}} <i (click)="ChangeNickname()" class="pi pi-pencil"></i></h4>
                             </div>
                             <hr>
                             <div class="ProfileInputsDiv">
@@ -99,11 +99,11 @@
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">
                                     <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
-                                    <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
+                                    <label for="on_label"><i class="pi pi-phone"></i>{{ProfileData?.phone}}</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
                                     <input pInputText id="on_label" disabled="true" autocomplete="off" [style]="{width:'100%'}"/>
-                                    <label for="on_label"><i class="pi pi-home"></i>Vármegye</label>
+                                    <label for="on_label"><i class="pi pi-home"></i>{{ProfileData?.address}}</label>
                                 </p-floatlabel>
                             </div>
 
@@ -114,7 +114,7 @@
                                         Regisztráció Dátuma
                                     </h4>
                                     <h5>
-                                        2025.05.13
+                                        {{ProfileData?.createdAt | date: 'short'}}
                                     </h5>
                                 </div>
                                 <div class="StaticDateInnerDiv">
@@ -122,13 +122,13 @@
                                         Legutoljára elérhető volt
                                     </h4>
                                     <h5>
-                                        2026.02.27
+                                        {{ProfileData?.updatedAt | date: 'short'}}
                                     </h5>
                                 </div>
                             </div>
                             <hr>
                             <div class="AdvertisementsDiv">
-                                <h4>{{loggedUsername}} hirdetései</h4>
+                                <h4>{{ProfileData?.name}} hirdetései</h4>
                                 <hr>
                                 <div class="card">
                                     <p-table [tableStyle]="{ 'min-width': '20rem' }">
@@ -162,15 +162,15 @@
                         <p-divider></p-divider>
                         <p-floatlabel variant="on">
                             <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-envelope"></i>Email cím</label>
+                            <label for="on_label"><i class="pi pi-envelope"></i>{{ProfileData?.email}}</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
                             <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
+                            <label for="on_label"><i class="pi pi-phone"></i>{{ProfileData?.phone}}</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
                             <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-key"></i>Jelszó</label>
+                            <label for="on_label"><i class="pi pi-key"></i>************</label>
                         </p-floatlabel>
                         <p-divider></p-divider>
                         <div class="AccountButtonDiv">
@@ -196,6 +196,7 @@
                         <h4>
                             Support
                             <p-divider></p-divider>
+                            <app-support></app-support>
                         </h4>
                     </div>
                 </div>
