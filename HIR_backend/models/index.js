@@ -53,6 +53,7 @@ Advert.hasMany(Image, { foreignKey: 'advert_id', as: 'images' });
 Image.belongsTo(Advert, { foreignKey: 'advert_id', as: 'advert' });
 Rating.belongsTo(Advert, { foreignKey: 'ad_id', as: 'advert' });
 Rating.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+Category.hasMany(Advert, { foreignKey: 'category_id', as: 'adverts' });
 
 // Advert metadata relations
 Advert.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
