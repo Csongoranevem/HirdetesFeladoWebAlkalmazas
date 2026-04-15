@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sikeres hirdetésfeladás</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .content { margin-bottom: 20px; }
+        .img-container { text-align: center; margin: 20px 0; }
+        .img-container img { max-width: 100%; max-height: 300px; border-radius: 5px; }
+        .footer { text-align: center; font-size: 0.8em; color: #777; border-top: 1px solid #ddd; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="cid:logo" alt="Logo" style="width: 50px; height: 50px;">
+            <h2>Sikeres hirdetésfeladás!</h2>
+        </div>
+        <div class="content">
+            <p>Kedves Felhasználó!</p>
+            <p>A hirdetésed sikeresen felkerült az oldalunkra az alábbi adatokkal:</p>
+            <ul>
+                <li><strong>Hirdetés neve:</strong> <%= advertName %></li>
+                <li><strong>Kategória:</strong> <%= categoryName %></li>
+                <li><strong>Ár:</strong> <%= price %> Ft</li>
+            </ul>
+            
+            <% if (imageUrl) { %>
+            <div class="img-container">
+                <img src="<%= imageUrl %>" alt="Hirdetés képe">
+            </div>
+            <% } %>
+
+            <p>Sok sikert az eladáshoz!</p>
+        </div>
+        <div class="footer">
+            <p>Ezt az üzenetet automatikusan generáltuk, kérjük, ne válaszolj rá.</p>
+        </div>
+    </div>
+</body>
+</html>

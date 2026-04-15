@@ -56,6 +56,59 @@ async function renderEmailTemplate(templateFileName, data) {
     return ejs.renderFile(templatePath, data);
 }
 
+async function sendAdvertCreationEmail({
+    to,
+    advertName,
+    categoryName,
+    price,
+    imageUrl
+}) {
+    if (!isEmailEnabled()) {
+        return { sent: false, reason: 'Email disabled (missing SMTP env vars)' };
+    }
+
+    const { from } = getSmtpConfig();
+
+    const html = await renderEmailTemplate('advert-created.ejs', {
+        advertName,
+        categoryName,
+        price,
+        imageUrl,
+        createdAt: new Date()
+    });
+
+    const text = [
+        'Sikeres hirdetésfeladás!',
+        '',
+        `Hirdetés neve: ${advertName || ''}`,
+        `Kategória: ${categoryName || ''}`,
+        `Ár: ${price || ''} Ft`,
+        '',
+        'Köszönjük, hogy nálunk hirdetsz!'
+    ]
+        .filter(Boolean)
+        .join('\n');
+
+    const transporter = getTransport();
+
+    const info = await transporter.sendMail({
+        from,
+        to,
+        subject: 'Sikeres hirdetésfeladás',
+        text,
+        html,
+        attachments: [
+            {
+                filename: 'favicon.ico',
+                path: path.join(__dirname, '..', '..', 'HIR_frontend', 'public', 'favicon.ico'),
+                cid: 'logo' // same cid value as in the html img src
+            }
+        ]
+    });
+
+    return { sent: true, messageId: info.messageId };
+}
+
 async function sendRegistrationSuccessEmail({
     to,
     name,
@@ -108,5 +161,6 @@ async function sendRegistrationSuccessEmail({
 
 module.exports = {
     isEmailEnabled,
-    sendRegistrationSuccessEmail
+    sendRegistrationSuccessEmail,
+    sendAdvertCreationEmail
 };

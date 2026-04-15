@@ -18,6 +18,7 @@ import { Payment } from '../../../interfaces/payments';
 import { Ad } from '../../../interfaces/ad';
 import { AuthService } from '../../../services/auth.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
   interface UploadEvent {
     originalEvent: Event;
@@ -56,7 +57,8 @@ export class NewadvertComponent implements OnInit {
     constructor(
       private messageService: MessageService,
       private api: ApiService,
-      private auth:AuthService
+      private auth:AuthService,
+      private router: Router
     ) {}
 
   uploadedFiles: any[] = [];
@@ -196,6 +198,10 @@ export class NewadvertComponent implements OnInit {
               detail: 'A hirdetés sikeresen feladva!',
               life: 4000
             });
+            setTimeout(() => {
+              this.router.navigateByUrl('home');
+            }, 1000);
+
           }
           
         },
