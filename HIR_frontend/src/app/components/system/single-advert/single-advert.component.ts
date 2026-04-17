@@ -75,6 +75,19 @@ export class SingleAdvertComponent implements OnInit {
         console.error(err);
       }
     });
+
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload')
+      // a load div eltüntetése az újratültés után
+      location.reload()
+    } else {
+      localStorage.removeItem('foo')
+      const loadElement = document.querySelector('.load');
+      if (loadElement) {
+        loadElement.remove();
+      };
+    }
+
   }
 
   getAdAllImage(ad: Ad): void {
@@ -326,7 +339,7 @@ export class SingleAdvertComponent implements OnInit {
       this.paymentMethodName = (payment as Payment | null)?.name ?? ad.payment_method ?? 'Nincs megadva';
     });
   }
-  
+
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
