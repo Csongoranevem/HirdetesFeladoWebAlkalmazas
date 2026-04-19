@@ -35,7 +35,8 @@ router.get('/search', async (req, res) => {
 
         // Whitespace-insensitive matching ("sonykamera" should match "Sony kamera")
         const compactQuery = queryRaw.replace(/\s+/g, '');
-        const compactName = fn('REPLACE', col('name'), ' ', '');
+        // Qualify column to avoid ambiguity when joining Category (it also has a `name` column)
+        const compactName = fn('REPLACE', col('adverts.name'), ' ', '');
 
         const whereClause = tokens.length <= 1
             ? {
