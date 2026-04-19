@@ -45,6 +45,9 @@ export class SingleAdvertComponent implements OnInit {
   loggedUserId: string | null = null;
   isSubmittingRating: boolean = false;
 
+  //kommentek
+  newComment:string = '';
+
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
@@ -233,6 +236,41 @@ export class SingleAdvertComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Értékelés mentése sikertelen!', key: 'br' });
       }
     });
+  }
+
+  submitComment(): void {
+      if (!this.advert?.id) {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+        return;
+      }
+
+      if (!this.loggedUserId) {
+        this.messageService.add({ severity: 'warn', summary: 'Bejelentkezés szükséges', detail: 'Kommenteléshez jelentkezz be!', key: 'br' });
+        return;
+      }
+
+      if (!this.newComment.trim()) {
+        this.messageService.add({ severity: 'warn', summary: 'Hiányzó komment', detail: 'Kérlek írj valamit a komment mezőbe!', key: 'br' });
+        return;
+      }
+
+      const payload = {
+        ad_id: this.advert.id,
+        comment: this.newComment.trim(),
+        user_id: this.loggedUserId
+      };
+
+      this.api.insert('comments', payload).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'Komment rögzítve!', key: 'br' });
+          this.newComment = '';
+          // Itt érdemes lenne újra lekérni a kommenteket, hogy frissüljön a lista
+        },
+        error: (err) => {
+          console.error(err);
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Komment mentése sikertelen!', key: 'br' });
+        }
+      });
   }
 
   get isLoggedIn(): boolean {

@@ -47,6 +47,7 @@ const Support=loadModel('./support.model');
 const Condition=loadModel('./condition.model');
 const Image=loadModel('./images.model');
 const Rating=loadModel('./rating.model');
+const Comment=loadModel('./comment.model');
 
 // Associations
 Advert.hasMany(Image, { foreignKey: 'advert_id', as: 'images' });
@@ -57,5 +58,7 @@ Category.hasMany(Advert, { foreignKey: 'category_id', as: 'adverts' });
 
 // Advert metadata relations
 Advert.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
+Comment.belongsTo(Advert, { foreignKey: 'ad_id', as: 'advert' });
+Comment.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, Rating, operatorMap}
+module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, Rating, Comment, operatorMap}

@@ -208,7 +208,7 @@
 
 // Értékelés panel stílusai
 
-.rating-panel {
+.rating-panel, .comment-panel {
     border: 1px solid #d8dce3;
     border-radius: 0.75rem;
     background: var(--highlight-bg);
@@ -301,6 +301,40 @@
     outline: 0 !important;
 }
 
+// Komment panel stílusai
+.comment-panel {
+    width: 50vw;
+    margin: 2vh auto;
+}
+
+.comment-input-section {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 0.75rem;
+}
+
+.comment-input-section textarea {
+    width: 100%;
+    resize: none;
+}
+
+::ng-deep .comment-submit-btn {
+    width: 100%;
+    height: 40%;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-font-color);
+}
+
+::ng-deep .comment-submit-btn:enabled:hover {
+    animation: buttonHover 0.3s ease forwards;
+}
+
+.user-interact{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
 
 // töltő képernyő
 
@@ -381,7 +415,19 @@
         width: 100%;
     }
 
+    .comment-panel {
+        width: 100%;
+    }
+
+    .comment-input-section {
+        grid-template-columns: 1fr;
+    }
+
     ::ng-deep .rating-panel .rating-submit-btn {
         width: 100%;
+    }
+
+    ::ng-deep .comment-submit-btn {
+        min-height: 2.75rem;
     }
 }
