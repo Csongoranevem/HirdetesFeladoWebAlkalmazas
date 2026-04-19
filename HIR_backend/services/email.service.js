@@ -159,8 +159,71 @@ async function sendRegistrationSuccessEmail({
     return { sent: true, messageId: info.messageId };
 }
 
+async function sendSupportContactEmail({
+    fromEmail,
+    subject,
+    message
+}) {
+    if (!isEmailEnabled()) {
+        return { sent: false, reason: 'Email disabled (missing SMTP env vars)' };
+    }
+
+    const adminMail = String(process.env.ADMINMAIL || '').trim();
+    if (!adminMail || adminMail.startsWith('#')) {
+        return { sent: false, reason: 'Missing ADMINMAIL env var' };
+    }
+
+    const { from } = getSmtpConfig();
+    const transporter = getTransport();
+
+    const safeSubject = String(subject || '').trim() || 'Support üzenet';
+    const safeFromEmail = String(fromEmail || '').trim();
+    const safeMessage = String(message || '').trim();
+
+    const text = [
+        'Új support üzenet érkezett a weboldalról.',
+        '',
+        `Feladó email: ${safeFromEmail}`,
+        `Tárgy: ${safeSubject}`,
+        '',
+        'Üzenet:',
+        safeMessage
+    ].join('\n');
+
+    const html = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+            <h2>Új support üzenet</h2>
+            <p><strong>Feladó email:</strong> ${escapeHtml(safeFromEmail)}</p>
+            <p><strong>Tárgy:</strong> ${escapeHtml(safeSubject)}</p>
+            <hr />
+            <p style="white-space: pre-wrap;">${escapeHtml(safeMessage)}</p>
+        </div>
+    `;
+
+    const info = await transporter.sendMail({
+        from,
+        to: adminMail,
+        replyTo: safeFromEmail || undefined,
+        subject: `Support: ${safeSubject}`,
+        text,
+        html
+    });
+
+    return { sent: true, messageId: info.messageId };
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 module.exports = {
     isEmailEnabled,
     sendRegistrationSuccessEmail,
-    sendAdvertCreationEmail
+    sendAdvertCreationEmail,
+    sendSupportContactEmail
 };

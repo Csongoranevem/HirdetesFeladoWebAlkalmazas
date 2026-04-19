@@ -8,11 +8,13 @@ import { DatePipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [AccordionModule, FormsModule, DatePipe, DividerModule, CardModule, TextareaModule, ButtonModule],
+  imports: [AccordionModule, FormsModule, DatePipe, DividerModule, CardModule, TextareaModule, ButtonModule, InputText],
   templateUrl: './support.component.html',
   styleUrl: './support.component.scss'
 })
@@ -22,8 +24,10 @@ export class SupportComponent implements OnInit {
   emailContent: string = '';
   emailSubject: string = '';
   email: string = '';
+  sending: boolean = false;
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -42,13 +46,59 @@ export class SupportComponent implements OnInit {
   }
 
   sendEmail(): void {
-    const emailData = {
-      to: this.email,
-      subject: this.emailSubject,
-      content: this.emailContent
-    };
+    const email = this.email.trim();
+    const subject = this.emailSubject.trim();
+    const message = this.emailContent.trim();
 
-    // API hívás itt lesz
+    if (!email || !subject || !message) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Hiányzó adat',
+        detail: 'Email, tárgy és üzenet kitöltése kötelező.',
+        key: 'br'
+      });
+      return;
+    }
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Hibás email',
+        detail: 'Kérlek adj meg egy érvényes email címet.',
+        key: 'br'
+      });
+      return;
+    }
+
+    if (this.sending) return;
+    this.sending = true;
+
+    this.api.supportContact(email, subject, message).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Elküldve',
+          detail: 'Az üzenetedet megkaptuk, hamarosan válaszolunk.',
+          key: 'br'
+        });
+        this.email = '';
+        this.emailSubject = '';
+        this.emailContent = '';
+        this.sending = false;
+      },
+      error: (err) => {
+        console.error(err);
+        const detail = err?.error?.message || 'Nem sikerült elküldeni az üzenetet.';
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail,
+          key: 'br'
+        });
+        this.sending = false;
+      }
+    });
   }
 
 }

@@ -1,6 +1,7 @@
 const router=require('express').Router();
 const{Support}=require('../models/index')
 const { Op } = require('sequelize');
+const emailService = require('../services/email.service');
 
 
 //Support CRUD operators
@@ -52,6 +53,43 @@ router.post('/',async (req,res)=>{
     catch(err)
     {
         res.status(500).json({message:'Creation failed', error:err.message});
+    }
+});
+
+// CONTACT SUPPORT: send email to ADMINMAIL
+// POST /support/contact { email, subject, message }
+router.post('/contact', async (req, res) => {
+    try {
+        const email = String(req.body?.email ?? '').trim();
+        const subject = String(req.body?.subject ?? '').trim();
+        const message = String(req.body?.message ?? '').trim();
+
+        const missing = [];
+        if (!email) missing.push('email');
+        if (!subject) missing.push('subject');
+        if (!message) missing.push('message');
+        if (missing.length) {
+            return res.status(400).json({ message: `Missing fields: ${missing.join(', ')}` });
+        }
+
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailOk) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
+        const result = await emailService.sendSupportContactEmail({
+            fromEmail: email,
+            subject,
+            message
+        });
+
+        if (!result?.sent) {
+            return res.status(503).json({ message: 'Email sending is not available', reason: result?.reason });
+        }
+
+        return res.status(200).json({ sent: true });
+    } catch (err) {
+        return res.status(500).json({ message: 'Support contact failed', error: err.message });
     }
 });
 

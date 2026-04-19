@@ -63,6 +63,14 @@ export class ApiService {
     });
   }
 
+  supportContact(email: string, subject: string, message: string) {
+    return this.http.post(`${this.server}/support/contact`, {
+      email,
+      subject,
+      message
+    });
+  }
+
   sendMail(data: object){
     return this.http.post(`${this.server}/sendmail`, data);
   }
