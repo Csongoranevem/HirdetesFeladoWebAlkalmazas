@@ -6,7 +6,7 @@ import { ApiService } from '../../../services/api.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment.development';
 import { CarouselModule } from 'primeng/carousel';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { catchError, forkJoin, of } from 'rxjs';
 import { Category } from '../../../interfaces/category';
@@ -17,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { Rating } from '../../../interfaces/ratings';
 import { AuthService } from '../../../services/auth.service';
+import { Comment } from '../../../interfaces/comment';
 
 interface City {
   id: string;
@@ -26,7 +27,7 @@ interface City {
 @Component({
   selector: 'app-single-advert',
   standalone: true,
-  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule, RatingModule, ButtonModule, FormsModule],
+  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule, RatingModule, ButtonModule, FormsModule, DatePipe, CommonModule],
   templateUrl: './single-advert.component.html',
   styleUrl: './single-advert.component.scss'
 })
@@ -46,7 +47,8 @@ export class SingleAdvertComponent implements OnInit {
   isSubmittingRating: boolean = false;
 
   //kommentek
-  newComment:string = '';
+  newComment: string = '';
+  comments: Comment[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +74,8 @@ export class SingleAdvertComponent implements OnInit {
         this.setUploadedAt(this.advert.date_of_upload);
         this.loadRelatedData(this.advert);
         this.getAllratingsForAd();
+        this.getAllComments();
+
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés betöltése sikertelen!', key: 'br' });
@@ -239,38 +243,39 @@ export class SingleAdvertComponent implements OnInit {
   }
 
   submitComment(): void {
-      if (!this.advert?.id) {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
-        return;
+    if (!this.advert?.id) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+      return;
+    }
+
+    if (!this.loggedUserId) {
+      this.messageService.add({ severity: 'warn', summary: 'Bejelentkezés szükséges', detail: 'Kommenteléshez jelentkezz be!', key: 'br' });
+      return;
+    }
+
+    if (!this.newComment.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Hiányzó komment', detail: 'Kérlek írj valamit a komment mezőbe!', key: 'br' });
+      return;
+    }
+
+    const payload = {
+      ad_id: this.advert.id,
+      comment: this.newComment.trim(),
+      user_id: this.loggedUserId
+    };
+
+    this.api.insert('comments', payload).subscribe({
+      next: () => {
+        this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'Komment rögzítve!', key: 'br' });
+        this.newComment = '';
+        // Újratöltjük a kommenteket
+        this.getAllComments();
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Komment mentése sikertelen!', key: 'br' });
       }
-
-      if (!this.loggedUserId) {
-        this.messageService.add({ severity: 'warn', summary: 'Bejelentkezés szükséges', detail: 'Kommenteléshez jelentkezz be!', key: 'br' });
-        return;
-      }
-
-      if (!this.newComment.trim()) {
-        this.messageService.add({ severity: 'warn', summary: 'Hiányzó komment', detail: 'Kérlek írj valamit a komment mezőbe!', key: 'br' });
-        return;
-      }
-
-      const payload = {
-        ad_id: this.advert.id,
-        comment: this.newComment.trim(),
-        user_id: this.loggedUserId
-      };
-
-      this.api.insert('comments', payload).subscribe({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'Komment rögzítve!', key: 'br' });
-          this.newComment = '';
-          // Itt érdemes lenne újra lekérni a kommenteket, hogy frissüljön a lista
-        },
-        error: (err) => {
-          console.error(err);
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Komment mentése sikertelen!', key: 'br' });
-        }
-      });
+    });
   }
 
   get isLoggedIn(): boolean {
@@ -365,16 +370,68 @@ export class SingleAdvertComponent implements OnInit {
       ? this.api.selectById('payments', ad.payment_method).pipe(catchError(() => of(null)))
       : of(null);
 
+      console.log('Related data requests:', {
+        category: categoryRequest,
+        user: userRequest,
+        city: cityRequest,
+        payment: paymentRequest
+      });
+
     forkJoin({
-      category: categoryRequest,
-      user: userRequest,
-      city: cityRequest,
-      payment: paymentRequest
-    }).subscribe(({ category, user, city, payment }) => {
-      this.categoryName = (category as Category | null)?.name ?? 'Nincs kategória';
-      this.uploaderName = (user as User | null)?.name ?? 'Ismeretlen feltöltő';
-      this.cityName = (city as City | null)?.name ?? 'Ismeretlen város';
-      this.paymentMethodName = (payment as Payment | null)?.name ?? ad.payment_method ?? 'Nincs megadva';
+        category: categoryRequest,
+        user: userRequest,
+        city: cityRequest,
+        payment: paymentRequest
+      }).subscribe(({ category, user, city, payment }) => {
+        this.categoryName = (category as Category | null)?.name ?? 'Nincs kategória';
+        this.uploaderName = (user as User | null)?.name ?? 'Ismeretlen feltöltő';
+        this.cityName = (city as City | null)?.name ?? 'Ismeretlen város';
+        this.paymentMethodName = (payment as Payment | null)?.name ?? ad.payment_method ?? 'Nincs megadva';
+      });
+  }
+
+  getAllComments(): void {
+    if (!this.advert?.id) {
+      return;
+    }
+
+    this.api.selectByField('comments', 'ad_id', 'eq', this.advert.id).subscribe({
+      next: (comments) => {
+        this.comments = comments as Comment[];
+        this.comments.forEach(comment => this.getCommentAuthor(comment));
+        console.log(this.comments);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+
+  }
+
+
+  getCommentAuthor(comment: Comment): void {
+    if (!comment.user_id) {
+      return;
+    }
+
+    this.api.selectById('users', comment.user_id).subscribe({
+      next: (user: any) => {
+        comment.author = (user as User).name ?? 'Ismeretlen felhasználó';
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  deleteComment(commentId: number): void {
+    this.api.delete('comments', String(commentId)).subscribe({
+      next: () => {
+        this.comments = this.comments.filter(comment => comment.id !== commentId);
+      },
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
 

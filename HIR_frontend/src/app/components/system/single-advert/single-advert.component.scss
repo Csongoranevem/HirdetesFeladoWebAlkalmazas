@@ -208,7 +208,8 @@
 
 // Értékelés panel stílusai
 
-.rating-panel, .comment-panel {
+.rating-panel,
+.comment-panel {
     border: 1px solid #d8dce3;
     border-radius: 0.75rem;
     background: var(--highlight-bg);
@@ -330,7 +331,7 @@
     animation: buttonHover 0.3s ease forwards;
 }
 
-.user-interact{
+.user-interact {
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -339,7 +340,7 @@
 // töltő képernyő
 
 .load {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -358,6 +359,94 @@
     color: var(--primary-color);
 }
 
+.load::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+/* --- Comment Section Design --- */
+.comment-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.comment-section h3 {
+    color: var(--p-button-text-contrast-color) !important;
+    opacity: 0.9;
+}
+
+.comment {
+    border: 1px solid var(--surface-border, #e0e0e0);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background: var(--highlight-bg) !important;    
+}
+
+.comment * {
+    color: var(--p-button-text-contrast-color) !important;
+    opacity: 0.8;
+}
+
+.comment-author {
+    margin: 0 0 0.5rem 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+
+}
+
+.comment-date {
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: normal;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.comment-text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+
+}
+
+
+::ng-deep .deleteCommentBtn {
+    background: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    position: absolute;
+    top: -1.5rem;
+    right: 0.5rem;
+    width: 1vw !important;
+    height: 5vw !important;
+    min-width: 40px;
+    /* safety boundary */
+    min-height: 40px;
+    /* safety boundary */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+::ng-deep .deleteCommentBtn button {
+    background-color: red !important;
+    border: none !important;
+
+    &:hover {
+        background-color: darkred !important;
+    }
+}
 
 
 

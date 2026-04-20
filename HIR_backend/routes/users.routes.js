@@ -9,14 +9,14 @@ const { sendRegistrationSuccessEmail } = require('../services/email.service');
 
 //GET all users from table
 
-router.get('/', authenticate,async(_req,res)=>{
+router.get('/', async(_req,res)=>{
     const users=await User.findAll();
     res.status(200).json(users);
 });
 
 
 //GET user by id
-router.get('/:id', authenticate,async(req,res)=>{
+router.get('/:id', async(req,res)=>{
     const id=req.params.id;
     const user=await User.findByPk(id);
     if(!user){

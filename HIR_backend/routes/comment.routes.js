@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Comment } = require('../models/index')
+const { Op } = require('sequelize');
 
 
 //Comment CRUD operators
@@ -27,7 +28,9 @@ router.get('/:field/:op/:value', async (req, res) => {
     if (!field || !op || value === undefined) {
         return res.status(400).json({ message: "Missing field, operator, or value in query parameters" });
     }
-    const operator = Comment.sequelize.Op[op];
+    
+    // Access the Operator map safely from Sequelize directly
+    const operator = Op[op];
     if (!operator) {
         return res.status(400).json({ message: "Invalid operator" });
     }

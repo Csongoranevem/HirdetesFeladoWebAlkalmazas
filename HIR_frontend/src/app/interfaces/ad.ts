@@ -19,4 +19,5 @@ export interface Ad {
     date_of_upload?: Date;
     images?: AdImage[];
     rating?: number;
+    createdAt?: Date;
 }

@@ -37,7 +37,7 @@
                 <div><!--üres div, az elrendezéshez--></div>
                 <div class="data-box">
                     <span class="item-title">Feltöltés ideje: </span>
-                    <span class="item-value">{{ uploadedAtLabel }}</span>
+                    <span class="item-value">{{ advert?.createdAt | date: 'medium' }}</span>
                 </div>
                 <div><!--üres div, az elrendezéshez--></div>
                 <div class="info-box">
@@ -53,8 +53,8 @@
             <div class="purchase-box">
                 <div class="price-block">
                     <span class="item-title">Ár</span>
-                    <span class="ad-price">{{ advert?.price != null ? (advert?.price | currency:'HUF':'symbol':'1.0-0')
-                        : '-' }}</span>
+                    <span class="ad-price">{{ advert?.price != null ? (advert?.price | number)
+                        : '-' }} Ft</span>
                 </div>
                 <button class="add-to-cart" type="button">Kosárba</button>
             </div>
@@ -112,6 +112,21 @@
         </div>
     </div>
 </p-card>
+
+<div class="comment-section">
+    <h3>Hozzászólások</h3>
+    <p-card>
+        <div *ngFor="let comment of comments" class="comment">
+            <p class="comment-author">{{ comment.author }}
+                <span class="comment-date">{{ comment.createdAt | date: 'medium' }}</span>
+            </p>
+            <p class="comment-text">{{ comment.comment }}</p>
+
+            <p-button *ngIf="isLoggedIn && comment.user_id === loggedUserId" icon="pi pi-trash" class="deleteCommentBtn"
+                (click)="deleteComment(comment.id)"></p-button>
+        </div>
+    </p-card>
+</div>
 
 
 
