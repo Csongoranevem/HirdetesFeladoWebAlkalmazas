@@ -212,8 +212,46 @@ export class HeaderComponent implements OnInit {
     }
     else{
       this.ProfileEditing = false
+      this.saveProfileData();
     }
   }
+
+  saveProfileData(){
+    if (!this.ProfileData?.id) {
+      console.error('User ID not found');
+      return;
+    }
+
+    const updateData = {
+      firstName: this.ProfileData.firstName,
+      lastName: this.ProfileData.lastName,
+      phone: this.ProfileData.phone,
+      address: this.ProfileData.address,
+      profile_picture: this.ProfileData.profile_picture
+    };
+
+    this.api.update('users', this.ProfileData.id, updateData).subscribe(
+      (response) => {
+        console.log('Profile updated successfully', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sikeres frissítés',
+          detail: 'Profil sikeresen frissítve!',
+          key: 'br'
+        });
+      },
+      (error) => {
+        console.error('Error updating profile', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Profil frissítése sikertelen!',
+          key: 'br'
+        });
+      }
+    );
+  }
+  
   AccountEditing:boolean = false;
   EditAccount(){
     if(this.AccountEditing == false){

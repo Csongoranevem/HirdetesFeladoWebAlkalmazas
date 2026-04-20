@@ -97,8 +97,44 @@ img {
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    overflow: visible;
+    width: 20%;
+    justify-content: center;
+    margin: 0 auto;
 }
+.ProfileNameH4{
+    color: var(--text-color);
+    font-size: larger;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.ProfilMid > p-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.ProfilMid:hover > p-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .ProfilMid>img{
+    position: relative;
+    z-index: 5;
     min-width: 15vh;
     width: 15vh;
     max-width: 15vh;
@@ -109,7 +145,13 @@ img {
     border: 3px dashed var(--primary-color);
     border-radius: 100%;
     background-color: white;
+    transition: filter 0.3s ease-in-out;
 }
+
+.ProfilMid:hover > img {
+    filter: blur(1.5px);
+}
+
 .ProfilMid>h4{
     border-top: 1px solid var(--primary-theme-color);
     width: 40%;

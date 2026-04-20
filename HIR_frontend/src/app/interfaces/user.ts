@@ -11,4 +11,6 @@ export interface User {
     role_id: number;
     createdAt?: Date;
     updatedAt?: Date;
+    firstName?: string;
+    lastName?: string;
 }

@@ -81,27 +81,27 @@
                         <p-divider></p-divider>
                         <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
                             <div class="ProfilMid">
-                                <img [src]="ProfileData?.profile_picture" alt="Profile Picture">
-                                <h4>{{ProfileData?.name}} <i (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
+                                    <p-button
+                                        [rounded]="true" severity="info"
+                                        uploadButton
+                                        [uploadComplete]="onComplete"
+                                        [uploadOptions]="options"
+                                        [uploader]="uploader"
+                                        >
+                                        <i class="pi pi-upload"></i>
+                                    </p-button>
+                                <img [src]="ProfileData?.profile_picture" class="pfpImg" alt="Profile Picture">
+
                             </div>
-
-                                <button
-                                uploadButton
-                                [uploadComplete]="onComplete"
-                                [uploadOptions]="options"
-                                [uploader]="uploader"
-                                >
-                                Upload a file...
-                                </button>
-
+                              <h4 class="ProfileNameH4">{{ProfileData?.name}} <i (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
                             <hr>
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" autocomplete="off" [style]="{width:'100%'}"/>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" [(ngModel)]="ProfileData!.lastName" autocomplete="off" [style]="{width:'100%'}"/>
                                     <label for="on_label"><i class="pi "></i> Vezetéknév</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" [disabled]="!ProfileEditing"  autocomplete="off" [style]="{width:'100%'}"/>
+                                    <input pInputText id="on_label" [disabled]="!ProfileEditing" [(ngModel)]="ProfileData!.firstName" autocomplete="off" [style]="{width:'100%'}"/>
                                     <label for="on_label"><i class="pi "></i>Keresztnév</label>
                                 </p-floatlabel>
                             </div>

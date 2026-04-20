@@ -51,6 +51,14 @@ module.exports = (sequelize)=>{
                 allowNull:false,
                 defaultValue:1
             },
+            firstName:{
+                type:DataTypes.STRING(30),
+                allowNull:true
+            },
+            lastName:{
+                type:DataTypes.STRING(30),
+                allowNull:true
+            },
             secret:{
             type:DataTypes.UUID,
             allowNull:false,
