@@ -48,6 +48,7 @@ const Condition=loadModel('./condition.model');
 const Image=loadModel('./images.model');
 const Rating=loadModel('./rating.model');
 const Comment=loadModel('./comment.model');
+const Wishlist=loadModel('./wishlist.model');
 
 // Associations
 Advert.hasMany(Image, { foreignKey: 'advert_id', as: 'images' });
@@ -61,4 +62,8 @@ Advert.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 Comment.belongsTo(Advert, { foreignKey: 'ad_id', as: 'advert' });
 Comment.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, Rating, Comment, operatorMap}
+// Wishlist associations
+Wishlist.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Wishlist.belongsTo(Advert, { foreignKey: 'advertId', as: 'advert' });
+
+module.exports = {sequelize, User, Advert, City, Image, Payment, Support, Condition, Category, Rating, Comment, Wishlist, operatorMap}
