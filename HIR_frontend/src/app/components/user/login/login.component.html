@@ -1,6 +1,10 @@
 <h3>Bejelentkezés</h3>
+
+<!--Fő tároló-->
 <div class="container">
 
+
+<!--Input mezők-->
 <p-inputgroup>
     <p-inputgroup-addon>
         <i class="pi pi-at"></i>
@@ -11,6 +15,6 @@
 <p-password [(ngModel)]="user.password" [feedback]="false" [toggleMask]="true" placeholder="Jelszó" fluid/>
 
 
-
-<p-button label="Login" (click)="login()"/>
+<!--Bejelentkezés gomb-->
+<p-button label="Bejelentkezés" (click)="login()"/>
 </div>

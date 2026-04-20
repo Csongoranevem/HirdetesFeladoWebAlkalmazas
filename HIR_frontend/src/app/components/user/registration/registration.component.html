@@ -1,6 +1,9 @@
 <h3>Regisztráció</h3>
+<!--Fő tároló-->
 <div class="container">
 
+
+<!--Input mezők-->
 <p-inputgroup>
     <p-inputgroup-addon>
         <i class="pi pi-user"></i>
@@ -43,5 +46,7 @@
        <input id="phone" pInputText [(ngModel)]="user.phone" placeholder="Telefonszám" />
 </p-inputgroup>
 
-<p-button label="Register" (click)="register()" />
+
+<!--Regisztráció gomb-->
+<p-button label="Regisztráció" (click)="register()" />
 </div>
