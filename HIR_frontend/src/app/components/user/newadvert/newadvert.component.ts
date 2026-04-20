@@ -63,6 +63,7 @@ export class NewadvertComponent implements OnInit {
 
   uploadedFiles: any[] = [];
   selectedFiles: File[] = [];
+  isSubmitting = false;
   categories: Category[] = [];
   paymentMethods: Payment[] = [];
   newAdvert:Ad = {
@@ -116,7 +117,26 @@ export class NewadvertComponent implements OnInit {
       return payment ? payment.name : 'Nincs kiválasztva';
     }
 
+    private resetFormState(): void {
+      this.newAdvert = {
+        user_id: '',
+        name: '',
+        description: '',
+        price: 0,
+        city_id: this.newAdvert.city_id,
+        product_id: this.newAdvert.product_id,
+        payment_method: '',
+        category_id: '',
+        status: 'active'
+      };
+      this.selectedFiles = [];
+      this.uploadedFiles = [];
+    }
+
     postAdvert() {
+      if (this.isSubmitting) {
+        return;
+      }
       const errors: string[] = [];
 
       if (!this.newAdvert.name || this.newAdvert.name.trim() === '') {
@@ -162,6 +182,8 @@ export class NewadvertComponent implements OnInit {
       // Set the user_id from the token
       this.newAdvert.user_id = loggedUser.id;
 
+  this.isSubmitting = true;
+
       this.api.insert('adverts', this.newAdvert).subscribe({
         next: (response: any) => {
           const advertId = response.id;
@@ -180,7 +202,11 @@ export class NewadvertComponent implements OnInit {
                   detail: 'A hirdetés és a képek sikeresen feltöltve!',
                   life: 4000
                 });
-                this.selectedFiles = [];
+                this.resetFormState();
+                this.isSubmitting = false;
+                setTimeout(() => {
+                  this.router.navigateByUrl('home');
+                }, 500);
               },
               error: (error) => {
                 this.messageService.add({
@@ -189,6 +215,11 @@ export class NewadvertComponent implements OnInit {
                   detail: 'A hirdetés feladva, de a képek feltöltése sikertelen.',
                   life: 4000
                 });
+                this.resetFormState();
+                this.isSubmitting = false;
+                setTimeout(() => {
+                  this.router.navigateByUrl('home');
+                }, 500);
               }
             });
           } else {
@@ -198,6 +229,8 @@ export class NewadvertComponent implements OnInit {
               detail: 'A hirdetés sikeresen feladva!',
               life: 4000
             });
+            this.resetFormState();
+            this.isSubmitting = false;
             setTimeout(() => {
               this.router.navigateByUrl('home');
             }, 1000);
@@ -212,6 +245,7 @@ export class NewadvertComponent implements OnInit {
             detail: 'Hiba történt a hirdetés feladása során. Kérjük próbálja újra!',
             life: 4000
           });
+          this.isSubmitting = false;
         }
       });
     }

@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="flex justify-end pt-4">
                                         <p-button label="hirdetés feladása" severity="warn" icon="pi pi-check" iconPos="right"
-                                            (onClick)="postAdvert()" />
+                                            (onClick)="postAdvert()" [disabled]="isSubmitting" />
                                     </div>
                                 </p-panel>
                             </div>
