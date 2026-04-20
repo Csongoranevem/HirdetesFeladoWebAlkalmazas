@@ -9,6 +9,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
 
 // Alkalmazás-szintű szolgáltatások és típusok.
 import { Router } from '@angular/router';
@@ -18,9 +19,10 @@ import { User } from '../../../interfaces/user';
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [FloatLabelModule,InputTextModule,FormsModule,  ButtonModule, InputGroupModule, InputGroupAddonModule,PasswordModule],
+  imports: [FloatLabelModule, InputTextModule, FormsModule, ButtonModule, InputGroupModule, InputGroupAddonModule, PasswordModule, ToastModule],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss'
+  styleUrl: './registration.component.scss',
+  providers: [MessageService]
 })
 export class RegistrationComponent  {
 

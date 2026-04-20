@@ -15,11 +15,12 @@ import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../interfaces/user';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FloatLabelModule,InputGroupAddonModule,InputTextModule,FormsModule,ButtonModule,InputGroupModule, PasswordModule],
+  imports: [FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, ButtonModule, InputGroupModule, PasswordModule, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
