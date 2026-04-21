@@ -19,6 +19,8 @@ import { Ad } from '../../../interfaces/ad';
 import { AuthService } from '../../../services/auth.service';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
+import { TextareaModule } from 'primeng/textarea';
+import { FloatLabel } from 'primeng/floatlabel';
 
   interface UploadEvent {
     originalEvent: Event;
@@ -42,7 +44,9 @@ import { Router } from '@angular/router';
     ToastModule, 
     ButtonModule,
     CommonModule,
-    PanelModule
+    PanelModule,
+    TextareaModule,
+    FloatLabel
 
   ],
   providers: [MessageService],
@@ -119,7 +123,7 @@ export class NewadvertComponent implements OnInit {
 
     private resetFormState(): void {
       this.newAdvert = {
-        user_id: '',
+        user_id: this.auth.GetLoggedUser().id,
         name: '',
         description: '',
         price: 0,
