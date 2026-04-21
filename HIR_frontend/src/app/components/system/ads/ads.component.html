@@ -146,8 +146,27 @@
     <p-divider></p-divider>
   </p-fluid>
 
+    <div *ngIf="!UserOrAd" style="color: #6b7280; font-size: .9rem; margin: .25rem 0 .75rem 0;">
+      Találatok száma: {{ filteredAds.length }}
+    </div>
+
   <div class="CardsDiv">
-    <app-cards *ngIf="!UserOrAd" [ads]="filteredAds"></app-cards>
+      <app-cards *ngIf="!UserOrAd" [ads]="pagedAds"></app-cards>
+
+    <div *ngIf="!UserOrAd && filteredAds.length === 0" class="mt-3">
+      <p><b>Nincs még termék ebben a kategóriában.</b></p>
+      <p style="opacity: .8;">Próbálj másik kategóriát vagy töröld a szűrőket.</p>
+    </div>
+
+      <div class="PaginatorWrap">
+        <p-paginator
+          *ngIf="!UserOrAd && filteredAds.length > pageSize"
+          [first]="first"
+          [rows]="pageSize"
+          [totalRecords]="filteredAds.length"
+          (onPageChange)="onPageChange($event)"
+        ></p-paginator>
+      </div>
   </div>
 
 

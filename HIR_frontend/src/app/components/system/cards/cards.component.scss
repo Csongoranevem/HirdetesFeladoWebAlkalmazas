@@ -16,16 +16,34 @@ img {
 }
 
 .cardContainer {
-    margin: 1rem 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 1rem;
-    height: 100%;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
     animation-name: SmoothSlideUp;
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
+}
+
+@media (max-width: 1200px) {
+    .cardContainer {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .cardContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .cardContainer {
+        grid-template-columns: 1fr;
+    }
 }
 
 

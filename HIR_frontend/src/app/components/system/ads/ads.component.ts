@@ -24,6 +24,8 @@ import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment.development';
 import { Category } from '../../../interfaces/category';
 import { User } from '../../../interfaces/user';
+import { ActivatedRoute } from '@angular/router';
+import { PaginatorModule } from 'primeng/paginator';
 
 interface SortBy {
   label: string;
@@ -54,6 +56,7 @@ interface SortBy {
     MenuItemContent,
     AutoComplete,
     Select,
+  PaginatorModule,
     CardsComponent
   ],
   templateUrl: './ads.component.html',
@@ -79,6 +82,10 @@ export class AdsComponent {
   selectedSort: SortBy | undefined;
   SortingCategories: SortBy[] | undefined;
 
+  // Pagination
+  pageSize = 8;
+  first = 0;
+
   getAds() {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
       this.ads = adverts as Ad[];
@@ -102,7 +109,8 @@ export class AdsComponent {
 
   constructor(
     private apiService: ApiService,
-    private authService: AuthService
+  private authService: AuthService,
+  private route: ActivatedRoute
   ) { }
   ngOnInit() {
     this.SortingCategories = [
@@ -112,6 +120,17 @@ export class AdsComponent {
     this.getCategories();
     this.getAds();
     this.getUsers();
+
+    // Ha a főoldalról kategória-szűrővel érkezünk (pl. /ads?category=3),
+    // akkor ezt előre beállítjuk a szűrőben.
+    this.route.queryParamMap.subscribe(params => {
+      const categoryId = params.get('category');
+      if (categoryId) {
+        this.selectedCategories = [categoryId];
+        this.UserOrAd = false;
+  this.first = 0;
+      }
+    });
   }
 
 
@@ -170,11 +189,21 @@ export class AdsComponent {
 
     return result;
   }
+
+  get pagedAds(): Ad[] {
+    return this.filteredAds.slice(this.first, this.first + this.pageSize);
+  }
+
+  onPageChange(event: any) {
+    this.first = event.first ?? 0;
+    this.pageSize = event.rows ?? this.pageSize;
+  }
   resetFilters() {
     this.query = '';
     this.priceRange = [0, 100000];
     this.selectedCategories = [];
     this.selectedSort = undefined;
+    this.first = 0;
   }
 
 

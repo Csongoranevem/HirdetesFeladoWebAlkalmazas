@@ -40,9 +40,9 @@
             </div>
         </div>
         <hr>
-        <div class="TagsDiv">
+            <div class="TagsDiv">
             <div class="TagsScroller leftToRight" >
-                <div class="Tag" *ngFor="let tag of tags">
+                <div class="Tag" *ngFor="let tag of tags" (click)="goToAdsWithCategory(tag)" role="button" tabindex="0">
                     <i class="pi pi-tag"></i>
                     <h3>{{ tag.name }}</h3>
                 </div>
@@ -52,7 +52,7 @@
         <div class="TagBody">
             <div class="TagsDiv">
                 <div class="TagsScroller rightToLeft" >
-                    <div class="Tag" *ngFor="let tag of tags">
+                    <div class="Tag" *ngFor="let tag of tags" (click)="goToAdsWithCategory(tag)" role="button" tabindex="0">
                         <i class="pi pi-tag"></i>
                         <h3>{{ tag.name }}</h3>
                     </div>

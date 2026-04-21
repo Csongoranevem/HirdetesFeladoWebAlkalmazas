@@ -50,9 +50,6 @@ p-accordion-content{
 
 
 //SearchBar
-.container{
-    
-}
 .SearchBarDiv{
     display: flex;
     align-items: center;
@@ -75,8 +72,17 @@ p-accordion-content{
 
 .CardsDiv{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 2%;
+}
+
+.PaginatorWrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 
