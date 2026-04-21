@@ -9,11 +9,11 @@ module.exports = (sequelize)=>{
             defaultValue:DataTypes.UUIDV4
         },
         userId:{
-            type:DataTypes.STRING,
+            type:DataTypes.UUID,
             allowNull:false
         },
         advertId:{
-            type:DataTypes.STRING,
+            type:DataTypes.UUID,
             allowNull:false
         }
     });

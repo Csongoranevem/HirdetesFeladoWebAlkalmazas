@@ -1,11 +1,12 @@
 
 <div class="container">
-    
+    <p-scrollpanel [style]="{ width: '100%', height: '50vh' }">
     <p-table
         [value]="myAds"
         responsiveLayout="scroll"
         [tableStyle]="{ width: '100%' }"
         styleClass="myads-table">
+
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
             <span class="text-xl font-bold"><h3>Hirdetéseim</h3></span>
@@ -46,8 +47,9 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="footer"> <p>Összesen {{ myAds ? myAds.length : 0 }} hirdetés. </p></ng-template>
-</p-table>
 
+</p-table>
+</p-scrollpanel>
 <p-dialog
     maskStyleClass="backdrop-blur-3xl"
     header="Hirdetés módosítása"

@@ -21,6 +21,23 @@ router.get('/:id', authenticate,async(req,res)=>{
     res.status(200).json(wishlist);
 });
 
+//GET wishlist by operator
+router.get('/:field/:op/:value', authenticate,async (req, res) => {
+    const { field, op, value } = req.params;
+    const operator = operatorMap[op];
+    if (!operator) {
+        return res.status(400).json({ message: "Invalid operator!" });
+    }
+    const wishlists = await Wishlist.findAll({
+        where: {
+            [field]: {
+                [operator]: value
+            }
+        }
+    });
+    res.status(200).json(wishlists);
+});
+
 //Post new wishlist
 router.post('/', authenticate,async (req,res)=>{
     const { userId, advertId } = req.body;

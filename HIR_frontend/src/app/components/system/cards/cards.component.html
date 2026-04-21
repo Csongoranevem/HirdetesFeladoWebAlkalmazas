@@ -13,7 +13,7 @@
         <p class="cardDescription">{{ad.description}}</p>
         <ng-template pTemplate="footer">
             <div class="flex gap-4 mt-1 cardFooter">
-                <p-button icon="pi pi-heart" severity="secondary" class="w-full" [outlined]="true"
+                <p-button icon="pi pi-heart" severity="secondary" (click)="addToWishlist(ad.id!.toString())" class="w-full" [outlined]="true"
                     styleClass="w-full" />
                 <p-button label="Érdekel" class="w-full interestBtn" styleClass="w-full" [routerLink]="['/singleAdvert', ad.id]" />
             </div>

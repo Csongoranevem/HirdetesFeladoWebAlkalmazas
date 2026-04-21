@@ -10,6 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { Category } from '../../../interfaces/category';
+import { Wishlist } from '../../../interfaces/wishlists';
 
 registerLocaleData(localeHu);
 
@@ -24,6 +25,7 @@ registerLocaleData(localeHu);
 export class CardsComponent implements OnInit {
 
   @Input() ads: Ad[] = [];
+  @Input() filterByIds: string[] = [];
   categories: Category[] = [];
 
   constructor(
@@ -37,10 +39,13 @@ export class CardsComponent implements OnInit {
     this.getCategories();
   }
 
-
   getAds() {
     this.apiService.selectByField('adverts', 'status', 'eq', 'active').subscribe(adverts => {
-      this.ads = adverts as Ad[];
+      let filtered = adverts as Ad[];
+      if (this.filterByIds.length > 0) {
+        filtered = filtered.filter(ad => this.filterByIds.includes(ad.id!.toString()));
+      }
+      this.ads = filtered;
     });
   }
   getCategories(){
@@ -64,4 +69,45 @@ export class CardsComponent implements OnInit {
     this.router.navigate(['/singleAdvert', id]);
   }
 
+
+  /// Wishlist
+
+  newWishList: Wishlist = {
+    id: '',
+    userId: '',
+    advertId: ''
+  };
+  allWishlists: Wishlist[] = [];
+
+  addToWishlist(adId: string) {
+    this.newWishList.advertId = adId;
+    this.newWishList.userId = this.authService.GetLoggedUser().id;
+
+    this.apiService.selectAll('wishlist').subscribe(wishlists => {
+      this.allWishlists = wishlists as Wishlist[];
+
+      const existing = this.allWishlists.find(wish => wish.userId === this.newWishList.userId && wish.advertId === this.newWishList.advertId);
+
+      if (!existing) {
+        this.apiService.insert('wishlist', this.newWishList).subscribe({
+          next: (response) => {
+            alert('Hozzáadva a kívánságlistához!\n' + adId);
+          },
+          error: (error) => {
+            alert('Hiba történt a kívánságlista hozzáadása során!\n' + error.message);
+          }
+        });
+      } else {
+        // use the existing wishlist item's id (guaranteed to be a string here)
+        this.apiService.delete('wishlist', String(existing.id)).subscribe({
+          next: (response) => {
+            alert('Eltávolítva a kívánságlistáról!\n' + adId);
+          },
+          error: (error) => {
+            alert('Hiba történt a kívánságlista eltávolítása során!\n' + error.message);
+          }
+        });
+      }
+    });
+  }
 }

@@ -17,6 +17,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { Select } from 'primeng/select';
 import { Category } from '../../../interfaces/category';
 import { Payment } from '../../../interfaces/payments';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
   selector: 'app-myads',
@@ -33,7 +34,8 @@ import { Payment } from '../../../interfaces/payments';
     DialogModule,
     InputTextModule,
     TextareaModule,
-    Select
+    Select,
+    ScrollPanelModule
   ],
   templateUrl: './myads.component.html',
   styleUrl: './myads.component.scss'

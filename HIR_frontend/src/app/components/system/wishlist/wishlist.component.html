@@ -1,0 +1,5 @@
+<p-scrollpanel [style]="{ width: '100%', height: '55vh' }">
+    <app-cards [filterByIds]="wishlistAdIds" *ngIf="wishlistAdIds.length > 0"></app-cards>
+    <p *ngIf="wishlistAdIds.length === 0" style="margin: 0 auto;">A kívánságlistád üres!</p>
+    <h5 *ngIf="wishlistAdIds.length === 0">Kattints a szívecskékre, hogy hozzáadj valamit a kívánságlistádhoz!</h5>
+</p-scrollpanel>

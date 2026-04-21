@@ -29,6 +29,7 @@ import { InputText } from "primeng/inputtext";
 import { BrowserModule } from "@angular/platform-browser";
 import { UploaderModule } from "angular-uploader";
 import { Uploader, UploadWidgetConfig, UploadWidgetResult } from 'uploader';
+import { WishlistComponent } from '../wishlist/wishlist.component';
 
 
 
@@ -70,7 +71,8 @@ interface AdvertSearchResult {
     MyadsComponent,
     SupportComponent,
     InputText,
-    UploaderModule
+    UploaderModule,
+    WishlistComponent
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
