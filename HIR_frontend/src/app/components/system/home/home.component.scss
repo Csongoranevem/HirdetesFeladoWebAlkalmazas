@@ -119,7 +119,7 @@ html, body {
     opacity: 0;
     transform: translateY(-100px);
     will-change: transform;
-    animation: slideInLeft 5s cubic-bezier(.2,.8,.2,1) 0.15s both;
+    animation: slideInLeft 2.5s cubic-bezier(.2,.8,.2,1) 0.15s both;
 }
 
 .HomeDisplay{

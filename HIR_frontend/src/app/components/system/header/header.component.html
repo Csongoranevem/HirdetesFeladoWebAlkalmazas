@@ -61,8 +61,8 @@
 
 
     <p-dialog maskStyleClass="backdrop-blur-3xl" header="{{loggedUsername}}"  [(visible)]="ProfileVisible"
-        [style]="{ width: '70rem', height:'50rem'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
-        <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '40rem' }" [minSizes]="[25,75]" styleClass="mb-8">
+        [style]="{ width: '70rem', height:'85vh'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
+        <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '75vh' }" [minSizes]="[25,75]" styleClass="mb-8">
             <ng-template pTemplate>
                 <div class="flex items-center justify-center h-full ProfileLeftDiv">
                     <p (click)="ChangeModalNumber(0)">Publikus profilom</p>
@@ -73,7 +73,7 @@
                 </div>
             </ng-template>
             <ng-template pTemplate class="h-full">
-                <div class="flex items-center justify-center h-full ProfileRightDiv">
+                <div class="ProfileRightDiv">
                     <div *ngIf="CurrentProfileModalContent == 0" class="PublicProfileDiv h-full">
                         <h4>
                             Publikus Profil

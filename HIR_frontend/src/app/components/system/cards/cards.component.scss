@@ -28,6 +28,54 @@ img {
     animation-fill-mode: forwards;
 }
 
+/* Wishlist / compact cards */
+.cardContainer.compact {
+    max-width: 980px;
+    gap: 1rem;
+    --card-width: 13.5rem;
+    --card-height: 19rem;
+}
+
+.cardContainer.compact img {
+    height: 96px;
+}
+
+::ng-deep .cardContainer.compact .p-card {
+    height: 300px !important;
+}
+
+::ng-deep .cardContainer.compact .p-card-title {
+    height: 2.25rem;
+    font-size: 1rem;
+}
+
+.cardContainer.compact .cardDescription {
+    --max-lines: 1;
+    font-size: 0.8rem;
+}
+
+/* Extra small areas (like profile modal embedded wishlist): reduce columns and card width */
+@media (max-width: 1100px) {
+    .cardContainer.compact {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        --card-width: 12.25rem;
+    }
+}
+
+@media (max-width: 820px) {
+    .cardContainer.compact {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        --card-width: 12.5rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .cardContainer.compact {
+        grid-template-columns: 1fr;
+        --card-width: 100%;
+    }
+}
+
 @media (max-width: 1200px) {
     .cardContainer {
         grid-template-columns: repeat(3, minmax(0, 1fr));

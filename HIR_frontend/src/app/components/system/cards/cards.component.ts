@@ -26,6 +26,7 @@ export class CardsComponent implements OnInit {
 
   @Input() ads: Ad[] = [];
   @Input() filterByIds: string[] = [];
+  @Input() compact: boolean = false;
   categories: Category[] = [];
 
   constructor(

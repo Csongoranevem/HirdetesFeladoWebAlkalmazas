@@ -1,6 +1,6 @@
 
-<div class="cardContainer">
-    <p-card [style]="{ width: '18rem', height: '26rem', overflow: 'hidden' }" *ngFor="let ad of ads">
+<div class="cardContainer" [class.compact]="compact">
+    <p-card [style]="{ width: 'var(--card-width, 18rem)', height: 'var(--card-height, 26rem)', overflow: 'hidden' }" *ngFor="let ad of ads">
         <ng-template pTemplate="header">
             <div style="position: relative;">
                 <img [alt]="ad.name" class="w-full" [src]="getAdImage(ad)" />

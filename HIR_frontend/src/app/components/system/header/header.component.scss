@@ -86,12 +86,16 @@ img {
 }
 
 .ProfileRightDiv{
+    display: block;
+    box-sizing: border-box;
     width: 100%;
     padding: 2%;
     box-shadow: 2px 2px 10px 2px black;
     background-image: url("../../../../../public/BackGround.png");
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: auto;
+    max-height: 75vh;
 }
 .ProfilMid{
     display: flex;
@@ -199,6 +203,32 @@ img {
 
 .profile-embedded{
     margin-top: 0.5rem;
+}
+
+/* Embedded wishlist/cards inside the profile modal is very narrow; force a stable, centered layout */
+:host ::ng-deep .profile-embedded app-wishlist .WishlistWrap {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+:host ::ng-deep .profile-embedded app-wishlist app-cards .cardContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    justify-items: center;
+}
+
+:host ::ng-deep .profile-embedded app-wishlist app-cards .cardContainer.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+    --card-width: min(170px, 100%) !important;
+}
+
+@media (max-width: 900px) {
+    :host ::ng-deep .profile-embedded app-wishlist app-cards .cardContainer.compact {
+        grid-template-columns: 1fr !important;
+        --card-width: min(220px, 100%) !important;
+    }
 }
 
 /* Make the embedded MyAds component match the modal glass background */
