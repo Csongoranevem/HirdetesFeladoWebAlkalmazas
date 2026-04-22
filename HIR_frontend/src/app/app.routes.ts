@@ -11,6 +11,7 @@ import { SupportComponent } from './components/system/support/support.component'
 import { MyadsComponent } from './components/user/myads/myads.component';
 import { SingleAdvertComponent } from './components/system/single-advert/single-advert.component';
 import { UseractionsComponent } from './components/admin/useractions/useractions.component';
+import { InterestedAdvertComponent } from './components/user/interested-advert/interested-advert.component';
 
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
     {path:'myads', component:MyadsComponent},
     {path:'newAdvert',component:NewadvertComponent},
     { path: 'singleAdvert/:id', component: SingleAdvertComponent },
+    { path: 'interestedAdvert/:id', component: InterestedAdvertComponent },
     {path: 'useractions', component: UseractionsComponent},
 
     //This route must be in the last line
