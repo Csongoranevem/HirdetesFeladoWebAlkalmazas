@@ -18,6 +18,7 @@ import { Select } from 'primeng/select';
 import { Category } from '../../../interfaces/category';
 import { Payment } from '../../../interfaces/payments';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { Condition } from '../../../interfaces/condition';
 
 @Component({
   selector: 'app-myads',
@@ -48,11 +49,18 @@ export class MyadsComponent implements OnInit{
   editDialogVisible = false;
   editModel: Ad | null = null;
   saving = false;
+  conditions: Condition[] = [];
 
   readonly statusOptions: Array<{ name: string; value: Ad['status'] }> = [
     { name: 'Aktív', value: 'active' },
     { name: 'Inaktív', value: 'inactive' }
   ];
+
+  getConditionName(conditionId: string | null | undefined): string {
+    if (!conditionId) return '';
+    const condition = this.conditions.find(c => c.id === conditionId);
+    return condition ? condition.name : conditionId;
+  }
 
   constructor(
     private api:ApiService,
@@ -71,6 +79,10 @@ export class MyadsComponent implements OnInit{
 
     this.api.selectAll('payments').subscribe((data) => {
       this.paymentMethods = data as Payment[];
+    });
+
+    this.api.selectAll('conditions').subscribe((data) => {
+      this.conditions = data as Condition[];
     });
   }
 
@@ -137,6 +149,7 @@ export class MyadsComponent implements OnInit{
       if (!this.editModel.name || this.editModel.name.trim() === '') errors.push('A termék neve kötelező!');
       if (!this.editModel.price || this.editModel.price <= 0) errors.push('Az irányár megadása kötelező!');
       if (!this.editModel.category_id) errors.push('Kérjük válasszon kategóriát!');
+  if (!this.editModel.condition_id) errors.push('Kérjük válassza ki a termék állapotát!');
       if (!this.editModel.payment_method) errors.push('Kérjük válasszon fizetési módot!');
       if (!this.editModel.description || this.editModel.description.trim() === '') errors.push('A leírás megadása kötelező!');
 
@@ -188,5 +201,11 @@ export class MyadsComponent implements OnInit{
         this.api.delete('adverts', id).subscribe(() => {
           this.myAds = this.myAds.filter(a => a.id !== id);
         });
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Sikeres törlés',
+            detail: 'A hirdetés sikeresen törölve lett.',
+            key: 'br'
+          });
     }
   }
