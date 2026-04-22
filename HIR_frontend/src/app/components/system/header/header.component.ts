@@ -72,7 +72,8 @@ interface AdvertSearchResult {
     SupportComponent,
     InputText,
     UploaderModule,
-    WishlistComponent
+    WishlistComponent,
+    CommonModule
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -182,7 +183,7 @@ export class HeaderComponent implements OnInit {
 
   items: any[] = [
     ...this.isLoggedIn ? [
-      { label: 'Profil', icon: 'pi pi-user', routerLink: '/profil ' },
+      { label: 'Profil', icon: 'pi pi-user', command: () => this.showProfileModal() },
       { label: 'Hirdetéseim', icon: 'pi pi-list', routerLink: '/myads' },
       ...this.isAdmin ? [{ label: "Felhasználók kezelése", icon: 'pi pi-users', routerLink: '/useractions' }] : []
     ] : [],
@@ -258,9 +259,11 @@ export class HeaderComponent implements OnInit {
   EditAccount(){
     if(this.AccountEditing == false){
       this.AccountEditing = true
+      console.log(this.AccountEditing)
     }
     else{
       this.AccountEditing = false
+      console.log(this.AccountEditing)
     }
   }
 
