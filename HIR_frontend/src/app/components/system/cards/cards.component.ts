@@ -27,6 +27,7 @@ export class CardsComponent implements OnInit {
 
   @Input() ads: Ad[] = [];
   @Input() filterByIds: string[] = [];
+  @Input() compact: boolean = false;
   @Output() wishlistUpdated = new EventEmitter<void>();
   categories: Category[] = [];
 
