@@ -6,6 +6,20 @@ img {
     border-radius: 0.6rem;
 }
 
+.UndoWishlist {
+    background-color: var(--primary-color) !important;
+    border-radius: 8px;
+    color: var(--primary-color);
+    transition: 5s !important;
+}
+.UndoWishlist:hover{
+    background-color: var(--highlight-bg) !important;
+    color: var(--primary-color) !important;
+    transition: 5s !important;
+}
+
+.WishlistBtn:hover {
+}
 
 ::ng-deep .p-card {
     padding: 0.2rem !important;
