@@ -126,6 +126,7 @@ export class MyadsComponent implements OnInit{
         product_id: ad.product_id,
         payment_method: ad.payment_method,
         category_id: ad.category_id,
+  condition_id: ad.condition_id,
         status: ad.status
       };
     }

@@ -15,6 +15,7 @@ export interface Ad {
     product_id: string;
     payment_method: string;
     category_id: string;
+    condition_id: string;
     status: "active" | "inactive";
     date_of_upload?: Date;
     images?: AdImage[];

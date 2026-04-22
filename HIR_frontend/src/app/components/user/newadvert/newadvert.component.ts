@@ -21,6 +21,7 @@ import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
+import { Condition } from '../../../interfaces/condition';
 
   interface UploadEvent {
     originalEvent: Event;
@@ -70,6 +71,7 @@ export class NewadvertComponent implements OnInit {
   isSubmitting = false;
   categories: Category[] = [];
   paymentMethods: Payment[] = [];
+  conditions: Condition[] = [];
   newAdvert:Ad = {
     user_id: '',  // This will be set dynamically when posting the advert
     name: '',
@@ -79,8 +81,11 @@ export class NewadvertComponent implements OnInit {
     product_id: 'TElefon',
     payment_method: '',
     category_id: '',
+    condition_id: '',
     status: 'active'
   };
+
+  
 
 
 
@@ -91,6 +96,10 @@ export class NewadvertComponent implements OnInit {
 
       this.api.selectAll('payments').subscribe((data)=>{
         this.paymentMethods=data as Payment[];
+      });
+
+      this.api.selectAll('conditions').subscribe((data)=>{
+        this.conditions=data as Condition[];
       });
     }
 
@@ -116,6 +125,11 @@ export class NewadvertComponent implements OnInit {
       return category ? category.name : 'Nincs kiválasztva';
     }
 
+    getConditionName(conditionId: string): string {
+      const condition = this.conditions.find(c => c.id === conditionId);
+      return condition ? condition.name : 'Nincs kiválasztva';
+    }
+
     getPaymentMethodName(paymentId: string): string {
       const payment = this.paymentMethods.find(p => p.id === paymentId);
       return payment ? payment.name : 'Nincs kiválasztva';
@@ -131,6 +145,7 @@ export class NewadvertComponent implements OnInit {
         product_id: this.newAdvert.product_id,
         payment_method: '',
         category_id: '',
+  condition_id: '',
         status: 'active'
       };
       this.selectedFiles = [];
@@ -151,6 +166,9 @@ export class NewadvertComponent implements OnInit {
       }
       if (!this.newAdvert.category_id) {
         errors.push('Kérjük válasszon kategóriát!');
+      }
+      if (!this.newAdvert.condition_id) {
+        errors.push('Kérjük válassza ki a termék állapotát!');
       }
       if (!this.newAdvert.payment_method) {
         errors.push('Kérjük válasszon fizetési módot!');

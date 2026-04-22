@@ -38,6 +38,12 @@
                                         [options]="paymentMethods" 
                                         [(ngModel)]="newAdvert.payment_method"
                                         class="w-full" />
+                                    <p-select 
+                                        optionLabel="name" optionValue="id"
+                                        placeholder="Termék állapota" 
+                                        [options]="conditions" 
+                                        [(ngModel)]="newAdvert.condition_id"
+                                        class="w-full" />
                                 </div>
                             </div>
                             <p-floatlabel>
@@ -91,6 +97,8 @@
                                         <span>{{newAdvert.price}} Ft</span>
                                         <span class="summary-label">Kategória:</span>
                                         <span>{{getCategoryName(newAdvert.category_id)}}</span>
+                                        <span class="summary-label">Állapot:</span>
+                                        <span>{{getConditionName(newAdvert.condition_id)}}</span>
                                         <span class="summary-label">Fizetési mód:</span>
                                         <span>{{getPaymentMethodName(newAdvert.payment_method)}}</span>
                                         <span class="summary-label">Leírás:</span>

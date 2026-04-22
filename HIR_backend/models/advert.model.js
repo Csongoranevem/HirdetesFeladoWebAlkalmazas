@@ -44,6 +44,10 @@ module.exports = (sequelize) => {
                 allowNull: false
             }
             ,
+            condition_id: {
+                type: DataTypes.UUID,
+                allowNull: false
+            },
             status: {
                 type: DataTypes.STRING(15),
                 allowNull: false

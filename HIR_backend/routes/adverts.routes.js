@@ -109,8 +109,8 @@ router.get('/:field/:op/:value',async(req,res)=>{
 router.post('/',async (req,res)=>{
 
     try{
-    const{ name,user_id,description,price, city_id, product_id, category_id, payment_method, status }=req.body;
-    const advert=await Advert.create({name, user_id, description, price, city_id, product_id, category_id, payment_method, status});
+    const{ name,user_id,description,price, city_id, product_id, category_id, condition_id, payment_method, status }=req.body;
+    const advert=await Advert.create({name, user_id, description, price, city_id, product_id, category_id, condition_id, payment_method, status});
     
     // Asynchronously send email notification if user has an email and category exists
     Category.findByPk(category_id).then(async (category) => {
