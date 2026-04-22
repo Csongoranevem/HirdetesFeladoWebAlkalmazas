@@ -1,4 +1,4 @@
-import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Input, LOCALE_ID, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
 import { CardModule } from 'primeng/card';
@@ -11,6 +11,7 @@ import { environment } from '../../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { Category } from '../../../interfaces/category';
 import { Wishlist } from '../../../interfaces/wishlists';
+import { MessageService } from 'primeng/api';
 
 registerLocaleData(localeHu);
 
@@ -26,17 +27,20 @@ export class CardsComponent implements OnInit {
 
   @Input() ads: Ad[] = [];
   @Input() filterByIds: string[] = [];
+  @Output() wishlistUpdated = new EventEmitter<void>();
   categories: Category[] = [];
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
+    private messageService: MessageService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getAds();
     this.getCategories();
+    this.loadAllWishlists();
   }
 
   getAds() {
@@ -48,11 +52,13 @@ export class CardsComponent implements OnInit {
       this.ads = filtered;
     });
   }
+
   getCategories(){
     this.apiService.selectAll('categories').subscribe(categories => {
       this.categories = categories as Category[];
     });
   }
+
   getCategoryName(categoryId: string): string {
     return this.categories.find(category => category.id === categoryId)?.name || '';
   }
@@ -64,11 +70,10 @@ export class CardsComponent implements OnInit {
     return 'no-image.png';
   }
 
-    openAdvert(id?: string) {
+  openAdvert(id?: string) {
     if (!id) return;
     this.router.navigate(['/singleAdvert', id]);
   }
-
 
   /// Wishlist
 
@@ -79,35 +84,52 @@ export class CardsComponent implements OnInit {
   };
   allWishlists: Wishlist[] = [];
 
+  loadAllWishlists() {
+    this.apiService.selectAll('wishlist').subscribe(wishlists => {
+      this.allWishlists = wishlists as Wishlist[];
+    });
+  }
+
   addToWishlist(adId: string) {
     this.newWishList.advertId = adId;
     this.newWishList.userId = this.authService.GetLoggedUser().id;
 
-    this.apiService.selectAll('wishlist').subscribe(wishlists => {
-      this.allWishlists = wishlists as Wishlist[];
+    const existing = this.allWishlists.find(wish => wish.userId === this.newWishList.userId && wish.advertId === this.newWishList.advertId);
 
-      const existing = this.allWishlists.find(wish => wish.userId === this.newWishList.userId && wish.advertId === this.newWishList.advertId);
+    if (!existing) {
+      this.apiService.insert('wishlist', this.newWishList).subscribe({
+        next: (response) => {
+          this.loadAllWishlists();
+          this.wishlistUpdated.emit();
+          this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'Hozzáadva a kívánságlistához!' });
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a kívánságlista hozzáadása során!' });
+        }
+      });
+    } else {
+      this.messageService.add({ severity: 'warn', summary: 'Figyelmeztetés', detail: 'Ez a hirdetés már szerepel a kívánságlistádban!' });
+    }
+  }
 
-      if (!existing) {
-        this.apiService.insert('wishlist', this.newWishList).subscribe({
-          next: (response) => {
-            alert('Hozzáadva a kívánságlistához!\n' + adId);
-          },
-          error: (error) => {
-            alert('Hiba történt a kívánságlista hozzáadása során!\n' + error.message);
-          }
-        });
-      } else {
-        // use the existing wishlist item's id (guaranteed to be a string here)
-        this.apiService.delete('wishlist', String(existing.id)).subscribe({
-          next: (response) => {
-            alert('Eltávolítva a kívánságlistáról!\n' + adId);
-          },
-          error: (error) => {
-            alert('Hiba történt a kívánságlista eltávolítása során!\n' + error.message);
-          }
-        });
-      }
-    });
+  removeFromWishlist(adId: string) {
+    const existing = this.allWishlists.find(wish => wish.userId === this.authService.GetLoggedUser().id && wish.advertId === adId);
+
+    if (existing) {
+      this.apiService.delete('wishlist', String(existing.id)).subscribe({
+        next: (response) => {
+          this.loadAllWishlists();
+          this.wishlistUpdated.emit();
+          this.messageService.add({ severity: 'error', summary: 'Eltávolítva', detail: 'Eltávolítva a kívánságlistáról!' });
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a kívánságlista eltávolítása során!' });
+        }
+      });
+    }
+  }
+
+  IsInWishlist(adId: string): boolean {
+    return this.allWishlists.some(wish => wish.userId === this.authService.GetLoggedUser().id && wish.advertId === adId);
   }
 }
