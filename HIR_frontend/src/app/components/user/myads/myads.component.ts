@@ -63,7 +63,6 @@ export class MyadsComponent implements OnInit{
   ngOnInit(): void {
     this.api.selectByField('adverts', 'user_id','eq', this.authService.GetLoggedUser().id || '').subscribe((data) => {
       this.myAds = data as Ad[];
-      console.log(this.myAds);
     });
 
     this.api.selectAll('categories').subscribe((data) => {

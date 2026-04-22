@@ -39,7 +39,6 @@
                 <!-- Admin gomb csak az adminisztrátoroknak látszik -->
                 <!--<p-button icon="pi pi-shield" id="adminPanelButton" [rounded]="true" severity="help" size="large" [disabled]="!isAdmin"></p-button>-->
 
-                <p-button (click)="showProfileModal()" label="Show" />
 
                 <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" (click)="navigateToNewAdvert()" 
                     size="large"></p-button>
@@ -60,7 +59,7 @@
 
 
 
-    <p-dialog maskStyleClass="backdrop-blur-3xl" header="{{loggedUsername}}"  [(visible)]="ProfileVisible"
+    <p-dialog maskStyleClass="backdrop-blur-3xl" header="{{ProfileData?.name}}"  [(visible)]="ProfileVisible"
         [style]="{ width: '70rem', height:'85vh'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
         <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '75vh' }" [minSizes]="[25,75]" styleClass="mb-8">
             <ng-template pTemplate>
@@ -147,16 +146,16 @@
                         </h4>
                         <p-divider></p-divider>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-envelope"></i>{{ProfileData?.email}}</label>
+                            <input pInputText id="on_label" [style]="{width:'100%'}" [disabled]="ProfileEditing" [(ngModel)]="ProfileData!.email" autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-envelope"></i>Email</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-phone"></i>{{ProfileData?.phone}}</label>
+                            <input pInputText id="on_label" [style]="{width:'100%'}" [disabled]="ProfileEditing" [(ngModel)]="ProfileData!.phone"   autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-phone"></i>Telefonszám</label>
                         </p-floatlabel>
                         <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [style]="{width:'100%'}" disabled="true" autocomplete="off" />
-                            <label for="on_label"><i class="pi pi-key"></i>{{ProfileData?.password}}</label>
+                            <input pInputText id="on_label" [style]="{width:'100%'}" [disabled]="ProfileEditing" [(ngModel)]="ProfileData!.password" autocomplete="off" />
+                            <label for="on_label"><i class="pi pi-key"></i>Jelszó</label>
                         </p-floatlabel>
                         <p-divider></p-divider>
                         <div class="AccountButtonDiv">
