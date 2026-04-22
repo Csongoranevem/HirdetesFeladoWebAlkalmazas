@@ -1,5 +1,6 @@
 <p-card class="main">
     <div class="advert-layout">
+        <!--- a hirdetés képei, folyamatosan változnak a megadott időnként--->
         <section class="media-section">
             <div class="info-box media-box">
                 <span class="item-title">Képek</span>
@@ -18,7 +19,7 @@
                 }
             </div>
         </section>
-
+        <!--- a hirdetés adatai, dinamikusan feltöltve--->
         <section class="details-section">
             <div class="info-box title-box">
                 <h2 class="item-value title-value">{{ advert?.name || 'Nincs cím megadva' }}</h2>
@@ -49,7 +50,7 @@
                     <span class="item-value">{{ cityName }}</span>
                 </div>
             </div>
-
+            <!--érdeklődés rész, benne az árral és az érdeklődés/kosárba gombbal-->
             <div class="purchase-box">
                 <div class="price-block">
                     <span class="item-title">Ár</span>
@@ -60,7 +61,7 @@
             </div>
         </section>
     </div>
-
+    <!-- a hirdetés leírása, accordion-ban, hogy a hosszú szöveget el lehessen rejteni -->
     <p-accordion value="0" class="description-accordion">
         <p-accordion-panel value="0">
             <p-accordion-header>Leírás</p-accordion-header>
@@ -71,6 +72,7 @@
             </p-accordion-content>
         </p-accordion-panel>
     </p-accordion>
+    <!-- értékelés rész, az átlag dinamikusan frissül minden új, vagy módosított értékelésnél -->
     <div class="user-interact">
         <div class="rating-panel">
             <div class="rating-row">
@@ -98,6 +100,7 @@
                 </div>
             </div>
         </div>
+        <!-- hozzászólás rész, itt lehet új hozzászólásokat írni. Ellenőrzi-->
         <div class="comment-panel">
             <p-card>
                 <h3>Hozzászólnál a termékhez vagy a feltöltőnek üzennél? Itt megteheted!</h3>
@@ -108,11 +111,10 @@
                         (click)="submitComment()">Hozzászólás küldése</p-button>
                 </div>
             </p-card>
-
         </div>
     </div>
 </p-card>
-
+<!-- hozzászólás rész, ez is dinamikusan frissul minden új, vagy törölt hozzászólásnál -->
 <div class="comment-section">
     <h3>Hozzászólások</h3>
     <p-card>
@@ -132,5 +134,5 @@
 
 
 
-
+<!-- betöltés animációhoz szükséges elem-->
 <div class="load"></div>
