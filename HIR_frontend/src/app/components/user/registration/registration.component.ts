@@ -66,6 +66,18 @@ export class RegistrationComponent  {
       this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Kérem töltse ki az összes mezőt!', key: 'br', life: 3000});
       return;
     }
+    if(this.user.password.length < 6){
+      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'A jelszónak legalább 6 karakter hosszúnak kell lennie!', key: 'br', life: 3000});
+      return;
+    }
+    if(this.user.email.indexOf('@') === -1){
+      this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Kérem adjon meg egy érvényes email címet!', key: 'br', life: 3000});
+      return;
+    }
+    if(this.user.email == this.user.backup_email){
+      this.messageService.add({severity:'error', summary: 'Hiba',   detail: 'A biztonsági email cím nem egyezhet meg a fő email címmel!', key: 'br', life: 3000});
+      return;
+    }
 
     // 2) A backend felé küldött payload (ne küldjük a confirmPassword-öt).
     const data = {
@@ -94,7 +106,10 @@ export class RegistrationComponent  {
         this.user.phone = "";
 
         // 4) Következő logikus lépés: bejelentkezés.
-        this.router.navigateByUrl("login");
+        setTimeout(() => {
+          this.router.navigateByUrl("login");
+        }, 800);
+        
       },
       error: (err) => {
         this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Sikertelen regisztráció!', key: 'br', life: 3000});
