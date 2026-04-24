@@ -15,13 +15,14 @@ Content-Type: application/json
 {
     "name": "Test Advert 7",
     "description": "This is a test advert.",
-    "user_id": "fab5b050-16af-45f8-b0c8-356e62bf5ae0",
+    "user_id": "8da43e51-3ba0-4a39-aece-d8c6fa16bc6e",
     "price": 100,
     "city_id": "Söréd",
     "product_id": "TElefon",
-    "category_id": 1,
-    "payment_method": 1,
-    "status": "active"
+    "category_id": "aa251175-3fac-11f1-9993-50814078691e",
+    "payment_method": "aa28c491-3fac-11f1-9993-50814078691e",
+    "status": "active",
+    "condition_id":"df710745-3c8f-45e5-b7c8-aecce04c9857"
 }
 
 

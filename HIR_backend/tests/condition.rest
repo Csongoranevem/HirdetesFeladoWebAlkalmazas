@@ -4,5 +4,5 @@ POST http://localhost:3000/conditions
 Content-Type: application/json
 
 {
-  "name": "Alkatrész"
+  "name": "Bontatlan"
 }

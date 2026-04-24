@@ -26,6 +26,8 @@ import { Category } from '../../../interfaces/category';
 import { User } from '../../../interfaces/user';
 import { ActivatedRoute } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
+import { Condition } from '../../../interfaces/condition';
+
 
 interface SortBy {
   label: string;
@@ -57,7 +59,7 @@ interface SortBy {
     AutoComplete,
     Select,
   PaginatorModule,
-    CardsComponent
+    CardsComponent,
   ],
   templateUrl: './ads.component.html',
   styleUrl: './ads.component.scss'
@@ -76,6 +78,8 @@ export class AdsComponent {
   priceRange: number[] = [0, this.maxAdPrice];
   selectedCategories: string[] = [];
   selectedConditions: string[] = [];
+  conditions: Condition[] = [];
+  comments: Comment[] = [];
 
   // Search & sort
   query: string = '';
@@ -114,12 +118,20 @@ export class AdsComponent {
   ) { }
   ngOnInit() {
     this.SortingCategories = [
-      { label: "Időrendi sorrendbe", value: 0 },
-      { label: "Relevancia", value: 1 }
+      { label: "Legújabbak", value: 0 },
+      { label: "Értékelések alapján", value: 1},
+      { label: "Ár szerint növekvő", value: 2 },
+      { label: "Ár szerint csökkenő", value: 3 },
+      { label: "Név szerint A-Z", value: 4},
+      { label: "Név szerint Z-A", value: 5},
     ];
+    this.apiService.selectAll('comments').subscribe(comments => {
+      this.comments = comments as Comment[];
+    });
     this.getCategories();
     this.getAds();
     this.getUsers();
+    this.getConditions();
 
     // Ha a főoldalról kategória-szűrővel érkezünk (pl. /ads?category=3),
     // akkor ezt előre beállítjuk a szűrőben.
@@ -138,6 +150,12 @@ export class AdsComponent {
   querySelectedUser: User | 'All' = 'All';
 
 
+
+  getConditions() {
+    this.apiService.selectAll('conditions').subscribe(conds => {
+      this.conditions = conds as Condition[]
+      console.log(this.conditions)
+  })}
 
   get filterAds(): Ad[] {
     const q = this.query.trim().toLowerCase();
@@ -170,20 +188,44 @@ export class AdsComponent {
       ad.price >= this.priceRange[0] && ad.price <= this.priceRange[1]
     );
 
+    if (this.selectedConditions.length > 0) {
+      const selectedConditionIds = this.conditions
+        .filter(condition => this.selectedConditions.includes(condition.name))
+        .map(condition => condition.id);
+  
+      result = result.filter(ad =>
+        selectedConditionIds.includes(ad.condition_id)
+      );
+    }
     if (this.selectedSort) {
-      if (this.selectedSort.value === 0) {
-        result.sort((a, b) => {
-          const dateA = new Date(a.date_of_upload || 0).getTime();
-          const dateB = new Date(b.date_of_upload || 0).getTime();
-          return dateB - dateA;
-        });
-      } else if (this.selectedSort.value === 1) {
-        result.sort((a, b) => {
-          const q = this.query.toLowerCase();
-          const scoreA = a.name.toLowerCase().indexOf(q);
-          const scoreB = b.name.toLowerCase().indexOf(q);
-          return scoreA - scoreB;
-        });
+      switch (this.selectedSort.value) {
+        case 0: // Sort by date (newest first)
+          result.sort((a, b) => {
+            const dateA = new Date(a.createdAt || 0).getTime();
+            const dateB = new Date(b.createdAt || 0).getTime();
+            return dateB - dateA;
+          });
+          break;
+  
+        case 1: // Sort by rating (highest first)
+          result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          break;
+  
+        case 2: // Sort by price (ascending)
+          result.sort((a, b) => a.price - b.price);
+          break;
+  
+        case 3: // Sort by price (descending)
+          result.sort((a, b) => b.price - a.price);
+          break;
+  
+        case 4: // Sort by name (A-Z)
+          result.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+  
+        case 5: // Sort by name (Z-A)
+          result.sort((a, b) => b.name.localeCompare(a.name));
+          break;
       }
     }
 
@@ -205,7 +247,6 @@ export class AdsComponent {
     this.selectedSort = undefined;
     this.first = 0;
   }
-
 
 
 

@@ -64,38 +64,14 @@
         <p-accordion-panel value="2">
           <p-accordion-header>Használtság</p-accordion-header>
           <p-accordion-content>
-            <div class="card flex justify-center gap-4 FilterCheckBoxDiv">
+            <div class="card flex justify-center gap-4 FilterCheckBoxDiv" *ngFor="let condition of conditions">
               <div class="flex items-center">
                 <p-checkbox 
                   [(ngModel)]="selectedConditions" 
-                  value="Selejt"
-                  inputId="condition_selejt"
+                  value="{{condition.name}}" 
+                  inputId="{{condition.id}}"
                 />
-                <label for="condition_selejt" class="ml-2">Selejt</label>
-              </div>
-              <div class="flex items-center">
-                <p-checkbox 
-                  [(ngModel)]="selectedConditions" 
-                  value="Hasznalt"
-                  inputId="condition_hasznalt"
-                />
-                <label for="condition_hasznalt" class="ml-2">Használt</label>
-              </div>
-              <div class="flex items-center">
-                <p-checkbox 
-                  [(ngModel)]="selectedConditions" 
-                  value="Uj"
-                  inputId="condition_uj"
-                />
-                <label for="condition_uj" class="ml-2">Új</label>
-              </div>
-              <div class="flex items-center">
-                <p-checkbox 
-                  [(ngModel)]="selectedConditions" 
-                  value="Bontatlan"
-                  inputId="condition_bontatlan"
-                />
-                <label for="condition_bontatlan" class="ml-2">Bontatlan</label>
+                <label for="{{condition.id}}" class="ml-2">{{condition.name}}</label>
               </div>
             </div>
           </p-accordion-content>
