@@ -118,10 +118,16 @@ export class LoginComponent {
         this.router.navigateByUrl('home');
 
         // UI/állapot frissítés: több helyen a header/menü a tárolt tokenből áll össze.
+
+
+        //Üzenet küldés a sikres bejeletkezéskor
+        this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözlünk a HIR-en!', key: 'br', life: 3000 });
+
+
         // (Ez lehet később kiváltható állapotkezeléssel, de most a meglévő működést követjük.)
         setTimeout(() => {
           location.reload();
-        }, 100);
+        }, 800);
 
 
       },

@@ -26,9 +26,14 @@ export class LogoutComponent implements OnInit{
   try {
     await this.auth.logout();
     this.router.navigateByUrl('home').then(() => {
-      window.location.reload();
+      this.messageService.add({severity:'success', summary: 'Sikeres kijelentkezés', detail: 'Viszlát!'});
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      
     });
-    this.messageService.add({severity:'success', summary: 'Sikeres kijelentkezés', detail: 'Viszlát!'});
+    
   } catch (error) {
     this.messageService.add({severity:'error', summary: 'Hiba', detail: 'Nem sikerült kijelentkezni. Kérem próbálja újra.'});
 
