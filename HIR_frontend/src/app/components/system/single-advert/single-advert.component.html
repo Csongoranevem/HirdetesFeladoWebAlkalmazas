@@ -57,7 +57,7 @@
                     <span class="ad-price">{{ advert?.price != null ? (advert?.price | number)
                         : '-' }} Ft</span>
                 </div>
-                <button class="add-to-cart" type="button">Kosárba</button>
+                <button class="add-to-cart" type="button" (click)="openInterestDialog()">Érdeklődés jelzése</button>
             </div>
         </section>
     </div>
@@ -118,6 +118,7 @@
 <div class="comment-section">
     <h3>Hozzászólások</h3>
     <p-card>
+        <div *ngIf="comments.length === 0" class="no-comments"><i>Még nincsenek hozzászólások ehhez a hirdetéshez. Legyél te az első, aki megosztja a véleményét!</i></div>
         <div *ngFor="let comment of comments" class="comment">
             <p class="comment-author">{{ comment.author }}
                 <span class="comment-date">{{ comment.createdAt | date: 'medium' }}</span>
@@ -131,7 +132,43 @@
 </div>
 
 
+<!-- odal arra, ha valaki az érdekel gombra katint (most kosárba a neve), akkor egy kis animáció jelenik meg, hogy jelezze a művelet sikerességét. Ez egy egyszerű, de vizuálisan hatásos visszajelzés a felhasználónak, hogy az akció végrehajtásra került. Kell egy modal is, amely megerősítést kér a művelethez. meghívja az InterestBtn függvényt amelyet majd a typescript lekezel, itt most ennek a html részét készítsd el, a modal-t és az animációt is.
+-->
 
+<p-dialog
+    maskStyleClass="backdrop-blur-3xl"
+    header="Hirdetés érdeklődés"
+    [(visible)]="displayInterestDialog"
+    [modal]="true"
+    [closable]="false"
+    [dismissableMask]="true"
+    [style]="{ width: '30rem' }"
+    styleClass="interest-confirm-dialog">
+    <p>Biztosan érdeklődni szeretnél a hirdetés iránt?</p>
+    <div class="interest-message-field">
+        <label for="interestMessage">Üzenet (opcionális)</label>
+        <textarea
+            id="interestMessage"
+            rows="5"
+            cols="30"
+            pTextarea
+            [(ngModel)]="interestMessage"
+            placeholder="Írhatsz rövid üzenetet a feltöltőnek..."></textarea>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="dialog-footer">
+            <p-button severity="secondary" label="Mégse" (click)="displayInterestDialog = false" />
+            <p-button styleClass="interest-confirm-btn" label="Megerősít" (click)="confirmInterest()" />
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+<div class="interest-success" [class.is-visible]="showInterestSuccess" aria-live="polite">
+    <i class="pi pi-check-circle" aria-hidden="true"></i>
+    <span>Érdeklődés elküldve!</span>
+</div>
 
 
 <!-- betöltés animációhoz szükséges elem-->

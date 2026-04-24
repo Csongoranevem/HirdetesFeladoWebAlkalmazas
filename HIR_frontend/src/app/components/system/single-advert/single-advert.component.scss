@@ -303,6 +303,11 @@
 }
 
 // Komment panel stílusai
+
+// textarea szép legyen, lekerekített sarokkal, kicsit sötétebb háttérrel mint a panel
+
+
+
 .comment-panel {
     width: 50vw;
     margin: 2vh auto;
@@ -317,6 +322,11 @@
 .comment-input-section textarea {
     width: 100%;
     resize: none;
+    border: 1px solid #d8dce3;
+    border-radius: 0.45rem;
+    padding: 0.65rem;
+    font-size: 0.95rem;
+    background: var(--highlight-bg);
 }
 
 ::ng-deep .comment-submit-btn {
@@ -335,6 +345,103 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
+
+// Dialog stílusai
+
+.dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+::ng-deep .interest-confirm-btn {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-font-color);
+    font-weight: 700;
+}
+
+::ng-deep .interest-confirm-btn:enabled:hover {
+    animation: buttonHover 0.3s ease forwards;
+    background-color: var(--primary-dark-color);
+    color: var(--primary-font-color);
+    box-shadow: inset 0 0 0 3px var(--primary-font-color);
+    outline: 0 !important;
+}
+
+// Érdeklődés üzenet mező stílusai
+
+.interest-message-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+}
+
+.interest-message-field label {
+    width: 90%;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.interest-message-field textarea {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    resize: none;
+    overflow-y: auto;
+    border: 1px solid #d8dce3;
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.8rem;
+    line-height: 1.4;
+    background: var(--highlight-bg);
+}
+
+.interest-success {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    z-index: 1200;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: #1f7a1f;
+    color: #ffffff;
+    border-radius: 0.65rem;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.interest-success.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: interestPulse 0.45s ease;
+}
+
+.interest-success i {
+    font-size: 1.05rem;
+}
+
+@keyframes interestPulse {
+    0% {
+        transform: translateY(12px) scale(0.94);
+    }
+
+    60% {
+        transform: translateY(0) scale(1.04);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
 
 // töltő képernyő

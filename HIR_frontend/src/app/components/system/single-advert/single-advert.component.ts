@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Ad } from '../../../interfaces/ad';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,7 @@ import { ApiService } from '../../../services/api.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment.development';
 import { CarouselModule } from 'primeng/carousel';
-import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { catchError, forkJoin, of } from 'rxjs';
 import { Category } from '../../../interfaces/category';
@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { Rating } from '../../../interfaces/ratings';
 import { AuthService } from '../../../services/auth.service';
 import { Comment } from '../../../interfaces/comment';
+import { DialogModule } from 'primeng/dialog';
 
 interface City {
   id: string;
@@ -27,11 +28,11 @@ interface City {
 @Component({
   selector: 'app-single-advert',
   standalone: true,
-  imports: [CardModule, CarouselModule, CurrencyPipe, AccordionModule, RatingModule, ButtonModule, FormsModule, DatePipe, CommonModule],
+  imports: [CardModule, CarouselModule, AccordionModule, RatingModule, ButtonModule, FormsModule, DatePipe, CommonModule, DialogModule],
   templateUrl: './single-advert.component.html',
   styleUrl: './single-advert.component.scss'
 })
-export class SingleAdvertComponent implements OnInit {
+export class SingleAdvertComponent implements OnInit, OnDestroy {
 
   advert?: Ad;
   adImages: string[] = [];
@@ -45,6 +46,12 @@ export class SingleAdvertComponent implements OnInit {
   averageRating: number | null = null;
   loggedUserId: string | null = null;
   isSubmittingRating: boolean = false;
+
+  //dialog
+  displayInterestDialog: boolean = false;
+  showInterestSuccess: boolean = false;
+  interestMessage: string = '';
+  private interestSuccessTimeoutId?: ReturnType<typeof setTimeout>;
 
   //kommentek
   newComment: string = '';
@@ -95,6 +102,12 @@ export class SingleAdvertComponent implements OnInit {
       };
     }
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.interestSuccessTimeoutId) {
+      clearTimeout(this.interestSuccessTimeoutId);
+    }
   }
 
   getAdAllImage(ad: Ad): void {
@@ -434,6 +447,55 @@ export class SingleAdvertComponent implements OnInit {
       }
     });
   }
+
+  openInterestDialog(): void {
+    this.interestMessage = '';
+    this.displayInterestDialog = true;
+  }
+
+  confirmInterest(): void {
+    if (!this.advert?.id) {
+      this.displayInterestDialog = false;
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+      return;
+    }
+
+    if (!this.loggedUserId) {
+      this.displayInterestDialog = false;
+      this.messageService.add({ severity: 'warn', summary: 'Bejelentkezés szükséges', detail: 'Érdeklődés jelzéséhez jelentkezz be!', key: 'br' });
+      return;
+    }
+
+    const trimmedMessage = this.interestMessage.trim();
+
+    const payload = {
+      ad_id: this.advert.id,
+      message: trimmedMessage.length > 0 ? trimmedMessage : null,
+      user_id: this.loggedUserId
+    };
+
+    this.api.insert('interests', payload).subscribe({
+      next: () => {
+        this.displayInterestDialog = false;
+        this.interestMessage = '';
+        this.showInterestSuccess = true;
+
+        if (this.interestSuccessTimeoutId) {
+          clearTimeout(this.interestSuccessTimeoutId);
+        }
+
+        // ez másfajta visszajelzés, mivel ez egy fontosabb művelet
+        this.interestSuccessTimeoutId = setTimeout(() => {
+          this.showInterestSuccess = false;
+        }, 2200);
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Érdeklődés mentése sikertelen!', key: 'br' });
+      }
+    });
+  }
+
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });

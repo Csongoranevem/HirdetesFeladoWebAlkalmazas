@@ -16,6 +16,7 @@ const imagesRoutes=require("../routes/images.routes");
 const ratingRoutes=require("../routes/rating.routes");
 const commentRoutes=require("../routes/comment.routes");
 const wishlistRoutes=require("../routes/wishlist.routes");
+const interestRoutes=require("../routes/interest.routes");
 
 const app=express();
 
@@ -37,4 +38,5 @@ app.use('/images',imagesRoutes);
 app.use('/ratings',ratingRoutes);
 app.use('/comments',commentRoutes);
 app.use('/wishlist', wishlistRoutes);
+app.use('/interests', interestRoutes);
 module.exports=app;
