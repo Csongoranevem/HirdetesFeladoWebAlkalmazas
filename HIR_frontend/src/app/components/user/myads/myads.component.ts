@@ -56,6 +56,18 @@ export class MyadsComponent implements OnInit{
     { name: 'Inaktív', value: 'inactive' }
   ];
 
+  getStatusLabel(status: Ad['status'] | null | undefined): string {
+    if (status === 'active') return 'Aktív';
+    if (status === 'inactive') return 'Inaktív';
+    return '';
+  }
+
+  getStatusSeverity(status: Ad['status'] | null | undefined): "success" | "info" | "warn" | "danger" | "secondary" | "contrast" | undefined {
+    if (status === 'inactive') return 'danger';
+    if (status === 'active') return 'success';
+    return 'secondary';
+  }
+
   getConditionName(conditionId: string | null | undefined): string {
     if (!conditionId) return '';
     const condition = this.conditions.find(c => c.id === conditionId);
@@ -87,10 +99,17 @@ export class MyadsComponent implements OnInit{
   }
 
   getAdImage(ad: Ad): string {
-      if (ad.images && ad.images.length > 0) {
-        return `${environment.serverUrl}${ad.images[0].url}`;
+      const rawUrl = ad.images?.[0]?.url;
+      if (rawUrl) {
+        return this.api.getImageUrl(rawUrl);
       }
       return 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
+    }
+
+    onAdImageError(event: Event): void {
+      const img = event.target as HTMLImageElement | null;
+      if (!img) return;
+      img.src = 'https://primefaces.org/cdn/primeng/images/card-ng.jpg';
     }
 
     getCategoryName(categoryId: string): string {
@@ -137,7 +156,7 @@ export class MyadsComponent implements OnInit{
         product_id: ad.product_id,
         payment_method: ad.payment_method,
         category_id: ad.category_id,
-  condition_id: ad.condition_id,
+        condition_id: ad.condition_id,
         status: ad.status
       };
     }
@@ -197,15 +216,36 @@ export class MyadsComponent implements OnInit{
       });
     }
     
-    deleteAd(id:string): void {
-        this.api.delete('adverts', id).subscribe(() => {
-          this.myAds = this.myAds.filter(a => a.id !== id);
-        });
+    deleteAd(ad: Ad): void {
+      const id = ad.id;
+      if (!id) {
         this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'A hirdetés azonosítója hiányzik, nem törölhető.',
+          key: 'br'
+        });
+        return;
+      }
+
+      this.api.delete('adverts', id).subscribe({
+        next: () => {
+          this.myAds = this.myAds.filter(a => a.id !== id);
+          this.messageService.add({
             severity: 'success',
             summary: 'Sikeres törlés',
             detail: 'A hirdetés sikeresen törölve lett.',
             key: 'br'
           });
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Nem sikerült a hirdetés törlése. Próbáld újra!',
+            key: 'br'
+          });
+        }
+      });
     }
   }

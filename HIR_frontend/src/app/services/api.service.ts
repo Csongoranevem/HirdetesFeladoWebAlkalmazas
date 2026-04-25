@@ -108,7 +108,12 @@ export class ApiService {
   }
 
   getImageUrl(relativePath: string): string {
-    return `${this.server}${relativePath}`;
+    if (!relativePath) return this.server;
+    if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+      return relativePath;
+    }
+    const normalized = relativePath.startsWith('/') ? relativePath : `/${relativePath}`;
+    return `${this.server}${normalized}`;
   }
 
   update(table: string, id: string, data: object){

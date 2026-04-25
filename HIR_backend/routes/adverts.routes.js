@@ -1,5 +1,8 @@
 const router=require('express').Router();
-const{Advert, Image, Category, User}=require('../models/index')
+const path = require('path');
+const fs = require('fs');
+
+const{Advert, Image, Category, User, Wishlist, Comment, Rating, Interest}=require('../models/index')
 const { Op, fn, col, where } = require('sequelize');
 const emailService = require('../services/email.service');
 
@@ -154,13 +157,42 @@ router.patch('/:id',async(req,res)=>{
 
 //DELETE advert by id
 router.delete('/:id',async (req,res)=>{
-    const id=req.params.id;
-    const advert=await Advert.findByPk(id);
-    if(!advert){
-        return res.status(404).json({message:"Advert's not found!"})
+    try {
+        const id=req.params.id;
+        const advert=await Advert.findByPk(id);
+        if(!advert){
+            return res.status(404).json({message:"Advert's not found!"})
+        }
+
+        // Delete dependent rows first to avoid FK constraint errors
+        await Promise.all([
+            Comment?.destroy ? Comment.destroy({ where: { ad_id: id } }) : Promise.resolve(),
+            Rating?.destroy ? Rating.destroy({ where: { ad_id: id } }) : Promise.resolve(),
+            Interest?.destroy ? Interest.destroy({ where: { ad_id: id } }) : Promise.resolve(),
+            Wishlist?.destroy ? Wishlist.destroy({ where: { advertId: id } }) : Promise.resolve(),
+        ]);
+
+        // Delete images: remove files + DB rows
+        const images = await Image.findAll({ where: { advert_id: id } });
+        for (const img of images) {
+            const filename = path.basename(String(img.url || ''));
+            if (!filename) continue;
+            const filePath = path.join(__dirname, '..', 'uploads', filename);
+            try {
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+            } catch (_e) {
+                // Ignore filesystem delete errors
+            }
+        }
+        await Image.destroy({ where: { advert_id: id } });
+
+        await advert.destroy();
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ message: 'Deletion failed', error: err.message });
     }
-    await advert.destroy();
-    res.status(204).json({message: 'Deleted advert successfully! '})
 
 });
 

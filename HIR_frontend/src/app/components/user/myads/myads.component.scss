@@ -32,6 +32,10 @@
     flex-wrap: wrap;
 }
 
+:host ::ng-deep .myads-table .p-column-title{
+    display: none;
+}
+
 /* Dialog layout */
 .myads-form{
     display: grid;
@@ -78,6 +82,16 @@
 
     .field--compact{
         grid-column: auto;
+    }
+}
+
+@media (max-width: 960px){
+    :host ::ng-deep .myads-table.p-datatable-responsive-stack .p-column-title{
+        display: inline-block;
+        min-width: 8.5rem;
+        font-weight: 600;
+        color: var(--p-text-muted-color);
+        margin-right: 0.5rem;
     }
 }
 

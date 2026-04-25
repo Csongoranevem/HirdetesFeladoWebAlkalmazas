@@ -59,6 +59,9 @@ footer{
     border-radius: 2px;
     background-color: var(--p-gray-800);
     border-bottom: 10px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 .FooterHeaders:hover{
 }
@@ -77,6 +80,14 @@ footer{
 .ColOne>p{
     width: 90%;
     font-size: 80%;
+}
+
+#bemutatkozas{
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
 }
 
 .FooterHeaders>p:hover{
