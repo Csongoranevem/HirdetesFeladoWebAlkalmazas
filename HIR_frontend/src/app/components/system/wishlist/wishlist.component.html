@@ -1,5 +1,5 @@
 <div class="WishlistWrap">
-    <app-cards [filterByIds]="wishlistAdIds" [compact]="true" *ngIf="wishlistAdIds.length > 0"></app-cards>
+    <app-cards class="wishlistCards" [filterByIds]="wishlistAdIds" [compact]="true" *ngIf="wishlistAdIds.length > 0"></app-cards>
 
     <p *ngIf="wishlistAdIds.length === 0" style="margin: 0 auto;">A kívánságlistád üres!</p>
     <h5 *ngIf="wishlistAdIds.length === 0">Kattints a szívecskékre, hogy hozzáadj valamit a kívánságlistádhoz!</h5>

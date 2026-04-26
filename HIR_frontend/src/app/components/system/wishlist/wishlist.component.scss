@@ -8,4 +8,13 @@
 	overflow: hidden;
 }
 
+/* Csak wishlistben: a kompakt kártya legyen magasabb, hogy a footer gombok ne vágódjanak le */
+:host ::ng-deep app-cards.wishlistCards .cardContainer.compact {
+	--card-height: 22rem;
+}
+
+:host ::ng-deep app-cards.wishlistCards .cardContainer.compact .p-card {
+	height: var(--card-height) !important;
+}
+
 
