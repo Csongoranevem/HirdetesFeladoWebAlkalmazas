@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Érdeklődés érkezett</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f7fb;">
+    <div style="max-width:640px;margin:0 auto;padding:24px;font-family:Arial, Helvetica, sans-serif;color:#111827;">
+        <div style="background:#ffffff;border-radius:12px;padding:24px;">
+            <div style="display:flex;align-items:center;gap:12px;margin:0 0 12px 0;">
+                <img src="cid:logo" alt="Cég logó" style="height:44px;width:auto;display:block;" />
+                <h1 style="margin:0;font-size:20px;line-height:28px;">Érdeklődés érkezett</h1>
+            </div>
+
+            <p style="margin:0 0 16px 0;font-size:14px;line-height:22px;">
+                Érdeklődés érkezett az alábbi hirdetésedre:
+                <strong><%= advertName %></strong>
+            </p>
+
+            <div style="border:1px solid #e5e7eb;border-radius:10px;padding:14px;background:#fafafa;">
+                <div style="font-size:12px;line-height:18px;color:#6b7280;margin:0 0 6px 0;">Csatolt üzenet</div>
+                <div style="white-space:pre-wrap;font-size:14px;line-height:22px;color:#111827;">
+                    <%= interestMessage ? interestMessage : 'Nem írt üzenetet.' %>
+                </div>
+            </div>
+
+            <p style="margin:16px 0 0 0;font-size:12px;line-height:18px;color:#6b7280;">
+                Ezt az üzenetet automatikusan generáltuk, kérjük, ne válaszolj rá.
+            </p>
+        </div>
+
+        <p style="margin:12px 0 0 0;font-size:12px;line-height:18px;color:#9ca3af;">
+            Küldés ideje: <%= createdAt.toLocaleString('hu-HU') %>
+        </p>
+    </div>
+</body>
+</html>

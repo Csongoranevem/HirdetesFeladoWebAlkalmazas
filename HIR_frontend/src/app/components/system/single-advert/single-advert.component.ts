@@ -295,6 +295,14 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
     return !!this.loggedUserId;
   }
 
+  get isOwnAdvert(): boolean {
+    if (!this.loggedUserId || !this.advert?.user_id) {
+      return false;
+    }
+
+    return String(this.advert.user_id) === String(this.loggedUserId);
+  }
+
   private updateAverageRating(): void {
     if (!this.advert) {
       return;
@@ -449,6 +457,16 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
   }
 
   openInterestDialog(): void {
+    if (this.isOwnAdvert) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Nem engedélyezett',
+        detail: 'A saját hirdetésedre nem tudsz érdeklődést küldeni.',
+        key: 'br'
+      });
+      return;
+    }
+
     this.interestMessage = '';
     this.displayInterestDialog = true;
   }
@@ -457,6 +475,17 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
     if (!this.advert?.id) {
       this.displayInterestDialog = false;
       this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hirdetés nem található!', key: 'br' });
+      return;
+    }
+
+    if (this.isOwnAdvert) {
+      this.displayInterestDialog = false;
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Nem engedélyezett',
+        detail: 'A saját hirdetésedre nem tudsz érdeklődést küldeni.',
+        key: 'br'
+      });
       return;
     }
 

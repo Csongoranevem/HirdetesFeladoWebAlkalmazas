@@ -212,6 +212,56 @@ async function sendSupportContactEmail({
     return { sent: true, messageId: info.messageId };
 }
 
+async function sendInterestReceivedEmail({
+    to,
+    advertName,
+    interestMessage
+}) {
+    if (!isEmailEnabled()) {
+        return { sent: false, reason: 'Email disabled (missing SMTP env vars)' };
+    }
+
+    const { from } = getSmtpConfig();
+
+    const html = await renderEmailTemplate('interest-received.ejs', {
+        advertName,
+        interestMessage,
+        createdAt: new Date()
+    });
+
+    const text = [
+        'Érdeklődés érkezett!',
+        '',
+        `Hirdetés: ${advertName || ''}`,
+        '',
+        'Üzenet:',
+        interestMessage ? String(interestMessage) : 'Nem írt üzenetet.',
+        '',
+        'Kérjük, ne válaszolj erre az automatikus emailre.'
+    ]
+        .filter(Boolean)
+        .join('\n');
+
+    const transporter = getTransport();
+
+    const info = await transporter.sendMail({
+        from,
+        to,
+        subject: 'Érdeklődés érkezett a hirdetésedre',
+        text,
+        html,
+        attachments: [
+            {
+                filename: 'main_logo.png',
+                path: path.join(__dirname, '..', '..', 'HIR_frontend', 'public', 'main_logo.png'),
+                cid: 'logo'
+            }
+        ]
+    });
+
+    return { sent: true, messageId: info.messageId };
+}
+
 function escapeHtml(value) {
     return String(value)
         .replace(/&/g, '&amp;')
@@ -225,5 +275,6 @@ module.exports = {
     isEmailEnabled,
     sendRegistrationSuccessEmail,
     sendAdvertCreationEmail,
-    sendSupportContactEmail
+    sendSupportContactEmail,
+    sendInterestReceivedEmail
 };

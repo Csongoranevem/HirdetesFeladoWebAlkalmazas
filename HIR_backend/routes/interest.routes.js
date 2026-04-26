@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Interest } = require('../models/index')
+const { Interest, Advert, User } = require('../models/index')
+const emailService = require('../services/email.service');
 
 
 //Interest CRUD operators
@@ -48,7 +49,38 @@ router.get('/:field/:op/:value', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { ad_id, message, user_id } = req.body;
+
+        if (!ad_id || !user_id) {
+            return res.status(400).json({ message: 'Missing ad_id or user_id' });
+        }
+
+        const advert = await Advert.findByPk(ad_id);
+        if (!advert) {
+            return res.status(404).json({ message: 'Advert not found' });
+        }
+
+        if (String(advert.user_id) === String(user_id)) {
+            return res.status(403).json({ message: 'Cannot create interest on your own advert' });
+        }
+
         const newInterest = await Interest.create({ ad_id, message, user_id });
+
+        // Notify advert owner via email (best-effort; should not block creation)
+        try {
+            const owner = await User.findByPk(advert.user_id);
+            if (owner?.email) {
+                void emailService.sendInterestReceivedEmail({
+                    to: owner.email,
+                    advertName: advert.name,
+                    interestMessage: message
+                }).catch((err) => {
+                    console.error('Interest received email failed:', err);
+                });
+            }
+        } catch (emailErr) {
+            console.error('Interest received email lookup failed:', emailErr);
+        }
+
         res.status(201).json(newInterest);
     }
     catch (err) {

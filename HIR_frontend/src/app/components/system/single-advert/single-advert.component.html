@@ -57,7 +57,19 @@
                     <span class="ad-price">{{ advert?.price != null ? (advert?.price | number)
                         : '-' }} Ft</span>
                 </div>
-                <button class="add-to-cart" type="button" (click)="openInterestDialog()">Érdeklődés jelzése</button>
+                <div class="interest-action">
+                    <button
+                        class="add-to-cart"
+                        type="button"
+                        (click)="openInterestDialog()"
+                        [disabled]="isOwnAdvert"
+                        [attr.title]="isOwnAdvert ? 'A saját hirdetésedre nem tudsz érdeklődést küldeni.' : null">
+                        Érdeklődés jelzése
+                    </button>
+                    @if (isOwnAdvert) {
+                        <small class="interest-disabled-hint">A saját hirdetésedre nem tudsz érdeklődni.</small>
+                    }
+                </div>
             </div>
         </section>
     </div>
