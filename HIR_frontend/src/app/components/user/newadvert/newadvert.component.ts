@@ -178,14 +178,21 @@ export class NewadvertComponent implements OnInit {
       }
 
       if (errors.length > 0) {
-        errors.forEach(error => {
+        if (errors.length === 1) {
           this.messageService.add({
             severity: 'error',
             summary: 'Hiányzó adat',
-            detail: error,
+            detail: errors[0],
             life: 4000
           });
-        });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiányzó adatok',
+            detail: 'Kérjük töltse ki az összes mezőt!',
+            life: 4000
+          });
+        }
         return;
       }
 
