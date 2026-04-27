@@ -127,3 +127,15 @@ a:hover{
     transition: 0.4s;
     font-weight: bold;
 }
+
+@media screen and (max-width:700px) {
+    .FooterHeaders{
+        width: 80%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .FooterDiv{
+        flex-direction: column;
+    }
+}
