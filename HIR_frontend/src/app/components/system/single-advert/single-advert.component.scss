@@ -635,6 +635,23 @@
     }
 }
 
+// Képek mobilon négyzetesek legyenek
+@media (max-width: 500px) {
+    .image-frame {
+        aspect-ratio: 1 / 1;
+        max-height: none;
+    }
+
+    .image-placeholder {
+        min-height: 18rem;
+    }
+
+    ::ng-deep .image-carousel .p-carousel-prev,
+    ::ng-deep .image-carousel .p-carousel-next {
+        display: none;
+    }
+}
+
 
 @media (max-width: 480px) {
     ::ng-deep .deleteCommentBtn button {
