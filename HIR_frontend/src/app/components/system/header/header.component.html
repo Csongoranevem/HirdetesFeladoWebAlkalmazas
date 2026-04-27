@@ -92,7 +92,7 @@
                                 <img [src]="ProfileData?.profile_picture" class="pfpImg" alt="Profile Picture">
 
                             </div>
-                              <h4 class="ProfileNameH4">{{ProfileData?.name}} <i (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
+                              <h4 class="ProfileNameH4">{{ProfileData?.name}} <i *ngIf="!ProfileEditing" (click)="ProfileEdit()" class="pi pi-pencil"></i></h4>
                             <hr>
                             <div class="ProfileInputsDiv">
                                 <p-floatlabel variant="on">
@@ -114,7 +114,9 @@
                                     <label for="on_label"><i class="pi pi-home"></i>Cím</label>
                                 </p-floatlabel>
                             </div>
-
+                            <div class="ProfileSaveDiv">
+                                <p-button label="Mentés" (click)="ProfileEdit()" class="" *ngIf="ProfileEditing" severity="success" />
+                            </div>
                             <hr>
                             <div class="StaticDatesDataDiv">
                                 <div class="StaticDateInnerDiv">

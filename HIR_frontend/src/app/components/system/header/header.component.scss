@@ -447,3 +447,9 @@ img {
 :host ::ng-deep .search-status.inactive{
     color: var(--p-red-400);
 }
+
+.ProfileSaveDiv{
+    display: flex;
+    justify-content: end;
+    width: 95%;
+}
