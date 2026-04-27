@@ -47,7 +47,7 @@
                 </div>
                 <div class="info-box">
                     <span class="item-title">Feltöltő városa</span>
-                    <span class="item-value">{{ cityName }}</span>
+                    <span class="item-value">{{ condition }}</span>
                 </div>
             </div>
             <!--érdeklődés rész, benne az árral és az érdeklődés/kosárba gombbal-->
@@ -137,7 +137,7 @@
             </p>
             <p class="comment-text">{{ comment.comment }}</p>
 
-            <p-button *ngIf="isLoggedIn && comment.user_id === loggedUserId" icon="pi pi-trash" class="deleteCommentBtn"
+            <p-button *ngIf="isLoggedIn && comment.user_id === loggedUserId" icon="pi pi-trash" class="deleteCommentBtn d-inline"
                 (click)="deleteComment(comment.id)"></p-button>
         </div>
     </p-card>

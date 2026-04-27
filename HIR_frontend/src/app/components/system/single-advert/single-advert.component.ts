@@ -19,6 +19,7 @@ import { Rating } from '../../../interfaces/ratings';
 import { AuthService } from '../../../services/auth.service';
 import { Comment } from '../../../interfaces/comment';
 import { DialogModule } from 'primeng/dialog';
+import { Condition } from '../../../interfaces/condition';
 
 interface City {
   id: string;
@@ -38,7 +39,7 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
   adImages: string[] = [];
   categoryName: string = 'Nincs kategória';
   uploaderName: string = 'Ismeretlen feltöltő';
-  cityName: string = 'Ismeretlen város';
+  condition: string = 'Ismeretlen állapot';
   paymentMethodName: string = 'Nincs megadva';
   uploadedAtLabel: string = 'Nincs dátum';
   userRating: number = 0;
@@ -383,8 +384,8 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
       ? this.api.selectById('users', ad.user_id).pipe(catchError(() => of(null)))
       : of(null);
 
-    const cityRequest = ad.city_id
-      ? this.api.selectById('cities', ad.city_id).pipe(catchError(() => of(null)))
+    const conditionRequest = ad.condition_id
+      ? this.api.selectById('conditions', ad.condition_id).pipe(catchError(() => of(null)))
       : of(null);
 
     const paymentRequest = ad.payment_method
@@ -394,19 +395,19 @@ export class SingleAdvertComponent implements OnInit, OnDestroy {
       console.log('Related data requests:', {
         category: categoryRequest,
         user: userRequest,
-        city: cityRequest,
+        condition: conditionRequest,
         payment: paymentRequest
       });
 
     forkJoin({
         category: categoryRequest,
         user: userRequest,
-        city: cityRequest,
+        condition: conditionRequest,
         payment: paymentRequest
-      }).subscribe(({ category, user, city, payment }) => {
+      }).subscribe(({ category, user, condition, payment }) => {
         this.categoryName = (category as Category | null)?.name ?? 'Nincs kategória';
         this.uploaderName = (user as User | null)?.name ?? 'Ismeretlen feltöltő';
-        this.cityName = (city as City | null)?.name ?? 'Ismeretlen város';
+        this.condition = (condition as Condition | null)?.name ?? 'Ismeretlen állapot';
         this.paymentMethodName = (payment as Payment | null)?.name ?? ad.payment_method ?? 'Nincs megadva';
       });
   }

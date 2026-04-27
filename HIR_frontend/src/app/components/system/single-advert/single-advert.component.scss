@@ -495,7 +495,7 @@
     margin-bottom: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: relative;
-    background: var(--highlight-bg) !important;    
+    background: var(--highlight-bg) !important;
 }
 
 .comment * {
@@ -531,9 +531,10 @@
     border-color: var(--danger-color) !important;
     color: #ffffff !important;
     font-weight: 700;
-    position: absolute;
-    top: -1.5rem;
-    right: 0.5rem;
+    display: inline;
+    position: relative;
+    top: -4rem;
+    left: 96%;
     width: 1vw !important;
     height: 5vw !important;
     min-width: 40px;
@@ -625,6 +626,19 @@
 
     ::ng-deep .comment-submit-btn {
         min-height: 2.75rem;
+    }
+
+    ::ng-deep .deleteCommentBtn button {
+        top: 0;
+        left: 0;
+        left: -4%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    ::ng-deep .deleteCommentBtn button {
+        top: 4.3rem;
     }
 }
 
