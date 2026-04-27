@@ -40,8 +40,15 @@
                 <!--<p-button icon="pi pi-shield" id="adminPanelButton" [rounded]="true" severity="help" size="large" [disabled]="!isAdmin"></p-button>-->
 
 
+
                 <p-button icon="pi pi-plus" label="Új hirdetés" id="newAdButton" [rounded]="true" (click)="navigateToNewAdvert()" 
-                    size="large"></p-button>
+                    size="large">
+                </p-button>
+
+                <p-button [rounded]="true" class="theme" routerLink="ads" severity="warn">
+                    <i class="pi pi-objects-column"></i>
+                    Hírdetések
+                </p-button>
 
                 <div class="relative inline-block">
                     <p-menu #menu [model]="items" [popup]="true" />
