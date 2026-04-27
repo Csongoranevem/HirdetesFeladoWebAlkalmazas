@@ -63,6 +63,9 @@ p-accordion-content{
 .SearchMid{
     width: 70%;
 }
+.SearchMidWide{
+    width: 95%;
+}
 .SearchRight{
     width: 21%;
 }
@@ -142,4 +145,123 @@ p-accordion-content{
     color: white;
     font-size: 1vw;
     white-space:nowrap;
+}
+
+//Selected profile
+
+img {
+width: 20vh;
+height: 20vh;
+border-radius: 5px;
+justify-content: center;
+align-items: center;
+margin: 2% auto;
+}
+
+.left {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2rem;
+}
+
+.right {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ProfileModalDiv{
+    background-color: var(--primary-dark-color);
+    height: 100% !important;
+    background-image: url("../../../../../public/BackGround.png");
+}
+.ProfileNote{
+    color: var(--text-color);
+    font-style: italic;
+}
+
+.ProfileNameH4{
+    color: var(--text-color);
+    font-size: larger;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+
+.ProfilMid>h4{
+    border-top: 1px solid var(--primary-theme-color);
+    width: 40%;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.ProfileInputsDiv{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-bottom: 2%;
+    padding: 2vh;
+    align-items: center;
+    margin: 0 auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.ProfileInputsDiv>p-iftalabel{
+    width: calc(50% - 0.5rem);
+    align-items: center;
+}
+
+.StaticDatesDataDiv{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1%;
+    color: gray;
+}
+.StaticDateInnerDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.StaticDateInnerDiv>h4{
+    padding-bottom: 1.5%;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.PublicProfileDiv{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1.5%;
+    margin: 0.5%;
+    height: 100%;
+}
+.ProfilePictureDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-embedded{
+    margin-top: 0.5rem;
+}
+
+p-iftalabel>input{
+    width: 100%;
+    align-items: center;
+    background-color: white !important;
+    color: #333 !important;
 }

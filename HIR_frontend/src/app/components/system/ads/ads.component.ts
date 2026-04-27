@@ -27,7 +27,10 @@ import { User } from '../../../interfaces/user';
 import { ActivatedRoute } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
 import { Condition } from '../../../interfaces/condition';
-
+import { Dialog } from 'primeng/dialog';
+import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
+import { Password } from 'primeng/password';
+import { IftaLabelModule } from 'primeng/iftalabel';
 
 interface SortBy {
   label: string;
@@ -58,15 +61,21 @@ interface SortBy {
     MenuItemContent,
     AutoComplete,
     Select,
-  PaginatorModule,
+    PaginatorModule,
     CardsComponent,
+    Dialog,
+    ScrollPanel,
+    IftaLabelModule
   ],
   templateUrl: './ads.component.html',
   styleUrl: './ads.component.scss'
 })
 export class AdsComponent {
+
+
+
   FilterDrawerVisible: boolean = false;
-  UserOrAd: boolean = false
+  UserOrAd: boolean = true
 
   ads: Ad[] = [];
   users: User[] = [];
@@ -280,4 +289,21 @@ export class AdsComponent {
     return result;
   }
 
+
+    /// Open user's profile
+    viewProfileDialog: boolean = false;
+    selectedUserView: User | null = null;
+    
+    viewUserProfile(userId: string) {
+      this.selectedUserView = this.users.find(u => u.id === userId) || null;
+      console.log(this.selectedUserView);
+      this.viewProfileDialog = true;
+    }
+
+    get userAds(): Ad[] {
+      if (!this.selectedUserView) {
+        return [];
+      }
+      return this.ads.filter(ad => ad.user_id === this.selectedUserView!.id);
+    }
 }

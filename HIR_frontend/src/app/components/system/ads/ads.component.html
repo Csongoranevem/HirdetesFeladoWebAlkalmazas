@@ -98,7 +98,15 @@
         <p-button (click)="FilterDrawerVisible = true" icon="pi pi-arrow-right" />
       </div>
 
-      <div class="SearchMid">
+      <div class="SearchMid" *ngIf="!UserOrAd">
+        <p-inputgroup>
+          <input pInputText placeholder="Keresés" [(ngModel)]="query" />
+          <p-inputgroup-addon>
+            <p-button icon="pi pi-search" severity="secondary" variant="text" />
+          </p-inputgroup-addon>
+        </p-inputgroup>
+      </div>
+      <div class="SearchMidWide" *ngIf="UserOrAd">
         <p-inputgroup>
           <input pInputText placeholder="Keresés" [(ngModel)]="query" />
           <p-inputgroup-addon>
@@ -107,7 +115,7 @@
         </p-inputgroup>
       </div>
 
-      <div class="card flex justify-center SearchRight">
+      <div class="card flex justify-center SearchRight" *ngIf="!UserOrAd">
         <p-select 
           [options]="SortingCategories" 
           [(ngModel)]="selectedSort" 
@@ -147,9 +155,84 @@
 
 
   <div class="UserAdvertDiv" *ngIf="UserOrAd">
-    <div class="UserProfileDiv UserElement" *ngFor="let user of filteredUsers">
-      <img src="{{user.profile_picture}}" class="rounded-full" alt="">
+    <div class="UserProfileDiv UserElement" *ngFor="let user of filteredUsers" (click)="viewUserProfile(user.id)">
+      <img src="{{user.profile_picture}}"  class="rounded-full" alt="">
       <h5>{{ user.name}}</h5>
     </div>
   </div>
 </div>
+
+
+<p-dialog maskStyleClass="backdrop-blur-3xl" header="{{selectedUserView?.name}}" [(visible)]="viewProfileDialog"
+        [style]="{ width: '70rem', height:'100vh'}" styleClass="!border-0 !bg-transparent" class="ProfileModalDiv">
+            <div *ngIf="selectedUserView" class="PublicProfileDiv h-full">
+                        <h4>
+                            Publikus Profil
+                        </h4>
+                        <p-divider></p-divider>
+                        <p-scrollpanel [style]="{ width: '100%', height: '28rem' }">
+                            <div class="ProfilePictureDiv">
+                                <img *ngIf="selectedUserView!.profile_picture" [src]="selectedUserView!.profile_picture" class="pfpImg" alt="Profile Picture">
+                                <img *ngIf="!selectedUserView!.profile_picture" src="../../../../../public/DefaultProfilePicture.png" class="pfpImg" alt="Default Profile Picture">
+                            </div>
+                              <h4 class="ProfileNameH4">{{selectedUserView!.name}}</h4>
+                            <hr>
+                            <div class="ProfileInputsDiv">
+                                  <p-iftalabel>
+                                      <input pInputText id="username" disabled [(ngModel)]="selectedUserView!.lastName" />
+                                      <label for="username">Vezetéknév</label>
+                                  </p-iftalabel>
+                                  <p-iftalabel>
+                                    <input pInputText id="firstname" disabled [(ngModel)]="selectedUserView!.firstName" />
+                                    <label for="firstname">Keresztnév</label> 
+                                  </p-iftalabel>
+                            </div>
+                            <div class="ProfileInputsDiv">
+                                  <p-iftalabel>
+                                      <input pInputText id="email" disabled [(ngModel)]="selectedUserView!.email" />
+                                      <label for="email">E-mail</label>
+                                  </p-iftalabel>
+                                  <p-iftalabel>
+                                      <input pInputText id="phone" disabled [(ngModel)]="selectedUserView!.phone" />
+                                      <label for="phone"><i class="pi pi-phone"></i>Telefonszám</label>
+                                  </p-iftalabel>
+                            </div>
+
+                            <hr>
+                            <div class="StaticDatesDataDiv">
+                                <div class="StaticDateInnerDiv">
+                                    <h4>
+                                        Regisztráció Dátuma
+                                    </h4>
+                                    <h5>
+                                        {{selectedUserView!.createdAt | date: 'short'}}
+                                    </h5>
+                                </div>
+                                <div class="StaticDateInnerDiv">
+                                    <h4>
+                                        Legutoljára elérhető volt
+                                    </h4>
+                                    <h5>
+                                        {{selectedUserView!.updatedAt | date: 'short'}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <hr>
+                            <p-divider></p-divider>
+                            <div class="ActiveAdsOfUserDiv">
+                              <h4>Aktív Hirdetések</h4>
+                              <p-divider></p-divider>
+                              <div class="CardsDiv">
+                                <app-cards 
+                                  *ngIf="selectedUserView" 
+                                  [ads]="userAds">
+                                </app-cards>
+                              </div>
+                            </div>
+                            
+                        </p-scrollpanel>
+                        <p-divider></p-divider>
+                        <p class="ProfileNote"><sub>Az itt található adataid publikusak</sub></p>
+                    </div>
+</p-dialog>
+
