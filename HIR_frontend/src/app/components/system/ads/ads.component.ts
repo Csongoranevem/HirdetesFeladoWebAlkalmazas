@@ -296,7 +296,6 @@ export class AdsComponent {
     
     viewUserProfile(userId: string) {
       this.selectedUserView = this.users.find(u => u.id === userId) || null;
-      console.log(this.selectedUserView);
       this.viewProfileDialog = true;
     }
 
