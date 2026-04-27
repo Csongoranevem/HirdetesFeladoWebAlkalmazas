@@ -259,6 +259,15 @@ margin: 2% auto;
     margin-top: 0.5rem;
 }
 
+/* Public profile modal: use the same compact card height as wishlist */
+:host ::ng-deep .ProfileModalDiv .ActiveAdsOfUserDiv .cardContainer.compact {
+    --card-height: 22rem;
+}
+
+:host ::ng-deep .ProfileModalDiv .ActiveAdsOfUserDiv .cardContainer.compact .p-card {
+    height: var(--card-height) !important;
+}
+
 p-iftalabel>input{
     width: 100%;
     align-items: center;
