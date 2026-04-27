@@ -386,3 +386,87 @@ html, body {
 .nearbyCim>h5{
     color: var(--text-color);
 }
+
+/* --------------------------
+ * Mobil reszponzivitás
+ * (desktop kinézet változatlan)
+ * -------------------------- */
+
+@media (max-width: 900px) {
+    .HomeDisplay{
+        height: auto;
+        flex-direction: column;
+    }
+
+    .BalDiv,
+    .JobbDiv{
+        width: 100%;
+    }
+
+    .BalDiv{
+        row-gap: 2rem;
+        padding: 1.25rem 0;
+        align-items: center;
+    }
+
+    .Felirat{
+        width: 90%;
+        text-align: center;
+    }
+
+    .Cim{
+        padding-left: 0;
+        font-size: clamp(2.25rem, 10vw, 3.5rem);
+        letter-spacing: 0.4rem;
+        text-align: center;
+    }
+
+    .Alcim{
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .MainLogo{
+        width: min(260px, 70%);
+        height: auto;
+        padding-left: 0;
+    }
+
+    .PaliLogo{
+        width: min(520px, 92%);
+    }
+
+    /* A forgó gyűrű mobilon könnyen kilóg; egyszerűen kikapcsoljuk */
+    .KulsoGyuruDiv{
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .TagCimDiv{
+        width: 92%;
+        padding: 1rem;
+        border-radius: 24px;
+    }
+
+    .TagCimDiv>h1{
+        font-size: clamp(1.5rem, 7vw, 2.25rem);
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .Tag{
+        width: auto;
+        min-width: 0;
+        max-width: 82vw;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .NearbyCimDiv{
+        width: 92%;
+    }
+
+    .nearbyCim>h1{
+        font-size: clamp(1.5rem, 7vw, 2.25rem);
+    }
+}
