@@ -4,7 +4,7 @@ POST http://localhost:3000/support
 Content-Type: application/json
 
 {
-    "question": "Where can I contact support for password reset?",
-    "answer": "You can contact our support team for password reset by emailing",
-    "topic": "Account Management"
+    "question": "Hogyan tudok új hirdetést feladni?",
+    "answer": "Az új hirdetés feladásához először regisztrálnod kell egy fiókot, majd be kell jelentkezned. Ezután a főoldalon kattints a 'Új hirdetés' gombra, és kövesd a megjelenő utasításokat a hirdetés részleteinek megadásához.",
+    "topic": "Hirdetések"
 }

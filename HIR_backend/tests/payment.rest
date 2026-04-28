@@ -7,7 +7,7 @@ POST http://localhost:3000/payments
 Content-Type: application/json
 
 {
-    "name":"Paypal"
+    "name":"Átutalás"
 }
 
 ###Delete payment method by id
